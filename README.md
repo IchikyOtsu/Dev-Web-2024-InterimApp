@@ -14,8 +14,6 @@ Pour récupérer le template et l'utiliser dans le cadre de votre projet, vous a
 
 ## Utilisation
 
-
-
-Il vous est demandé de respecter la table des matières du projet, afin que les enseignants puissent facilement retrouver les informations qu'ils cherchent.  Si vous souhaitez effectuer un changement dans sa structure, parlez-en d'abord avec votre coach.  
-
-Si vous trouvez que les pages sont trop longues, vous pouvez en créer de nouvelles, mais vous devez alors vous assurez que les liens sont mis à jour dans la table des matières.  
+- Une fois sur votre PC, faite `npm install` sur le backend et le frontend. 
+- Puis sur le backend faite `npm start`
+- Et sur le frontend `npm run dev`
