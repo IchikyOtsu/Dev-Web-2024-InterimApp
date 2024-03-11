@@ -5,7 +5,7 @@ const pool = require('../db');
 // Modifier ici pour utiliser `router.get` au lieu de `app.get`
 router.get('/', async (req, res) => {
   try {
-    const { rows } = await pool.query('SELECT * FROM todos');
+    const { rows } = await pool.query('SELECT * FROM Annonces');
     res.json(rows);
   } catch (error) {
     console.error(error.message);
