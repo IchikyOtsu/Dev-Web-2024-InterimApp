@@ -31,11 +31,13 @@ body{
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem 9%;
-    background: transparent;
+    padding: 3rem 9% 2rem;
+    background: var(--second-bg-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 24px;
+    transform: translateY(-20%) ;
 }
 
 .logo{
