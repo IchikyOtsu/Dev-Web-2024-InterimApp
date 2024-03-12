@@ -60,7 +60,8 @@ body{
 }
 
 .navbar a i {
-    margin-left: 0.7rem; 
+    margin-left: 0.7rem;
+    transform: translateY(5%);
 }
 
 .navbar a:hover,
