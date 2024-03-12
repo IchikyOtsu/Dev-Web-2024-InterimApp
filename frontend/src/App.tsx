@@ -1,4 +1,9 @@
 import { createEffect, createSignal } from 'solid-js';
+import { render } from 'solid-js/web';
+import Navbar from './Components/Navbar/index.tsx';
+
+const header = document.getElementById("header");
+render(() => <Navbar />, header!);
 
 function App() {
   const [message, setMessage] = createSignal("Loading...");
