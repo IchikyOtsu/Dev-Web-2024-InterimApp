@@ -1,18 +1,11 @@
-import { createEffect, createSignal } from 'solid-js';
-
-function App() {
-  const [message, setMessage] = createSignal("Loading...");
-
-  createEffect(() => {
-    fetch('/api/hello')
-      .then(res => res.json())
-      .then(data => setMessage(data.message))
-      .catch(err => console.error("API call failed:", err));
-  });
-
+// App.tsx
+import Navbar from './Components/Navbar/index.tsx';
+import './style.css'
+function App(props) {
   return (
     <div>
-      <h1>{message()}</h1>
+      <header id='header'><Navbar /></header>
+      <main>{props.children}</main> {/* Conteneur principal pour le contenu des pages */}
     </div>
   );
 }
