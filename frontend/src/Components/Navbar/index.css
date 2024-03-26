@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,14 +8,14 @@
     border: none;
     outline: none;
     scroll-behavior: smooth;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 :root{
-    --bg-color: #081b29;
-    --second-bg-color: #112e42;
-    --text-color: #ededed;
-    --main-color: #00abf0;
+    --bg-color: #EAEEF2;
+    --second-bg-color: #FFFFFF;
+    --text-color: #181818;
+    --main-color: #0050B2;
 }
 
 html{
@@ -31,19 +33,19 @@ body{
     top: 0;
     left: 0;
     width: 100%;
-    padding: 3rem 9% 2rem;
+    padding: 3rem 4% 1rem 6%;
     background: var(--second-bg-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 24px;
-    transform: translateY(-20%) ;
+    transform: translateY(-25%) ;
 }
 
 .logo{
     position: relative;
     margin-left: -3.5rem;
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: var(--text-color);
     font-weight: 600;
 }
@@ -53,9 +55,9 @@ body{
 }
 
 .navbar a{
-    font-size: 1.7rem;
+    font-size: 2rem;
     color: var(--text-color);
-    font-weight: 500;
+    font-weight: 700;
     margin-left: 3.5rem;
 }
 
