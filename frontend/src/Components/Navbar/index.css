@@ -48,17 +48,19 @@ body{
     font-size: 3rem;
     color: var(--text-color);
     font-weight: 600;
+    transform: translateX(15%);
 }
 
 .navbar{
     position: relative;
+    transform: translateX(7%);
 }
 
 .navbar a{
     font-size: 2rem;
     color: var(--text-color);
     font-weight: 700;
-    margin-left: 3.5rem;
+    margin-left: 2.5rem;
 }
 
 .navbar a i {
