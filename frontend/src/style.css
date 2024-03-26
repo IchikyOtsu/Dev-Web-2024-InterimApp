@@ -69,3 +69,8 @@ body{
     color: var(--main-color);
 }
 */
+/* Dans App.css ou index.css, ajustez selon votre structure */
+main {
+    margin-top: calc(5rem + 20px); /* Exemple : hauteur de la Navbar + un peu d'espace */
+  }
+  
