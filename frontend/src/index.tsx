@@ -7,8 +7,8 @@ import { Router, Route } from "@solidjs/router";
 import App from "./App";
 
 // Lazy-loading des composants de page
-const HomePage = lazy(() => import("./pages/HomePage"));
-const AboutPage = lazy(() => import("./pages/AboutPage"));
+const Planning = lazy(() => import("./pages/Planning"));
+const Adverts = lazy(() => import("./pages/Adverts"));
 
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
@@ -18,8 +18,9 @@ if (root) {
   render(
     () => (
       <Router root={App}>
-          <Route path="/" component={HomePage} />
-          <Route path="/adverts" component={AboutPage} />
+          <Route path="/" component={Adverts} />
+          <Route path="/adverts" component={Adverts} />
+          <Route path="/planning" component={Planning}/>
           {/* Ajoutez plus de routes selon le besoin */}
       </Router>
     ),
