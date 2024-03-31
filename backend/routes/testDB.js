@@ -1,8 +1,7 @@
 const express = require('express');
-const router = express.Router(); // Utilisez Router au lieu de créer une nouvelle application Express
+const router = express.Router(); 
 const pool = require('../db');
 
-// Modifier ici pour utiliser `router.get` au lieu de `app.get`
 router.get('/', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM Annonces');
@@ -13,4 +12,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-module.exports = router; // Exportez le router au lieu d'écouter sur un port
+module.exports = router; 
