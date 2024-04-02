@@ -18,7 +18,7 @@ router.delete('/api/hello', function(req, res) {
 });
 
 
-// router.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });
+router.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 module.exports = router;
