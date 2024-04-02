@@ -13,6 +13,7 @@
     "@fontsource-variable/jetbrains-mono": "^5.0.20",
     "@jundao/design": "^1.14.3",
     "@solidjs/router": "^0.13.1",
+    "@supabase/supabase-js": "^2.41.1",
     "solid-js": "^1.8.15"
   },
   "devDependencies": {
