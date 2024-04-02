@@ -1,9 +1,11 @@
 import { createEffect, createSignal } from 'solid-js';
 import CardAdvert from '../Components/Advert/index.tsx'; // Vérifiez le chemin d'accès
 import './Adverts.css';
+import { Modal } from "@jundao/design";
 
 const AdvertsPage = () => {
   const [adverts, setAdverts] = createSignal([]);
+  const [isOpen, setIsOpen] = createSignal(false);
 
   createEffect(() => {
     fetch('/api/adverts')

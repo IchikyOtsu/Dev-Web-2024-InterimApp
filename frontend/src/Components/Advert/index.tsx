@@ -1,12 +1,14 @@
 // Dans votre fichier CardAdvert/index.jsx (ou tsx si vous utilisez TypeScript)
 import './index.css'; // Assurez-vous que le chemin d'accès est correct
+import {Button, Modal} from "@jundao/design";
 
 const CardAdvert = (props) => {
   // Destructurez les props selon les données attendues de votre backend
   const { title, message, location, time, duration, date } = props;
+  const [isOpen, setIsOpen] = createSignal(false);
 
   return (
-    <div class='card1'>
+    <div class='card1' onClick={() => setIsOpen(true)}>
       <img src="./public/vite.svg" alt="Avatar" class="avatar" />
       <div id='des'>
       <div id='doc'>
@@ -20,6 +22,8 @@ const CardAdvert = (props) => {
         </div>
       </div>
       </div>
+        <Modal open={isOpen()} onOpenChange={setIsOpen} title={"Voici ta grand mere"}>
+        </Modal>
     </div>
   );
 };
