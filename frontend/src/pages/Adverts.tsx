@@ -1,5 +1,5 @@
-import { createEffect, createSignal } from "solid-js";
-import CardAdvert from '../Components/Advert/index'; // Vérifiez le chemin d'accès
+import { createEffect, createSignal } from 'solid-js';
+import CardAdvert from '../Components/Advert/index.tsx'; // Vérifiez le chemin d'accès
 import './Adverts.css';
 
 const AdvertsPage = () => {
@@ -11,7 +11,6 @@ const AdvertsPage = () => {
       .then(data => setAdverts(data)) 
       .catch(err => console.error("API call failed:", err));
   });
-
 
   return (
     <div>
