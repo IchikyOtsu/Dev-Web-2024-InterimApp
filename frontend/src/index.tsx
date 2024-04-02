@@ -9,7 +9,7 @@ import App from "./App";
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
 const Adverts = lazy(() => import("./pages/Adverts"));
-
+const ProfilePage = lazy(() => import("./pages/Profile"));
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
@@ -21,6 +21,8 @@ if (root) {
           <Route path="/" component={Adverts} />
           <Route path="/adverts" component={Adverts} />
           <Route path="/planning" component={Planning}/>
+          <Route path="/profile" component={ProfilePage} />
+
           {/* Ajoutez plus de routes selon le besoin */}
       </Router>
     ),
