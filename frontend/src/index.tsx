@@ -1,9 +1,9 @@
-// index.tsx
+
 import {Signal, createContext, createSignal, lazy, useContext} from "solid-js";
 import {render} from "solid-js/web";
 import {Router, Route} from "@solidjs/router";
+//import "@jundao/design/index.css";
 
-// Importez App comme un composant de layout racine
 import App from "./App";
 import {AuthSession} from "@supabase/supabase-js";
 import {supabaseClient} from "./supabase";
