@@ -4,7 +4,7 @@ const ProfilePage = () => {
   const profileData = {
     name: "John Doe",
     bio: "Software Developer with a passion for learning new technologies.",
-    profilePicture: '../../assets/profile.jpeg' 
+    profilePicture: '../../src/assets/avatar.jpg' 
   };
 
   return (
