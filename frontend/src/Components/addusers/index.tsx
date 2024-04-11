@@ -1,9 +1,7 @@
 import { createSignal } from 'solid-js';
-import './index.css';
-
+import styles from './AddUser.module.css';
 
 const AddUser = () => {
-
   const [email, setEmail] = createSignal('');
   const [password, setPassword] = createSignal('');
 
@@ -12,22 +10,22 @@ const AddUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Effectuer les actions nécessaires, par exemple envoyer les données à un backend
     console.log('Email:', email());
     console.log('Password:', password());
-    // Réinitialiser les champs après la soumission si nécessaire
     setEmail('');
     setPassword('');
-   }
+  };
+
   return (
-    <div class="profile-card">
-      <div class="left-section">
-        <img src="./public/avatar.jpg" alt="Profile" class="profile-picture" />
+    <div class={styles.profileCard}>
+      <div class={styles.leftSection}>
+        <img src="./src/assets/avatar.jpg" alt="Profile" class={styles.profilePicture} />
       </div>
-      <form onSubmit={handleSubmit}>
-        <div id="email">
-          <label for="email-input">Adresse mail</label>
+      <form class={styles.form} onSubmit={handleSubmit}>
+        <div>
+          <label class={styles.label} for="email-input">Adresse mail</label>
           <input
+            class={styles.input}
             id="email-input"
             type="email"
             placeholder="nomprenom@gmail.com"
@@ -36,9 +34,10 @@ const AddUser = () => {
             required
           />
         </div>
-        <div id="password">
-          <label for="password-input">Mot de passe</label>
+        <div>
+          <label class={styles.label} for="password-input">Mot de passe</label>
           <input
+            class={styles.input}
             id="password-input"
             type="password"
             placeholder="Mot de passe"
@@ -47,10 +46,10 @@ const AddUser = () => {
             required
           />
         </div>
-        <button type="submit">Ajouter l'utilisateur</button>
+        <button class={styles.button} type="submit">Ajouter l'utilisateur</button>
       </form>
     </div>
-  );
+    );
 };
 
 export default AddUser;
