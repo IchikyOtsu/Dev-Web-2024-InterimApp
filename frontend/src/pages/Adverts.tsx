@@ -1,6 +1,7 @@
+// Adverts.tsx
 import { createEffect, createSignal } from 'solid-js';
 import CardAdvert from '../Components/Advert/index.tsx'; // Vérifiez le chemin d'accès
-import './Adverts.css';
+import styles from './Adverts.module.css';
 
 const AdvertsPage = () => {
   const [adverts, setAdverts] = createSignal([]);
@@ -15,14 +16,14 @@ const AdvertsPage = () => {
   return (
     <div>
       <h1>Page Adverts</h1>
-      <ul class="container">
+      <ul class={styles.advertsContainer}>
         {adverts().map(ad => (
           // Assurez-vous que les champs passés correspondent aux données attendues par CardAdvert
           <CardAdvert key={ad.id} title={ad.title} message={ad.message} location={ad.location} time={ad.time} duration={ad.duration} date={ad.date} />
-        ))}
+          ))}
       </ul>
     </div>
-  );
+    );
 }
 
 export default AdvertsPage;
