@@ -9,6 +9,13 @@ const swaggerDocument = require('./swagger-output.json');
 var indexRouter = require('./routes/index');
 var advertsRouter = require('./routes/adverts');
 var testDB = require('./routes/testDB');
+const usersRouter = require('./routes/users');
+const enterprisesRouter = require('./routes/enterprises');
+const advertsNHRouter = require('./routes/advertsNH');
+const applicationsRouter = require('./routes/applications');
+const chatMessagesRouter = require('./routes/chatMessages');
+const schedulesRouter = require('./routes/schedules');
+const notificationsRouter = require('./routes/notifications');
 var app = express();
 
 // view engine setup
@@ -28,6 +35,13 @@ app.use('/', indexRouter);
 app.use('/api/adverts', advertsRouter);
 app.use('/testDB',testDB);
 
+app.use('/api/users', usersRouter);
+app.use('/api/enterprises', enterprisesRouter);
+app.use('/api/advertsNH', advertsRouter);
+app.use('/api/applications', applicationsRouter);
+app.use('/api/chat-messages', chatMessagesRouter);
+app.use('/api/schedules', schedulesRouter);
+app.use('/api/notifications', notificationsRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // catch 404 and forward to error handler
