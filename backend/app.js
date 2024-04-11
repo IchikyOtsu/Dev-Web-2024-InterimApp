@@ -7,11 +7,10 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 
 var indexRouter = require('./routes/index');
-var advertsRouter = require('./routes/adverts');
 var testDB = require('./routes/testDB');
 const usersRouter = require('./routes/users');
 const enterprisesRouter = require('./routes/enterprises');
-const advertsNHRouter = require('./routes/advertsNH');
+const advertsRouter = require('./routes/advertsNH');
 const applicationsRouter = require('./routes/applications');
 const chatMessagesRouter = require('./routes/chatMessages');
 const schedulesRouter = require('./routes/schedules');
@@ -32,12 +31,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 
 app.use('/', indexRouter);
-app.use('/api/adverts', advertsRouter);
 app.use('/testDB',testDB);
 
 app.use('/api/users', usersRouter);
 app.use('/api/enterprises', enterprisesRouter);
-app.use('/api/advertsNH', advertsRouter);
+app.use('/api/adverts', advertsRouter);
 app.use('/api/applications', applicationsRouter);
 app.use('/api/chat-messages', chatMessagesRouter);
 app.use('/api/schedules', schedulesRouter);
