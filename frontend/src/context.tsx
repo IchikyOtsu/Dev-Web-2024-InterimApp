@@ -11,11 +11,13 @@ export interface GlobalContextData {
     role: Role;
 }
 
-export const GlobalContext = createContext<GlobalContextData>({
+export const globalContextData: GlobalContextData = {
     session: "loading",
     edit: false,
     role: "enterprise"
-});
+};
+
+export const GlobalContext = createContext<GlobalContextData>(globalContextData);
 
 export function useGlobalContext() {
     return useContext(GlobalContext);
