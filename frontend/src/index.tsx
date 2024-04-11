@@ -8,6 +8,7 @@ import App from "./App";
 import {AuthSession} from "@supabase/supabase-js";
 import {supabaseClient} from "./supabase";
 
+
 // global context
 interface GlobalContextData {
     session: Signal<AuthSession | "loading">;
@@ -34,6 +35,9 @@ const Planning = lazy(() => import("./pages/Planning"));
 const Login = lazy(() => import("./pages/Login"))
 const Adverts = lazy(() => import("./pages/Adverts"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
+const Add = lazy(() => import("./pages/Addpage"));
+
+
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
@@ -56,6 +60,8 @@ if (root) {
                     <Route path="/adverts" component={Adverts}/>
                     <Route path="/planning" component={Planning}/>
                     <Route path="/profile" component={ProfilePage}/>
+                    <Route path="/tracking" component={Add}/>
+                    
 
                     {/* Ajoutez plus de routes selon le besoin */}
                 </Router>
