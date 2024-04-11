@@ -1,5 +1,5 @@
-/* NonNonNon.css */
-.container {
+/* NonNonNon.module.css */
+.nonNonNonContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     background-color: #f0f0f0;
 }
 
-.meme {
+.nonNonNonMeme {
     text-align: center;
     background-color: white;
     padding: 20px;
@@ -15,25 +15,25 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.meme img {
+.nonNonNonMeme img {
     width: 100%;
     max-width: 400px;
     margin-bottom: 20px;
 }
 
-.meme h1 {
+.nonNonNonMeme h1 {
     font-size: 2em;
     color: #ff5252;
     text-shadow: 2px 2px #ffcdd2;
     margin-bottom: 10px;
 }
 
-.meme p {
+.nonNonNonMeme p {
     font-size: 1.2em;
     margin-bottom: 20px;
 }
 
-.button {
+.nonNonNonButton {
     display: inline-block;
     padding: 10px 20px;
     background-color: #ff5252;
@@ -43,6 +43,6 @@
     transition: background-color 0.3s ease;
 }
 
-.button:hover {
+.nonNonNonButton:hover {
     background-color: #ff1744;
 }
