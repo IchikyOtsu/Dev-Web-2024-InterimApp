@@ -4,7 +4,7 @@ import { Navbar, EnterpriseNavbar } from "./Components/Navbar";
 import { useGlobalContext } from "./context";
 import './style.css'
 
-const App = () => {
+const App = (props) => {
     const { role } = useGlobalContext();
     const userRole = role;
 
@@ -14,7 +14,7 @@ const App = () => {
                 {userRole === "user" && <Navbar />}
                 {userRole === "enterprise" && <EnterpriseNavbar />}
             </header>
-            <main></main>
+            <main>{props.children}</main>
         </div>
         );
 };
