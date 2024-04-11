@@ -14,7 +14,7 @@ export const ProtectedRoute: Component<ProtectedRouteProps> = (props) => {
   const isAllowed = () => props.allowedRoles.includes(role);
 
   return (
-    <Show when={isAllowed()} fallback={() => navigate('/login', { replace: true })}>
+    <Show when={isAllowed()} fallback={() => navigate('/nope', { replace: true })}>
       <props.component />
     </Show>
   );

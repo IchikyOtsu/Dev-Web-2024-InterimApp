@@ -13,7 +13,7 @@ const Planning = lazy(() => import("./pages/Planning"));
 const Login = lazy(() => import("./pages/Login"))
 const Adverts = lazy(() => import("./pages/Adverts"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
-
+const Nope = lazy(() => import("./pages/NonNonNon"));
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
@@ -24,6 +24,7 @@ if (root) {
             <GlobalContext.Provider value={globalContextData}>
                 <Router root={App}>
                     <Route path="/login" component={Login} />
+                    <Route path="/nope" component={Nope} />
                     <Route path="/" component={() => <ProtectedRoute component={Adverts} allowedRoles={["user", "enterprise"]} />} />
                     <Route path="/adverts" component={() => <ProtectedRoute component={Adverts} allowedRoles={["user", "enterprise"]} />} />
                     <Route path="/planning" component={() => <ProtectedRoute component={Planning} allowedRoles={["user"]} />} />
