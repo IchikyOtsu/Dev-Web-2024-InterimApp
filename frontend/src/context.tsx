@@ -14,7 +14,7 @@ export interface GlobalContextData {
 export const globalContextData: GlobalContextData = {
     session: "loading",
     edit: false,
-    role: "enterprise"
+    role: "user" //enterprise ou user
 };
 
 export const GlobalContext = createContext<GlobalContextData>(globalContextData);
