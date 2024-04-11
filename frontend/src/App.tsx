@@ -1,17 +1,17 @@
 // App.tsx
+
 import { Navbar } from "./Components/Navbar";
 import { useGlobalContext } from "./context";
 import './style.css'
-
-const App = (props) => {
+const App = () => {
     const { role } = useGlobalContext();
-
+    const userRole = role.toString();
     return (
         <div>
             <header id="header">
-                {typeof role[0] === "string" && role[0] === "user" && <Navbar />}
+                {userRole === "user" && <Navbar />}
             </header>
-            <main>{props.children}</main>
+            <main></main>
         </div>
         );
 };
