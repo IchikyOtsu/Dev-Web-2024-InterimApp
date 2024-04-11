@@ -1,9 +1,10 @@
+
 // index.tsx
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
 import { Router, Route } from "@solidjs/router";
+//import "@jundao/design/index.css";
 
-// Importez App comme un composant de layout racine
 import App from "./App";
 import { GlobalContext, globalContextData } from "./context";
 import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Proxideal",
-    "description": "API defined for a sample project during the course 'Développement Informatique III' à l'EPHEC Louvain-la-Neuve",
+    "description": "API définie pour un projet d'exemple pendant le cours 'Développement Informatique III' à l'EPHEC Louvain-la-Neuve",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -12,53 +12,9 @@
     "https"
   ],
   "paths": {
-    "/api/hello": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/adverts/": {
       "get": {
-        "description": "",
+        "description": "Récupère toutes les annonces",
         "responses": {
           "200": {
             "description": "OK"
@@ -68,13 +24,14 @@
     },
     "/api/adverts/{id}": {
       "get": {
-        "description": "",
+        "description": "Récupère une annonce spécifique par ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID de l'annonce à récupérer"
           }
         ],
         "responses": {
@@ -82,20 +39,20 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Non trouvé"
           }
         }
       }
     },
     "/testDB/": {
       "get": {
-        "description": "",
+        "description": "Teste la connexion à la base de données",
         "responses": {
           "200": {
             "description": "OK"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erreur Interne du Serveur"
           }
         }
       }

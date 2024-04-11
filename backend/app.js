@@ -9,6 +9,7 @@ const swaggerDocument = require('./swagger-output.json');
 var indexRouter = require('./routes/index');
 var advertsRouter = require('./routes/adverts');
 var testDB = require('./routes/testDB');
+var user = require('./routes/user');
 var app = express();
 
 // view engine setup
@@ -27,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/adverts', advertsRouter);
 app.use('/testDB',testDB);
-
+app.use('/user', user)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // catch 404 and forward to error handler
