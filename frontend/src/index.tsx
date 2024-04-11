@@ -28,7 +28,7 @@ if (root) {
                     <Route path="/" component={() => <ProtectedRoute component={Adverts} allowedRoles={["user", "enterprise"]} />} />
                     <Route path="/adverts" component={() => <ProtectedRoute component={Adverts} allowedRoles={["user", "enterprise"]} />} />
                     <Route path="/planning" component={() => <ProtectedRoute component={Planning} allowedRoles={["user"]} />} />
-                    <Route path="/profile" component={() => <ProtectedRoute component={ProfilePage} allowedRoles={["enterprise"]} />} />
+                    <Route path="/profile" component={() => <ProtectedRoute component={ProfilePage} allowedRoles={["user","enterprise"]} />} />
                 </Router>
             </GlobalContext.Provider>
             ),
