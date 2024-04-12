@@ -76,16 +76,17 @@ if (root) {
 								component={ProfilePage}
 								allowedRoles={["user", "enterprise"]}
 							/>
-							)}
-					/><Route
-					path="/notifications"
-					component={() => (
-						<ProtectedRoute
-							component={NotifPage}
-							allowedRoles={["user", "enterprise"]}
-						/>
 						)}
-				/>
+					/>
+					<Route
+						path="/notifications"
+						component={() => (
+							<ProtectedRoute
+								component={NotifPage}
+								allowedRoles={["user", "enterprise"]}
+							/>
+						)}
+					/>
 				</Router>
 			</GlobalContext.Provider>
 		),

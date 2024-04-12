@@ -4,16 +4,16 @@ const pool = require("../db");
 
 // GET notifications by user_id
 router.get("/", async (req, res) => {
-    try {
-        const { user_id } = req.query;
-        if (!user_id) {
-            return res.status(400).send("User ID is required");
-        }
+	try {
+		const { user_id } = req.query;
+		if (!user_id) {
+			return res.status(400).send("User ID is required");
+		}
 
-        const { rows } = await pool.query(
-            "SELECT * FROM notifications WHERE user_id = $1",
-			[user_id]
-			);
+		const { rows } = await pool.query(
+			"SELECT * FROM notifications WHERE user_id = $1",
+			[user_id],
+		);
 		res.json(rows);
 	} catch (error) {
 		console.error(error.message);
@@ -27,8 +27,8 @@ router.get("/:id", async (req, res) => {
 		const { id } = req.params;
 		const { rows } = await pool.query(
 			"SELECT * FROM notifications WHERE id = $1",
-			[id]
-			);
+			[id],
+		);
 		if (rows.length === 0) {
 			return res.status(404).send("Notification not found");
 		}
@@ -45,8 +45,8 @@ router.post("/", async (req, res) => {
 		const { user_id, content } = req.body;
 		const { rows } = await pool.query(
 			"INSERT INTO notifications (user_id, content) VALUES ($1, $2) RETURNING *",
-			[user_id, content]
-			);
+			[user_id, content],
+		);
 		res.status(201).json(rows[0]);
 	} catch (error) {
 		console.error(error.message);
@@ -61,8 +61,8 @@ router.put("/:id", async (req, res) => {
 		const { user_id, content, is_read } = req.body;
 		const { rows } = await pool.query(
 			"UPDATE notifications SET user_id = $1, content = $2, is_read = $3 WHERE id = $4 RETURNING *",
-			[user_id, content, is_read, id]
-			);
+			[user_id, content, is_read, id],
+		);
 		if (rows.length === 0) {
 			return res.status(404).send("Notification not found");
 		}
@@ -79,8 +79,8 @@ router.delete("/:id", async (req, res) => {
 		const { id } = req.params;
 		const { rows } = await pool.query(
 			"DELETE FROM notifications WHERE id = $1 RETURNING *",
-			[id]
-			);
+			[id],
+		);
 		if (rows.length === 0) {
 			return res.status(404).send("Notification not found");
 		}

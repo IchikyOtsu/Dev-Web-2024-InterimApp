@@ -38,7 +38,6 @@ export const EnterpriseNavbar = () => {
 			</A>
 
 			<nav class="navbar">
-
 				<A href="/advertE" class="active">
 					Adverts<i class="bx bxs-inbox"></i>
 				</A>
