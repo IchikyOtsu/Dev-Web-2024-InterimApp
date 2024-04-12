@@ -1,9 +1,46 @@
-import { Input, Modal } from "@jundao/design";
+import { Input, Modal, Button } from "@jundao/design";
 import { createSignal } from "solid-js";
 import "./index.css";
+import { useGlobalContext } from "../../context.tsx";
+
 const CardAdvert = (props) => {
-	const { title, message, location, time, duration, date } = props;
-	const [isPopupOpen, setIsPopupOpen] = createSignal(false);
+    const { title, message, location, time, duration, date, id } = props;
+    const [isPopupOpen, setIsPopupOpen] = createSignal(false);
+    const [isApplying, setIsApplying] = createSignal(false);
+    const [error, setError] = createSignal(null);
+    const { user } = useGlobalContext();
+
+    const applyForAdvert = async () => {
+        setIsApplying(true);
+        setError(null);
+
+        if (!user || user.role !== "user") {
+            setError("You are not allowed to apply for this advert");
+            setIsApplying(false);
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/applications`, {
+                method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ user_id: user.id, advert_id: id, status: "pending" }),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to apply for advert");
+			}
+
+			console.log("Application submitted successfully");
+		} catch (error) {
+			setError("Failed to apply for advert: " + error.message);
+		} finally {
+			setIsApplying(false);
+			setIsPopupOpen(false);
+		}
+	};
 
 	return (
 		<div class="card1" onClick={() => setIsPopupOpen(true)}>
@@ -20,23 +57,23 @@ const CardAdvert = (props) => {
 					</div>
 				</div>
 			</div>
-			{/* Popup pour afficher les détails de l'annonce */}
-			<Modal
-				open={isPopupOpen()}
-				onOpenChange={setIsPopupOpen}
-				title={"Détails de l'annonce"}
-			>
+			<Modal open={isPopupOpen()} onOpenChange={setIsPopupOpen} title={"Détails de l'annonce"}>
 				<div>
 					<h2>{title}</h2>
 					<p>{message}</p>
 					<p>
 						{location} - {date}
 					</p>
-					{/* Ajoutez plus de détails si nécessaire */}
+					<Button onClick={applyForAdvert} disabled={isApplying()}>
+						{isApplying() ? "Applying..." : "Apply for this advert"}
+					</Button>
+					<Show when={error()} fallback={null}>
+						<div>{error()}</div>
+					</Show>
 				</div>
 			</Modal>
 		</div>
-	);
+		);
 };
 
 export default CardAdvert;
