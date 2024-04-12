@@ -14,60 +14,68 @@ const Login = lazy(() => import("./pages/Login"));
 const Adverts = lazy(() => import("./pages/Adverts"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
-const test = lazy(() => import("./pages/testPage.tsx"));
+const AdBusi = lazy(() => import("./pages/AdvertBusiness.tsx"));
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
 // Assurez-vous que `root` existe avant de rendre l'application
 if (root) {
-	render(
-		() => (
-			<GlobalContext.Provider value={globalContextData}>
-				<Router root={App}>
-					<Route path="/login" component={Login} />
-					<Route path="/nope" component={Nope} />
-					<Route
-						path="/"
-						component={() => (
-							<ProtectedRoute
-								component={Adverts}
-								allowedRoles={["user", "enterprise"]}
-							/>
-						)}
-					/>
-					<Route
-						path="/adverts"
-						component={() => (
-							<ProtectedRoute
-								component={Adverts}
-								allowedRoles={["user", "enterprise"]}
-							/>
-						)}
-					/>
-					<Route
-						path="/planning"
-						component={() => (
-							<ProtectedRoute component={Planning} allowedRoles={["user"]} />
-						)}
-					/>
-					<Route
-						path="/profile"
+    render(
+        () => (
+            <GlobalContext.Provider value={globalContextData}>
+                <Router root={App}>
+                    <Route path="/login" component={Login} />
+                    <Route path="/nope" component={Nope} />
+                    <Route
+                        path="/"
+                        component={() => (
+                            <ProtectedRoute
+                                component={Adverts}
+                                allowedRoles={["user"]}
+                                redirectTo="/advertE"
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/adverts"
+                        component={() => (
+                            <ProtectedRoute
+                                component={Adverts}
+                                allowedRoles={["user"]}
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/planning"
+                        component={() => (
+                            <ProtectedRoute
+                                component={Planning}
+                                allowedRoles={["user"]}
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/profile"
 						component={() => (
 							<ProtectedRoute
 								component={ProfilePage}
 								allowedRoles={["user", "enterprise"]}
 							/>
-						)}
+							)}
 					/>
 					<Route
-						path="/test"
+						path="/advertE"
 						component={() => (
-							<ProtectedRoute component={test} allowedRoles={["enterprise"]} />
-						)}
+							<ProtectedRoute
+								component={AdBusi}
+								allowedRoles={["enterprise"]}
+								redirectTo="/adverts"
+							/>
+							)}
 					/>
 				</Router>
 			</GlobalContext.Provider>
-		),
-		root,
-	);
+			),
+		root
+		);
 }
