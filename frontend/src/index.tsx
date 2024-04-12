@@ -14,7 +14,7 @@ const Login = lazy(() => import("./pages/Login"));
 const Adverts = lazy(() => import("./pages/Adverts"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
-const test = lazy(() => import("./pages/testPage.tsx"));
+const AdBusi = lazy(() => import("./pages/AdvertBusiness.tsx"));
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
@@ -31,17 +31,15 @@ if (root) {
 						component={() => (
 							<ProtectedRoute
 								component={Adverts}
-								allowedRoles={["user", "enterprise"]}
+								allowedRoles={["user"]}
+								redirectTo="/advertE"
 							/>
 						)}
 					/>
 					<Route
 						path="/adverts"
 						component={() => (
-							<ProtectedRoute
-								component={Adverts}
-								allowedRoles={["user", "enterprise"]}
-							/>
+							<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
 						)}
 					/>
 					<Route
@@ -60,9 +58,13 @@ if (root) {
 						)}
 					/>
 					<Route
-						path="/test"
+						path="/advertE"
 						component={() => (
-							<ProtectedRoute component={test} allowedRoles={["enterprise"]} />
+							<ProtectedRoute
+								component={AdBusi}
+								allowedRoles={["enterprise"]}
+								redirectTo="/adverts"
+							/>
 						)}
 					/>
 				</Router>

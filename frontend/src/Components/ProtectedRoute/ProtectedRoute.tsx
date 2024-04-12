@@ -1,11 +1,11 @@
 import { useNavigate } from "@solidjs/router";
-// ProtectedRoute.tsx
 import { type Component, Show } from "solid-js";
 import { useGlobalContext } from "../../context.tsx";
 
 interface ProtectedRouteProps {
 	component: Component;
 	allowedRoles: string[];
+	redirectTo?: string;
 }
 
 export const ProtectedRoute: Component<ProtectedRouteProps> = (props) => {
@@ -19,12 +19,10 @@ export const ProtectedRoute: Component<ProtectedRouteProps> = (props) => {
 		return false;
 	};
 
-	return (
-		<Show
-			when={isAllowed()}
-			fallback={() => navigate("/nope", { replace: true })}
-		>
-			<props.component />
-		</Show>
-	);
+	if (!isAllowed() && props.redirectTo) {
+		navigate(props.redirectTo, { replace: true });
+		return <></>;
+	}
+
+	return <props.component />;
 };

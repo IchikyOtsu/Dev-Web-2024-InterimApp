@@ -56,10 +56,9 @@ router.post("/", async (req, res) => {
 			start_date,
 			end_date,
 			salary,
-			user_id,
 		} = req.body;
 		const { rows } = await pool.query(
-			"INSERT INTO adverts (enterprise_id, title, description, location, start_date, end_date, salary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+			"INSERT INTO adverts (enterprise_id, title, description, location, start_date, end_date, salary) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
 			[
 				enterprise_id,
 				title,
@@ -68,7 +67,6 @@ router.post("/", async (req, res) => {
 				start_date,
 				end_date,
 				salary,
-				user_id,
 			],
 		);
 		res.status(201).json(rows[0]);
