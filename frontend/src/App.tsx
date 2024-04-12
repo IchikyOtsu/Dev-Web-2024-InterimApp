@@ -5,8 +5,8 @@ import { useGlobalContext } from "./context";
 import './style.css'
 
 const App = (props) => {
-    const { role } = useGlobalContext();
-    const userRole = role;
+    const { user } = useGlobalContext();
+    const userRole = user.role;
 
     return (
         <div>
