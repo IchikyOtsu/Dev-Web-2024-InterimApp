@@ -22,3 +22,21 @@
         flex-basis: calc(100% - 20px);
     }
 }
+#PostNewAdvertButton {
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 8px; /* Coins arrondis */
+    padding: 5px 10px; /* Espacement intérieur */
+    /*margin-right: 10px;*/ /* Marge à droite pour les séparer */
+    background-color: #fefefe; /* Couleur de fond */
+
+    position: absolute;
+    top: 65px; /* Hauteur de la barre de navigation */
+    right: 20px;
+    transition-duration: 0.4s;
+}
+#PostNewAdvertButton:hover {
+    /*background-color: #2fcbf3;*/
+    background-color: #0050B2;
+    color: #ffff;
+    cursor: pointer;
+}
