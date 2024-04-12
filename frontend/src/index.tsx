@@ -6,12 +6,12 @@ import { render } from "solid-js/web";
 
 import App from "./App";
 import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
-import { GlobalContext, globalContextData } from "./context";
+import { GlobalContext, globalContextData, useGlobalContext } from "./context";
 
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
 const Login = lazy(() => import("./pages/Login"));
-const Adverts = lazy(() => import("./pages/AdvertsPage/index.tsx"));
+const Adverts = lazy(() => import("./pages/AdvertsPage"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
 const AdBusi = lazy(() => import("./pages/AdvertBusiness"));
@@ -19,6 +19,8 @@ const NotifPage = lazy(() => import("./pages/Notifs"));
 
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
+
+const { user } = useGlobalContext();
 
 // Assurez-vous que `root` existe avant de rendre l'application
 if (root) {
@@ -31,18 +33,26 @@ if (root) {
 					<Route
 						path="/"
 						component={() => (
+							// redirect '/' to '/adverts'
 							<ProtectedRoute
 								component={Adverts}
-								allowedRoles={["user"]}
-								redirectTo="/advertE"
+								allowedRoles={[]}
+								redirectTo="/adverts"
 							/>
 						)}
 					/>
 					<Route
 						path="/adverts"
-						component={() => (
-							<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
-						)}
+						component={() =>
+							user.role == "user" ? (
+								<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
+							) : (
+								<ProtectedRoute
+									component={AdBusi}
+									allowedRoles={["enterprise"]}
+								/>
+							)
+						}
 					/>
 					<Route
 						path="/planning"
