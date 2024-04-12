@@ -4,13 +4,22 @@ const pool = require("../db");
 
 // GET all applications
 router.get("/", async (req, res) => {
-    try {
-        const { rows } = await pool.query("SELECT * FROM applications");
-        res.json(rows);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Server Error");
-    }
+	try {
+		const { user_id, advert_id } = req.query;
+		let query = "SELECT * FROM applications";
+		const queryParams = [];
+
+		if (user_id && advert_id) {
+			query += " WHERE user_id = $1 AND advert_id = $2";
+			queryParams.push(user_id, advert_id);
+		}
+
+		const { rows } = await pool.query(query, queryParams);
+		res.json(rows);
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send("Server Error");
+	}
 });
 
 // GET a single application by id

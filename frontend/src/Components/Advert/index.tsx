@@ -4,25 +4,42 @@ import "./index.css";
 import { useGlobalContext } from "../../context.tsx";
 
 const CardAdvert = (props) => {
-    const { title, message, location, time, duration, date, id } = props;
-    const [isPopupOpen, setIsPopupOpen] = createSignal(false);
-    const [isApplying, setIsApplying] = createSignal(false);
-    const [error, setError] = createSignal(null);
-    const { user } = useGlobalContext();
+	const { title, message, location, time, duration, date, id } = props;
+	const [isPopupOpen, setIsPopupOpen] = createSignal(false);
+	const [isApplying, setIsApplying] = createSignal(false);
+	const [error, setError] = createSignal(null);
+	const [alreadyApplied, setAlreadyApplied] = createSignal(false);
+	const { user } = useGlobalContext();
 
-    const applyForAdvert = async () => {
-        setIsApplying(true);
-        setError(null);
+	const checkIfAlreadyApplied = async () => {
+		try {
+			const response = await fetch(`/api/applications?user_id=${user.id}&advert_id=${id}`);
+			const data = await response.json();
+			setAlreadyApplied(data.length > 0);
+		} catch (error) {
+			console.error("Error checking application status:", error);
+		}
+	};
 
-        if (!user || user.role !== "user") {
-            setError("You are not allowed to apply for this advert");
-            setIsApplying(false);
-            return;
-        }
+	const applyForAdvert = async () => {
+		setIsApplying(true);
+		setError(null);
 
-        try {
-            const response = await fetch(`/api/applications`, {
-                method: "POST",
+		if (!user || user.role !== "user") {
+			setError("You are not allowed to apply for this advert");
+			setIsApplying(false);
+			return;
+		}
+
+		if (alreadyApplied()) {
+			setError("You have already applied for this advert");
+			setIsApplying(false);
+			return;
+		}
+
+		try {
+			const response = await fetch(`/api/applications`, {
+				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -34,6 +51,7 @@ const CardAdvert = (props) => {
 			}
 
 			console.log("Application submitted successfully");
+			setAlreadyApplied(true);
 		} catch (error) {
 			setError("Failed to apply for advert: " + error.message);
 		} finally {
@@ -41,6 +59,8 @@ const CardAdvert = (props) => {
 			setIsPopupOpen(false);
 		}
 	};
+
+	checkIfAlreadyApplied();
 
 	return (
 		<div class="card1" onClick={() => setIsPopupOpen(true)}>
