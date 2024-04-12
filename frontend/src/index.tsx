@@ -20,48 +20,42 @@ const root = document.getElementById("root");
 
 // Assurez-vous que `root` existe avant de rendre l'application
 if (root) {
-    render(
-        () => (
-            <GlobalContext.Provider value={globalContextData}>
-                <Router root={App}>
-                    <Route path="/login" component={Login} />
-                    <Route path="/nope" component={Nope} />
-                    <Route
-                        path="/"
-                        component={() => (
-                            <ProtectedRoute
-                                component={Adverts}
-                                allowedRoles={["user"]}
-                                redirectTo="/advertE"
-                            />
-                        )}
-                    />
-                    <Route
-                        path="/adverts"
-                        component={() => (
-                            <ProtectedRoute
-                                component={Adverts}
-                                allowedRoles={["user"]}
-                            />
-                        )}
-                    />
-                    <Route
-                        path="/planning"
-                        component={() => (
-                            <ProtectedRoute
-                                component={Planning}
-                                allowedRoles={["user"]}
-                            />
-                        )}
-                    />
-                    <Route
-                        path="/profile"
+	render(
+		() => (
+			<GlobalContext.Provider value={globalContextData}>
+				<Router root={App}>
+					<Route path="/login" component={Login} />
+					<Route path="/nope" component={Nope} />
+					<Route
+						path="/"
+						component={() => (
+							<ProtectedRoute
+								component={Adverts}
+								allowedRoles={["user"]}
+								redirectTo="/advertE"
+							/>
+						)}
+					/>
+					<Route
+						path="/adverts"
+						component={() => (
+							<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
+						)}
+					/>
+					<Route
+						path="/planning"
+						component={() => (
+							<ProtectedRoute component={Planning} allowedRoles={["user"]} />
+						)}
+					/>
+					<Route
+						path="/profile"
 						component={() => (
 							<ProtectedRoute
 								component={ProfilePage}
 								allowedRoles={["user", "enterprise"]}
 							/>
-							)}
+						)}
 					/>
 					<Route
 						path="/advertE"
@@ -71,11 +65,11 @@ if (root) {
 								allowedRoles={["enterprise"]}
 								redirectTo="/adverts"
 							/>
-							)}
+						)}
 					/>
 				</Router>
 			</GlobalContext.Provider>
-			),
-		root
-		);
+		),
+		root,
+	);
 }
