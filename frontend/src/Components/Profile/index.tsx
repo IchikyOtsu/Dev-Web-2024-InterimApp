@@ -1,36 +1,61 @@
-import './index.css';
+import "./index.css";
 const Profile = ({ name, bio, profilePicture }) => {
-  return (
-    <form>
-      <div class="profile-card">
-        <div class="left-section">
-          <img src={profilePicture} alt="Profile" class="profile-picture" />
-          <p>Nom Prenom</p>
-          <p>nomprenom@email.com</p>
+	return (
+		<form>
+			<div class="profile-card">
+				<div class="left-section">
+					<img src={profilePicture} alt="Profile" class="profile-picture" />
+					<p>Nom Prenom</p>
+					<p>nomprenom@email.com</p>
 				</div>
 				<div class="right-section">
 					<div class="input-group">
 						<div id="nom">
 							<label for="nom-input">Nom</label>
-							<input id="nom-input" type="text" placeholder="Nom de famille" required/>
+							<input
+								id="nom-input"
+								type="text"
+								placeholder="Nom de famille"
+								required
+							/>
 						</div>
 						<div id="prenom">
 							<label for="prenom-input">Prénom</label>
-							<input id="prenom-input" type="text" placeholder="Prénom" required/>
+							<input
+								id="prenom-input"
+								type="text"
+								placeholder="Prénom"
+								required
+							/>
 						</div>
 					</div>
 					<div id="mail">
 						<label for="mail-input">Adresse mail</label>
-						<input id="mail-input" type="email" placeholder="nomprenom@gmail.com" required/>
+						<input
+							id="mail-input"
+							type="email"
+							placeholder="nomprenom@gmail.com"
+							required
+						/>
 					</div>
 					<div id="competences">
 						<label for="competences-input">Compétences</label>
-						<input id="competences-input" type="text" placeholder="Ex: Informatique" required/>
+						<input
+							id="competences-input"
+							type="text"
+							placeholder="Ex: Informatique"
+							required
+						/>
 					</div>
 					<div class="input-group">
 						<div id="code-postal">
 							<label for="code-postal-input">Code Postal</label>
-							<input id="code-postal-input" type="number" placeholder="9999" required/>
+							<input
+								id="code-postal-input"
+								type="number"
+								placeholder="9999"
+								required
+							/>
 						</div>
 						<div id="ville">
 							<label for="ville-input">Ville</label>
@@ -42,13 +67,24 @@ const Profile = ({ name, bio, profilePicture }) => {
 					</div>
 					<div id="adresse">
 						<label for="adresse-input">Adresse</label>
-						<input id="adresse-input" type="text" placeholder="Rue de la place, 14" required/>
+						<input
+							id="adresse-input"
+							type="text"
+							placeholder="Rue de la place, 14"
+							required
+						/>
 					</div>
 					<div id="documents">
 						<label for="documents-input">Documents</label>
-						<input id="documents-input" type="file" accept="image/png, image/jpeg" multiple required/>
+						<input
+							id="documents-input"
+							type="file"
+							accept="image/png, image/jpeg"
+							multiple
+							required
+						/>
 					</div>
-					<input type="submit" value="Envoyer"/>
+					<input type="submit" value="Envoyer" />
 				</div>
 				{/*<h2>{name}</h2>*/}
 				{/*<p>{bio}</p>*/}
