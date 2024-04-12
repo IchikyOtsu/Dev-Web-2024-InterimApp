@@ -20,7 +20,7 @@ export const Navbar = () => {
 					Chat<i class="bx bxs-chat"></i>
 				</A>
 				<A href="/notifications">
-					Notification<i class="bx bxs-bar-chart-alt-2"></i>
+					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
 				</A>
 				<A href="/profile">
 					Profile<i class="bx bxs-user"></i>
@@ -49,7 +49,7 @@ export const EnterpriseNavbar = () => {
 					Chat<i class="bx bxs-chat"></i>
 				</A>
 				<A href="/notifications">
-					Notification<i class="bx bxs-bar-chart-alt-2"></i>
+					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
 				</A>
 				<A href="/profileE">
 					Profile<i class="bx bxs-user"></i>
