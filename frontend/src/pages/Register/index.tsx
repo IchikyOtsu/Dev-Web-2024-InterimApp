@@ -1,4 +1,4 @@
-import AddUser from "../Components/addusers";
+import AddUser from "../../Components/addusers";
 
 const AddPage = () => {
 	return (
