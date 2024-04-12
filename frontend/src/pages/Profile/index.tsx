@@ -1,4 +1,4 @@
-import Profile from "../Components/Profile/index";
+import Profile from "../../Components/Profile/index";
 
 const ProfilePage = () => {
 	const profileData = {

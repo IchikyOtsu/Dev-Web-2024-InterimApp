@@ -1,7 +1,7 @@
 // Adverts.tsx
 import { createEffect, createSignal } from "solid-js";
-import CardAdvert from "../Components/Advert/index.tsx"; // Vérifiez le chemin d'accès
-import styles from "./Adverts.module.css";
+import CardAdvert from "../../Components/Advert/index.tsx"; // Vérifiez le chemin d'accès
+import styles from "./Adverts.css";
 
 const AdvertsPage = () => {
 	const [adverts, setAdverts] = createSignal([]);

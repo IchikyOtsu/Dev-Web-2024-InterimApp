@@ -1,6 +1,6 @@
 import { createEffect, createSignal } from "solid-js";
 import { useGlobalContext } from "../context.tsx";
-import styles from "./NotificationsPage.module.css";
+import "./NotificationsPage.css"
 
 const NotificationsPage = () => {
     const { user } = useGlobalContext();

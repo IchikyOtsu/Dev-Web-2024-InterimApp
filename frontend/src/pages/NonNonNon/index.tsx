@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 // NonNonNon.tsx
-import styles from "./NonNonNon.module.css";
+import styles from "./NonNonNon.css";
 
 const NonNonNon = () => {
 	return (

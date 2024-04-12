@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
-import CreateAdvert from "../Components/CreateAdvert";
-import EnterpriseAdverts from "../Components/EnterpriseAdverts";
+import CreateAdvert from "../../Components/CreateAdvert";
+import EnterpriseAdverts from "../../Components/EnterpriseAdverts";
 
 const TestPage = () => {
 	const [page, setPage] = createSignal("create");
