@@ -1,4 +1,4 @@
-import { Input, Modal } from "@jundao/design";
+import { Modal } from "@jundao/design";
 import { createSignal } from "solid-js";
 import "./index.css";
 const CardAdvert = (props) => {

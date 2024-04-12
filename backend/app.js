@@ -1,14 +1,14 @@
 require("dotenv").config();
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger-output.json");
 
-var indexRouter = require("./routes/index");
-var testDB = require("./routes/testDB");
+const indexRouter = require("./routes/index");
+const testDB = require("./routes/testDB");
 
 const usersRouter = require("./routes/users");
 const enterprisesRouter = require("./routes/enterprises");
@@ -18,7 +18,7 @@ const chatMessagesRouter = require("./routes/chatMessages");
 const schedulesRouter = require("./routes/schedules");
 const notificationsRouter = require("./routes/notifications");
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

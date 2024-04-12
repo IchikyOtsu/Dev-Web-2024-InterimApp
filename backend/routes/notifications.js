@@ -2,10 +2,18 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db");
 
-// GET all notifications
+// GET notifications by user_id
 router.get("/", async (req, res) => {
 	try {
-		const { rows } = await pool.query("SELECT * FROM notifications");
+		const { user_id } = req.query;
+		if (!user_id) {
+			return res.status(400).send("User ID is required");
+		}
+
+		const { rows } = await pool.query(
+			"SELECT * FROM notifications WHERE user_id = $1",
+			[user_id],
+		);
 		res.json(rows);
 	} catch (error) {
 		console.error(error.message);

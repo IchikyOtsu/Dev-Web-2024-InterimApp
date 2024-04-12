@@ -19,8 +19,8 @@ export const Navbar = () => {
 				<A href="/chat">
 					Chat<i class="bx bxs-chat"></i>
 				</A>
-				<A href="/tracking">
-					Tracking<i class="bx bxs-bar-chart-alt-2"></i>
+				<A href="/notifications">
+					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
 				</A>
 				<A href="/profile">
 					Profile<i class="bx bxs-user"></i>
@@ -38,17 +38,20 @@ export const EnterpriseNavbar = () => {
 			</A>
 
 			<nav class="navbar">
-				<A href="/dashboard">
-					Dashboard<i class="bx bxs-dashboard"></i>
+				<A href="/advertE" class="active">
+					Adverts<i class="bx bxs-inbox"></i>
 				</A>
-				<A href="/manage-users">
-					Manage Users<i class="bx bxs-user-detail"></i>
+				<A href="/planningE">
+					Planning<i class="bx bxs-calendar"></i>
 				</A>
-				<A href="/analytics">
-					Analytics<i class="bx bxs-bar-chart-alt-2"></i>
+				<A href="/chatE">
+					Chat<i class="bx bxs-chat"></i>
 				</A>
-				<A href="/settings">
-					Settings<i class="bx bxs-cog"></i>
+				<A href="/notifications">
+					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
+				</A>
+				<A href="/profileE">
+					Profile<i class="bx bxs-user"></i>
 				</A>
 			</nav>
 		</>
