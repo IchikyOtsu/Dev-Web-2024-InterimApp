@@ -11,7 +11,7 @@ import { GlobalContext, globalContextData } from "./context";
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
 const Login = lazy(() => import("./pages/Login"));
-const Adverts = lazy(() => import("./pages/Adverts"));
+const Adverts = lazy(() => import("./pages/AdvertsPage/index.tsx"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
 const AdBusi = lazy(() => import("./pages/AdvertBusiness"));
