@@ -2,7 +2,7 @@
 import {Signal, createContext, createSignal, lazy, useContext} from "solid-js";
 import {render} from "solid-js/web";
 import {Router, Route} from "@solidjs/router";
-//import "@jundao/design/index.css";
+// import "@jundao/design/index.css";
 
 import App from "./App";
 import {AuthSession} from "@supabase/supabase-js";

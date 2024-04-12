@@ -1,7 +1,8 @@
-
 import './index.css';
 import { createSignal } from 'solid-js';
-import { Modal, Input } from "@jundao/design";
+import { Modal, Input, Button } from "@jundao/design";
+import ModifyAdvert from '../ModifyAdvert';
+
 const CardAdvert = (props) => {
   const { title, message, location, time, duration, date } = props;
   const [isPopupOpen, setIsPopupOpen] = createSignal(false);
@@ -22,12 +23,13 @@ const CardAdvert = (props) => {
         </div>
       </div>
       {/* Popup pour afficher les détails de l'annonce */}
-      <Modal open={isPopupOpen()} onOpenChange={setIsPopupOpen} title={"Détails de l'annonce"}>
+      <Modal open={isPopupOpen()} onOpenChange={setIsPopupOpen} title={"More details"}>
         <div>
           <h2>{title}</h2>
           <p>{message}</p>
           <p>{location} - {date}</p>
           {/* Ajoutez plus de détails si nécessaire */}
+          <Button id="modificationButton" onClick={() => {ModifyAdvert}}>Modify advert</Button>
         </div>
       </Modal>
     </div>
