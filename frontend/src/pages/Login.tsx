@@ -1,7 +1,7 @@
 import { Button, Checkbox, Input, Space, Text } from "@jundao/design";
 import { createSignal } from "solid-js";
 // import "./index.scss";
-import { useGlobalContext } from "../index";
+import { useGlobalContext } from "../context.tsx";
 // import {useNavigate} from "solid-start";
 import { supabaseClient } from "../supabase";
 

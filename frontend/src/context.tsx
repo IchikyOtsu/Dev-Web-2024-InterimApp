@@ -1,5 +1,4 @@
 // context.tsx
-
 import type { AuthSession } from "@supabase/supabase-js";
 import { createContext, useContext } from "solid-js";
 
@@ -20,12 +19,20 @@ export interface GlobalContextData {
 }
 
 const hardcodedUser: User = {
-	id: 3,
-	username: "acme_inc",
-	email: "contact@acme.com",
-	role: "enterprise",
-	enterprise_id: 1,
+	id: 1,
+	username: "john_doe",
+	email: "john@example.com",
+	role: "user",
+	enterprise_id: null,
 };
+
+/*const hardcodedUser: User = {
+    id: 3,
+    username: "acme_inc",
+    email: "contact@acme.com",
+    role: "enterprise",
+    enterprise_id: 1,
+};*/
 
 export const globalContextData: GlobalContextData = {
 	session: "loading",
