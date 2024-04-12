@@ -1,18 +1,47 @@
-import { createSignal } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import styles from "./AddUser.module.css";
 
 const AddUser = () => {
 	const [email, setEmail] = createSignal("");
 	const [password, setPassword] = createSignal("");
+	const [showPassword, setShowPassword] = createSignal(false);
 	const [role, setRole] = createSignal("user");
 	const [error, setError] = createSignal(null);
+	const [success, setSuccess] = createSignal(null);
 
 	const handleEmailChange = (e) => setEmail(e.target.value);
 	const handlePasswordChange = (e) => setPassword(e.target.value);
 	const handleRoleChange = (e) => setRole(e.target.value);
 
+	const toggleShowPassword = () => setShowPassword(!showPassword());
+
+	const isValidPassword = () => {
+		const passwordRegex =
+			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?]).{8,}$/;
+		return passwordRegex.test(password());
+	};
+
+	const isValidEmail = () => {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email());
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setError(null);
+		setSuccess(null);
+
+		if (!isValidPassword()) {
+			setError(
+				"Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.",
+			);
+			return;
+		}
+
+		if (!isValidEmail()) {
+			setError("Veuillez entrer une adresse email valide.");
+			return;
+		}
 
 		try {
 			const response = await fetch("/api/users", {
@@ -21,7 +50,7 @@ const AddUser = () => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					username: email().split("@")[0], // Utiliser la partie avant le @ comme nom d'utilisateur
+					username: email().split("@")[0],
 					email: email(),
 					password: password(),
 					role: role(),
@@ -29,15 +58,15 @@ const AddUser = () => {
 			});
 
 			if (!response.ok) {
-				throw new Error("Failed to create user");
+				throw new Error(await response.text());
 			}
 
-			console.log("User created successfully");
+			setSuccess("Utilisateur créé avec succès !");
 			setEmail("");
 			setPassword("");
 			setRole("user");
 		} catch (error) {
-			setError("Failed to create user: " + error.message);
+			setError("Échec de la création de l'utilisateur : " + error.message);
 		}
 	};
 
@@ -65,35 +94,36 @@ const AddUser = () => {
 						required
 					/>
 				</div>
-				<div>
-					<label class={styles.label} for="password-input">
-						Mot de passe
-					</label>
+				<label class={styles.label} for="password-input">
+					Mot de passe
+				</label>
+				<div class={styles.passwordContainer}>
 					<input
 						class={styles.input}
 						id="password-input"
-						type="password"
+						type={showPassword() ? "text" : "password"}
 						placeholder="Mot de passe"
 						value={password()}
 						onInput={handlePasswordChange}
 						required
 					/>
-				</div>
-				<div>
-					<label class={styles.label} for="role-input">
-						Rôle
-					</label>
-					<select
-						class={styles.input}
-						id="role-input"
-						value={role()}
-						onInput={handleRoleChange}
+					<button
+						class={styles.togglePasswordButton}
+						type="button"
+						onClick={toggleShowPassword}
 					>
-						<option value="user">Utilisateur</option>
-						<option value="enterprise">Entreprise</option>
-					</select>
+						{showPassword() ? "Masquer" : "Afficher"}
+					</button>
 				</div>
+				<Show when={!isValidPassword() && password().length > 0}>
+					<div class={styles.passwordRules}>
+						Le mot de passe doit contenir au moins 8 caractères, une majuscule,
+						une minuscule, un chiffre et un caractère spécial.
+					</div>
+				</Show>
+
 				{error() && <div class={styles.error}>{error()}</div>}
+				{success() && <div class={styles.success}>{success()}</div>}
 				<button class={styles.button} type="submit">
 					Ajouter l'utilisateur
 				</button>

@@ -1,6 +1,6 @@
 // App.tsx
 
-import { EnterpriseNavbar, Navbar } from "./Components/Navbar";
+import { AdminNavbar, EnterpriseNavbar, Navbar } from "./Components/Navbar";
 import { useGlobalContext } from "./context";
 import "./style.css";
 
@@ -13,6 +13,8 @@ const App = (props) => {
 			<header id="header">
 				{userRole === "user" && <Navbar />}
 				{userRole === "enterprise" && <EnterpriseNavbar />}
+
+				{userRole === "admin" && <AdminNavbar />}
 			</header>
 			<main>{props.children}</main>
 		</div>

@@ -32,14 +32,21 @@ if (root) {
 					<Route path="/nope" component={Nope} />
 					<Route
 						path="/"
-						component={() => (
-							// redirect '/' to '/adverts'
-							<ProtectedRoute
-								component={Adverts}
-								allowedRoles={[]}
-								redirectTo="/adverts"
-							/>
-						)}
+						component={() => {
+							if (user?.role === "admin") {
+								return (
+									<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
+								);
+							} else {
+								return (
+									<ProtectedRoute
+										component={Adverts}
+										allowedRoles={[]}
+										redirectTo="/adverts"
+									/>
+								);
+							}
+						}}
 					/>
 					<Route
 						path="/adverts"
