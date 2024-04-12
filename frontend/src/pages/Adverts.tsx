@@ -4,18 +4,18 @@ import CardAdvert from "../Components/Advert/index.tsx";
 import styles from "./Adverts.module.css";
 
 const AdvertsPage = () => {
-    const [adverts, setAdverts] = createSignal([]);
+	const [adverts, setAdverts] = createSignal([]);
 
-    createEffect(() => {
-        fetch("/api/adverts")
-            .then((res) => res.json())
-            .then((data) => setAdverts(data))
-            .catch((err) => console.error("API call failed:", err));
-    });
+	createEffect(() => {
+		fetch("/api/adverts")
+			.then((res) => res.json())
+			.then((data) => setAdverts(data))
+			.catch((err) => console.error("API call failed:", err));
+	});
 
-    return (
-        <div>
-            <h1>Page Adverts</h1>
+	return (
+		<div>
+			<h1>Page Adverts</h1>
 			<ul class={styles.advertsContainer}>
 				{adverts().map((ad) => (
 					<CardAdvert
@@ -28,10 +28,10 @@ const AdvertsPage = () => {
 						duration={ad.duration}
 						date={ad.date}
 					/>
-					))}
+				))}
 			</ul>
 		</div>
-		);
+	);
 };
 
 export default AdvertsPage;

@@ -5,23 +5,23 @@ import { createContext, useContext } from "solid-js";
 export type Role = "user" | "enterprise";
 
 export interface User {
-    id: number;
-    username: string;
-    email: string;
-    role: Role;
-    enterprise_id: number | null;
+	id: number;
+	username: string;
+	email: string;
+	role: Role;
+	enterprise_id: number | null;
 }
 
 export interface GlobalContextData {
-    session: AuthSession | "loading";
-    edit: boolean;
-    user: User | null;
+	session: AuthSession | "loading";
+	edit: boolean;
+	user: User | null;
 }
 
 const hardcodedUser: User = {
-    id: 1,
-    username: "john_doe",
-    email: "john@example.com",
+	id: 1,
+	username: "john_doe",
+	email: "john@example.com",
 	role: "user",
 	enterprise_id: null,
 };
@@ -40,7 +40,8 @@ export const globalContextData: GlobalContextData = {
 	user: hardcodedUser,
 };
 
-export const GlobalContext = createContext<GlobalContextData>(globalContextData);
+export const GlobalContext =
+	createContext<GlobalContextData>(globalContextData);
 
 export function useGlobalContext() {
 	return useContext(GlobalContext);

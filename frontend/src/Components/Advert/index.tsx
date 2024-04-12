@@ -1,7 +1,7 @@
-import { Input, Modal, Button } from "@jundao/design";
+import { Button, Input, Modal } from "@jundao/design";
 import { createSignal } from "solid-js";
-import "./index.css";
 import { useGlobalContext } from "../../context.tsx";
+import "./index.css";
 
 const CardAdvert = (props) => {
 	const { title, message, location, time, duration, date, id } = props;
@@ -13,7 +13,9 @@ const CardAdvert = (props) => {
 
 	const checkIfAlreadyApplied = async () => {
 		try {
-			const response = await fetch(`/api/applications?user_id=${user.id}&advert_id=${id}`);
+			const response = await fetch(
+				`/api/applications?user_id=${user.id}&advert_id=${id}`,
+			);
 			const data = await response.json();
 			setAlreadyApplied(data.length > 0);
 		} catch (error) {
@@ -43,7 +45,11 @@ const CardAdvert = (props) => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ user_id: user.id, advert_id: id, status: "pending" }),
+				body: JSON.stringify({
+					user_id: user.id,
+					advert_id: id,
+					status: "pending",
+				}),
 			});
 
 			if (!response.ok) {
@@ -77,7 +83,11 @@ const CardAdvert = (props) => {
 					</div>
 				</div>
 			</div>
-			<Modal open={isPopupOpen()} onOpenChange={setIsPopupOpen} title={"Détails de l'annonce"}>
+			<Modal
+				open={isPopupOpen()}
+				onOpenChange={setIsPopupOpen}
+				title={"Détails de l'annonce"}
+			>
 				<div>
 					<h2>{title}</h2>
 					<p>{message}</p>
@@ -93,7 +103,7 @@ const CardAdvert = (props) => {
 				</div>
 			</Modal>
 		</div>
-		);
+	);
 };
 
 export default CardAdvert;
