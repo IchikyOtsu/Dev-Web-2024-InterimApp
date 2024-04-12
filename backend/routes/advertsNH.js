@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 
+
+
 // GET all adverts
 router.get('/', async (req, res) => {
     try {
@@ -28,13 +30,25 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// GET adverts by enterprise id
+router.get('/enterprises/:enterpriseId', async (req, res) => {
+    try {
+        const { enterpriseId } = req.params;
+        const { rows } = await pool.query('SELECT * FROM adverts WHERE enterprise_id = $1', [enterpriseId]);
+        res.json(rows);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 // POST a new advert
 router.post('/', async (req, res) => {
     try {
-        const { enterprise_id, title, description, location, start_date, end_date, salary } = req.body;
+        const { enterprise_id, title, description, location, start_date, end_date, salary, user_id } = req.body;
         const { rows } = await pool.query(
-            'INSERT INTO adverts (enterprise_id, title, description, location, start_date, end_date, salary) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-            [enterprise_id, title, description, location, start_date, end_date, salary]
+            'INSERT INTO adverts (enterprise_id, title, description, location, start_date, end_date, salary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+            [enterprise_id, title, description, location, start_date, end_date, salary, user_id]
             );
         res.status(201).json(rows[0]);
     } catch (error) {
