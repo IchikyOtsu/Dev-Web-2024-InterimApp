@@ -100,10 +100,7 @@ if (root) {
 					<Route
 						path="/register"
 						component={() => (
-							<ProtectedRoute
-								component={Regi}
-								allowedRoles={["user", "enterprise"]}
-							/>
+							<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
 						)}
 					/>
 				</Router>
