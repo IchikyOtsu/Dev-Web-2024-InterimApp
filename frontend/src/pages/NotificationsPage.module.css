@@ -1,0 +1,11 @@
+.notificationsPageContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.notificationDate {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+}

@@ -15,6 +15,8 @@ const Adverts = lazy(() => import("./pages/Adverts"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
 const AdBusi = lazy(() => import("./pages/AdvertBusiness.tsx"));
+const NotifPage = lazy(() => import("./pages/Notifs.tsx"));
+
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
@@ -67,6 +69,23 @@ if (root) {
 							/>
 						)}
 					/>
+					<Route
+						path="/profile"
+						component={() => (
+							<ProtectedRoute
+								component={ProfilePage}
+								allowedRoles={["user", "enterprise"]}
+							/>
+							)}
+					/><Route
+					path="/notifications"
+					component={() => (
+						<ProtectedRoute
+							component={NotifPage}
+							allowedRoles={["user", "enterprise"]}
+						/>
+						)}
+				/>
 				</Router>
 			</GlobalContext.Provider>
 		),
