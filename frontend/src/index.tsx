@@ -104,7 +104,7 @@ if (root) {
 								component={Regi}
 								allowedRoles={["user", "enterprise"]}
 							/>
-							)}
+						)}
 					/>
 				</Router>
 			</GlobalContext.Provider>
