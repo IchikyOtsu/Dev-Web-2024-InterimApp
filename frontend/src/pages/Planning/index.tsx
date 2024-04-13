@@ -5,7 +5,7 @@ const PlanningPage = () => {
 	const [isPopupOpen, setIsPopupOpen] = createSignal(false);
 
 	return (
-		<div>
+		<>
 			<h1>Page planning</h1>
 			<p>
 				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia
@@ -23,7 +23,7 @@ const PlanningPage = () => {
 			>
 				<Input type="text" />
 			</Modal>
-		</div>
+		</>
 	);
 };
 

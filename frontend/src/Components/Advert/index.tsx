@@ -1,5 +1,5 @@
-import { Button, Input, Modal } from "@jundao/design";
-import { createSignal } from "solid-js";
+import { Button, Modal } from "@jundao/design";
+import { Show, createSignal } from "solid-js";
 import { useGlobalContext } from "../../context.tsx";
 import "./index.css";
 
@@ -7,7 +7,7 @@ const CardAdvert = (props) => {
 	const { title, message, location, time, duration, date, id } = props;
 	const [isPopupOpen, setIsPopupOpen] = createSignal(false);
 	const [isApplying, setIsApplying] = createSignal(false);
-	const [error, setError] = createSignal(null);
+	const [error, setError] = createSignal<string>();
 	const [alreadyApplied, setAlreadyApplied] = createSignal(false);
 	const { user } = useGlobalContext();
 
@@ -25,7 +25,7 @@ const CardAdvert = (props) => {
 
 	const applyForAdvert = async () => {
 		setIsApplying(true);
-		setError(null);
+		setError(undefined);
 
 		if (!user || user.role !== "user") {
 			setError("You are not allowed to apply for this advert");
@@ -69,17 +69,24 @@ const CardAdvert = (props) => {
 	checkIfAlreadyApplied();
 
 	return (
-		<div class="card1" onClick={() => setIsPopupOpen(true)}>
-			<img src="./public/vite.svg" alt="Avatar" class="avatar" />
-			<div id="des">
-				<div id="doc">
-					<h2>{title}</h2>
-					<p>{message}</p>
-					<div class="details">
-						<h4>{location}</h4>
-						<span>{time}</span>
-						<span>{duration}</span>
-						<span>{date}</span>
+		<>
+			<div
+				role="button"
+				tabIndex="0"
+				class="card1"
+				onClick={() => setIsPopupOpen(true)}
+			>
+				<img src="./public/vite.svg" alt="Avatar" class="avatar" />
+				<div id="des">
+					<div id="doc">
+						<h2>{title}</h2>
+						<p>{message}</p>
+						<div class="details">
+							<h4>{location}</h4>
+							<span>{time}</span>
+							<span>{duration}</span>
+							<span>{date}</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -102,7 +109,7 @@ const CardAdvert = (props) => {
 					</Show>
 				</div>
 			</Modal>
-		</div>
+		</>
 	);
 };
 
