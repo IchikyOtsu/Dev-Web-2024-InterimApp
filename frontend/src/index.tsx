@@ -2,7 +2,12 @@ import { Route, Router } from "@solidjs/router";
 // index.tsx
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
-//import "@jundao/design/index.css";
+
+import "@jundao/design/index.css";
+
+// Fonts
+import "@fontsource-variable/inter";
+import "@fontsource-variable/jetbrains-mono";
 
 import App from "./App";
 import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
@@ -19,8 +24,6 @@ const NotifPage = lazy(() => import("./pages/Notifs"));
 const Regi = lazy(() => import("./pages/Register"));
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
-
-const { user } = useGlobalContext();
 
 // Assurez-vous que `root` existe avant de rendre l'application
 if (root) {
@@ -51,7 +54,7 @@ if (root) {
 					<Route
 						path="/adverts"
 						component={() =>
-							user.role == "user" ? (
+							useGlobalContext().user?.role == "user" ? (
 								<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
 							) : (
 								<ProtectedRoute

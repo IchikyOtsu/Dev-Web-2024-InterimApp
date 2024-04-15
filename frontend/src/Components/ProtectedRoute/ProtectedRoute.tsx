@@ -1,5 +1,5 @@
 import { useNavigate } from "@solidjs/router";
-import { type Component, Show } from "solid-js";
+import type { Component } from "solid-js";
 import { useGlobalContext } from "../../context.tsx";
 
 interface ProtectedRouteProps {

@@ -1,78 +1,118 @@
-import { A } from "@solidjs/router";
-// Navbar.tsx
-import "./index.css";
+import { Route, Router } from "@solidjs/router";
+// index.tsx
+import { lazy } from "solid-js";
+import { render } from "solid-js/web";
+//import "@jundao/design/index.css";
 
-export const Navbar = () => {
-	return (
-		<>
-			<A href="/" class="logo">
-				Proxideal
-			</A>
+import App from "./App";
+import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
+import { GlobalContext, globalContextData, useGlobalContext } from "./context";
 
-			<nav class="navbar">
-				<A href="/adverts" class="active">
-					Adverts<i class="bx bxs-inbox"></i>
-				</A>
-				<A href="/planning">
-					Planning<i class="bx bxs-calendar"></i>
-				</A>
-				<A href="/chat">
-					Chat<i class="bx bxs-chat"></i>
-				</A>
-				<A href="/notifications">
-					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
-				</A>
-				<A href="/profile">
-					Profile<i class="bx bxs-user"></i>
-				</A>
-			</nav>
-		</>
+// Lazy-loading des composants de page
+const Planning = lazy(() => import("./pages/Planning"));
+const Login = lazy(() => import("./pages/Login"));
+const Adverts = lazy(() => import("./pages/AdvertsPage"));
+const ProfilePage = lazy(() => import("./pages/Profile"));
+const Nope = lazy(() => import("./pages/NonNonNon"));
+const AdBusi = lazy(() => import("./pages/AdvertBusiness"));
+const NotifPage = lazy(() => import("./pages/Notifs"));
+const Regi = lazy(() => import("./pages/Register"));
+// Récupérez l'élément racine de manière sûre
+const root = document.getElementById("root");
+
+const { user } = useGlobalContext();
+
+// Assurez-vous que `root` existe avant de rendre l'application
+if (root) {
+	render(
+		() => (
+			<GlobalContext.Provider value={globalContextData}>
+				<Router root={App}>
+					<Route path="/login" component={Login} />
+					<Route path="/nope" component={Nope} />
+					<Route
+						path="/"
+						component={() => {
+							if (user?.role === "admin") {
+								return (
+									<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
+								);
+							} else {
+								return (
+									<ProtectedRoute
+										component={Adverts}
+										allowedRoles={[]}
+										redirectTo="/adverts"
+									/>
+								);
+							}
+						}}
+					/>
+					<Route
+						path="/adverts"
+						component={() =>
+							user.role == "user" ? (
+								<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
+							) : (
+								<ProtectedRoute
+									component={AdBusi}
+									allowedRoles={["enterprise"]}
+								/>
+							)
+						}
+					/>
+					<Route
+						path="/planning"
+						component={() => (
+							<ProtectedRoute component={Planning} allowedRoles={["user"]} />
+						)}
+					/>
+					<Route
+						path="/profile"
+						component={() => (
+							<ProtectedRoute
+								component={ProfilePage}
+								allowedRoles={["user", "enterprise"]}
+							/>
+						)}
+					/>
+					<Route
+						path="/advertE"
+						component={() => (
+							<ProtectedRoute
+								component={AdBusi}
+								allowedRoles={["enterprise"]}
+								redirectTo="/adverts"
+							/>
+						)}
+					/>
+					<Route
+						path="/profile"
+						component={() => (
+							<ProtectedRoute
+								component={ProfilePage}
+								allowedRoles={["user", "enterprise"]}
+							/>
+						)}
+					/>
+					<Route
+						path="/notifications"
+						component={() => (
+							<ProtectedRoute
+								component={NotifPage}
+								allowedRoles={["user", "enterprise"]}
+							/>
+						)}
+					/>
+					<Route
+						path="/register"
+						component={() => (
+							<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
+						)}
+					/>
+				</Router>
+			</GlobalContext.Provider>
+		),
+		root,
 	);
-};
-
-export const EnterpriseNavbar = () => {
-	return (
-		<>
-			<A href="/" class="logo">
-				Proxideal Enterprise
-			</A>
-
-			<nav class="navbar">
-				<A href="/advert" class="active">
-					Adverts<i class="bx bxs-inbox"></i>
-				</A>
-				<A href="/planning">
-					Planning<i class="bx bxs-calendar"></i>
-				</A>
-				<A href="/chat">
-					Chat<i class="bx bxs-chat"></i>
-				</A>
-				<A href="/notifications">
-					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
-				</A>
-				<A href="/profile">
-					Profile<i class="bx bxs-user"></i>
-				</A>
-			</nav>
-		</>
-	);
-};
-
-export const AdminNavbar = () => {
-	return (
-		<>
-			<A href="/" class="logo">
-				Proxideal Panel
-			</A>
-
-			<nav class="navbar">
-				<A href="/tracking" class="active">
-					Tracking<i class="bx bxs-inbox"></i>
-				</A>
-				<A href="/register">
-					Register<i class="bx bxs-user"></i>
-				</A>
-			</nav>
-		</>
-	);
-};
+}
