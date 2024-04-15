@@ -1,30 +1,30 @@
-import { Link } from "@jundao/design";
+import { A } from "@solidjs/router";
 // Navbar.tsx
 import "./index.css";
 
 export const Navbar = () => {
 	return (
 		<>
-			<Link href="/" class="logo">
+			<A href="/" class="logo">
 				Proxideal
-			</Link>
+			</A>
 
 			<nav class="navbar">
-				<Link href="/adverts" class="active">
+				<A href="/adverts" class="active">
 					Adverts<i class="bx bxs-inbox"></i>
-				</Link>
-				<Link href="/planning">
+				</A>
+				<A href="/planning">
 					Planning<i class="bx bxs-calendar"></i>
-				</Link>
-				<Link href="/chat">
+				</A>
+				<A href="/chat">
 					Chat<i class="bx bxs-chat"></i>
-				</Link>
-				<Link href="/notifications">
+				</A>
+				<A href="/notifications">
 					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
-				</Link>
-				<Link href="/profile">
+				</A>
+				<A href="/profile">
 					Profile<i class="bx bxs-user"></i>
-				</Link>
+				</A>
 			</nav>
 		</>
 	);
@@ -33,26 +33,45 @@ export const Navbar = () => {
 export const EnterpriseNavbar = () => {
 	return (
 		<>
-			<Link href="/" class="logo">
+			<A href="/" class="logo">
 				Proxideal Enterprise
-			</Link>
+			</A>
 
 			<nav class="navbar">
-				<Link href="/advertE" class="active">
+				<A href="/advert" class="active">
 					Adverts<i class="bx bxs-inbox"></i>
-				</Link>
-				<Link href="/planningE">
+				</A>
+				<A href="/planning">
 					Planning<i class="bx bxs-calendar"></i>
-				</Link>
-				<Link href="/chatE">
+				</A>
+				<A href="/chat">
 					Chat<i class="bx bxs-chat"></i>
-				</Link>
-				<Link href="/notifications">
+				</A>
+				<A href="/notifications">
 					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
-				</Link>
-				<Link href="/profileE">
+				</A>
+				<A href="/profile">
 					Profile<i class="bx bxs-user"></i>
-				</Link>
+				</A>
+			</nav>
+		</>
+	);
+};
+
+export const AdminNavbar = () => {
+	return (
+		<>
+			<A href="/" class="logo">
+				Proxideal Panel
+			</A>
+
+			<nav class="navbar">
+				<A href="/tracking" class="active">
+					Tracking<i class="bx bxs-inbox"></i>
+				</A>
+				<A href="/register">
+					Register<i class="bx bxs-user"></i>
+				</A>
 			</nav>
 		</>
 	);

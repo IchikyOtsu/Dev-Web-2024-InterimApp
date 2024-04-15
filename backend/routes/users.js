@@ -37,7 +37,9 @@ router.post("/", async (req, res) => {
 		const { username, email, password, role } = req.body;
 
 		// Vérifier si l'email existe déjà
-		const { rows } = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+		const { rows } = await pool.query("SELECT * FROM users WHERE email = $1", [
+			email,
+		]);
 		if (rows.length > 0) {
 			return res.status(400).send("Email already exists");
 		}
@@ -49,16 +51,8 @@ router.post("/", async (req, res) => {
 		// Insérer le nouvel utilisateur dans la base de données
 		const newUserRows = await pool.query(
 			"INSERT INTO users (username, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING *",
-			[username, email, password_hash, role]
-			);
-
-		const newUserId = newUserRows.rows[0].id;
-
-		// Insérer les informations de l'utilisateur dans la table user_info
-		await pool.query(
-			"INSERT INTO user_info (user_id, email) VALUES ($1, $2)",
-			[newUserId, email]
-			);
+			[username, email, password_hash, role],
+		);
 
 		res.status(201).json(newUserRows.rows[0]);
 	} catch (error) {
@@ -93,7 +87,7 @@ router.delete("/:id", async (req, res) => {
 		const { rows } = await pool.query(
 			"DELETE FROM users WHERE id = $1 RETURNING *",
 			[id],
-			);
+		);
 		if (rows.length === 0) {
 			return res.status(404).send("User not found");
 		}

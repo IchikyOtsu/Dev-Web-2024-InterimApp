@@ -21,7 +21,7 @@ const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
 const AdBusi = lazy(() => import("./pages/AdvertBusiness"));
 const NotifPage = lazy(() => import("./pages/Notifs"));
-
+const Regi = lazy(() => import("./pages/Register"));
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
@@ -35,14 +35,21 @@ if (root) {
 					<Route path="/nope" component={Nope} />
 					<Route
 						path="/"
-						component={() => (
-							// redirect '/' to '/adverts'
-							<ProtectedRoute
-								component={Adverts}
-								allowedRoles={[]}
-								redirectTo="/adverts"
-							/>
-						)}
+						component={() => {
+							if (user?.role === "admin") {
+								return (
+									<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
+								);
+							} else {
+								return (
+									<ProtectedRoute
+										component={Adverts}
+										allowedRoles={[]}
+										redirectTo="/adverts"
+									/>
+								);
+							}
+						}}
 					/>
 					<Route
 						path="/adverts"
@@ -98,6 +105,12 @@ if (root) {
 								component={NotifPage}
 								allowedRoles={["user", "enterprise"]}
 							/>
+						)}
+					/>
+					<Route
+						path="/register"
+						component={() => (
+							<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
 						)}
 					/>
 				</Router>
