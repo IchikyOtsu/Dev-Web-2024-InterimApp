@@ -45,6 +45,28 @@ router.get("/enterprises/:enterpriseId", async (req, res) => {
 	}
 });
 
+// GET accepted adverts for a user
+router.get('/accepted', async (req, res) => {
+	try {
+		const userId = req.user.id; // Supposons que req.user contient les informations de l'utilisateur connecté
+
+		const { rows } = await pool.query(
+			`
+            SELECT a.id, a.title, a.start_date, a.end_date
+            FROM adverts a
+            INNER JOIN applications ap ON a.id = ap.advert_id
+            WHERE ap.user_id = $1 AND ap.status = 'accepted'
+            `,
+			[userId]
+			);
+
+		res.json(rows);
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send('Server Error');
+	}
+});
+
 // POST a new advert
 router.post("/", async (req, res) => {
 	try {
