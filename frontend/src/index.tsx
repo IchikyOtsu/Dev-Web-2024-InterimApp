@@ -3,11 +3,11 @@ import { Route, Router } from "@solidjs/router";
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
 
-import "@jundao/design/index.css";
+//import "@jundao/design/index.css";
 
 // Fonts
-import "@fontsource-variable/inter";
-import "@fontsource-variable/jetbrains-mono";
+//import "@fontsource-variable/inter";
+//import "@fontsource-variable/jetbrains-mono";
 
 import App from "./App";
 import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
