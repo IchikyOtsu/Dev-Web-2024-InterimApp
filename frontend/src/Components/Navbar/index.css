@@ -64,9 +64,9 @@ body{
     margin-left: 2.5rem;
 }
 
-.navbar a i {
-    margin-left: 0.7rem;
-    transform: translateY(5%);
+.nav-icon{
+    margin-left: 5px;
+    transform: translateY(7%);
 }
 
 .navbar a:hover,
