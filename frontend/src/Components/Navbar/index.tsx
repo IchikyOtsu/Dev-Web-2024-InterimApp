@@ -1,39 +1,30 @@
-import { A } from "@solidjs/router";
-import { AiFillWechat } from "solid-icons/ai";
-import { CgProfile } from "solid-icons/cg";
-import { FaSolidCalendarDays } from "solid-icons/fa";
-import { FaSolidChartSimple } from "solid-icons/fa";
-import { ImDrawer } from "solid-icons/im";
+import { Link } from "@jundao/design";
 // Navbar.tsx
 import "./index.css";
+
 export const Navbar = () => {
 	return (
 		<>
-			<A href="/" class="logo">
+			<Link href="/" class="logo">
 				Proxideal
-			</A>
+			</Link>
 
 			<nav class="navbar">
-				<A href="/adverts" class="active">
-					Adverts
-					<ImDrawer class="nav-icon" />
-				</A>
-				<A href="/planning">
-					Planning
-					<FaSolidCalendarDays class="nav-icon" />
-				</A>
-				<A href="/chat">
-					Chat
-					<AiFillWechat class="nav-icon" />
-				</A>
-				<A href="/tracking">
-					Tracking
-					<FaSolidChartSimple class="nav-icon" />
-				</A>
-				<A href="/profile">
-					Profile
-					<CgProfile class="nav-icon" />
-				</A>
+				<Link href="/adverts" class="active">
+					Adverts<i class="bx bxs-inbox"></i>
+				</Link>
+				<Link href="/planning">
+					Planning<i class="bx bxs-calendar"></i>
+				</Link>
+				<Link href="/chat">
+					Chat<i class="bx bxs-chat"></i>
+				</Link>
+				<Link href="/notifications">
+					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
+				</Link>
+				<Link href="/profile">
+					Profile<i class="bx bxs-user"></i>
+				</Link>
 			</nav>
 		</>
 	);
@@ -42,26 +33,26 @@ export const Navbar = () => {
 export const EnterpriseNavbar = () => {
 	return (
 		<>
-			<A href="/" class="logo">
+			<Link href="/" class="logo">
 				Proxideal Enterprise
-			</A>
+			</Link>
 
 			<nav class="navbar">
-				<A href="/advertE" class="active">
+				<Link href="/advertE" class="active">
 					Adverts<i class="bx bxs-inbox"></i>
-				</A>
-				<A href="/planningE">
+				</Link>
+				<Link href="/planningE">
 					Planning<i class="bx bxs-calendar"></i>
-				</A>
-				<A href="/chatE">
+				</Link>
+				<Link href="/chatE">
 					Chat<i class="bx bxs-chat"></i>
-				</A>
-				<A href="/notifications">
+				</Link>
+				<Link href="/notifications">
 					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
-				</A>
-				<A href="/profileE">
+				</Link>
+				<Link href="/profileE">
 					Profile<i class="bx bxs-user"></i>
-				</A>
+				</Link>
 			</nav>
 		</>
 	);
