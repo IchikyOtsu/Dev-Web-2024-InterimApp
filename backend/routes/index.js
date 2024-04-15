@@ -1,5 +1,5 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 /*
 router.get('/api/hello', function(req, res) {
   res.json({ data: 'Here is your data' });
