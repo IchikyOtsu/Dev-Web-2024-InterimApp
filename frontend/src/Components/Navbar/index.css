@@ -1,5 +1,3 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap');*/
-
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +6,6 @@
     border: none;
     outline: none;
     scroll-behavior: smooth;
-/*    font-family: 'Inter', sans-serif;*/
 }
 
 :root{
@@ -29,6 +26,8 @@ body{
 }
 
 #header{
+    font-size: 62.5%;
+    overflow-x: hidden;
     position: fixed;
     top: 0;
     left: 0;

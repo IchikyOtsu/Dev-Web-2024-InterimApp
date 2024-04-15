@@ -36,7 +36,7 @@ if (root) {
 					<Route
 						path="/"
 						component={() => {
-							if (user?.role === "admin") {
+							if (useGlobalContext().user?.role === "admin") {
 								return (
 									<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
 								);

@@ -18,5 +18,8 @@
 		"pg": "^8.11.3",
 		"swagger-autogen": "^2.23.7",
 		"swagger-ui-express": "^5.0.0"
+	},
+	"devDependencies": {
+		"bcrypt": "^5.1.1"
 	}
 }
