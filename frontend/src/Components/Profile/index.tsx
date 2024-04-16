@@ -1,6 +1,4 @@
-import { Input } from "@jundao/design";
-import { Select } from "@jundao/design";
-import { Text } from "@jundao/design";
+import { Input, Select, Text } from "@jundao/design";
 import "./index.css";
 const Profile = ({ profilePicture }) => {
 	return (
@@ -95,7 +93,7 @@ const Profile = ({ profilePicture }) => {
 					</div>
 					<div id="documents">
 						<Text class="text"> Documents </Text>
-						<br></br>
+						<br />
 						<input
 							id="documents-input"
 							class="input-documents"

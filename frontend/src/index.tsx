@@ -14,7 +14,7 @@ import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
 import { GlobalContext, globalContextData, useGlobalContext } from "./context";
 
 // Lazy-loading des composants de page
-const Planning = lazy(() => import("./pages/Planning/index.tsx"));
+const Planning = lazy(() => import("./pages/Planning/"));
 const Login = lazy(() => import("./pages/Login"));
 const Adverts = lazy(() => import("./pages/AdvertsPage"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
@@ -40,21 +40,20 @@ if (root) {
 								return (
 									<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
 								);
-							} else {
-								return (
-									<ProtectedRoute
-										component={Adverts}
-										allowedRoles={[]}
-										redirectTo="/adverts"
-									/>
-								);
 							}
+							return (
+								<ProtectedRoute
+									component={Adverts}
+									allowedRoles={[]}
+									redirectTo="/adverts"
+								/>
+							);
 						}}
 					/>
 					<Route
 						path="/adverts"
 						component={() =>
-							useGlobalContext().user?.role == "user" ? (
+							useGlobalContext().user?.role === "user" ? (
 								<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
 							) : (
 								<ProtectedRoute
@@ -68,25 +67,6 @@ if (root) {
 						path="/planning"
 						component={() => (
 							<ProtectedRoute component={Planning} allowedRoles={["user"]} />
-						)}
-					/>
-					<Route
-						path="/profile"
-						component={() => (
-							<ProtectedRoute
-								component={ProfilePage}
-								allowedRoles={["user", "enterprise"]}
-							/>
-						)}
-					/>
-					<Route
-						path="/advertE"
-						component={() => (
-							<ProtectedRoute
-								component={AdBusi}
-								allowedRoles={["enterprise"]}
-								redirectTo="/adverts"
-							/>
 						)}
 					/>
 					<Route

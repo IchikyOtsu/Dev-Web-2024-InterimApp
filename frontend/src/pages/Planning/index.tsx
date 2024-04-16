@@ -1,3 +1,4 @@
+import { Text } from "@jundao/design";
 // PlanningPage.tsx
 import { createEffect, createSignal } from "solid-js";
 import Calendar from "../../Components/Calendar";
@@ -33,10 +34,10 @@ const PlanningPage = () => {
 	});
 
 	return (
-		<div>
-			<h1>Planning</h1>
+		<>
+			<Text>Planning</Text>
 			<Calendar events={events()} />
-		</div>
+		</>
 	);
 };
 

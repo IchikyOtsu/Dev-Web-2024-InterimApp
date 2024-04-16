@@ -66,7 +66,7 @@ const AddUser = () => {
 			setPassword("");
 			setRole("user");
 		} catch (error) {
-			setError("Échec de la création de l'utilisateur : " + error.message);
+			setError(`Échec de la création de l'utilisateur : ${error.message}`);
 		}
 	};
 

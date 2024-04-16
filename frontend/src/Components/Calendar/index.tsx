@@ -1,3 +1,4 @@
+import { Button, Card, Text } from "@jundao/design";
 // Calendar.tsx
 import { For, createSignal } from "solid-js";
 import "./Calendar.css";
@@ -24,50 +25,54 @@ const Calendar = (props) => {
 		const blankDays = Array.from({ length: firstDayOfMonth }, (_, i) => i);
 
 		return (
-			<div class={"calendarContainer"}>
-				<div class={"calendarHeader"}>
-					<button
-						onClick={() =>
-							setCurrentDate(
-								new Date(
-									currentDate().getFullYear(),
-									currentDate().getMonth() - 1,
-									1,
-								),
-							)
-						}
-					>
-						&lt;
-					</button>
-					<span>
-						{currentDate().toLocaleString("default", {
-							month: "long",
-							year: "numeric",
-						})}
-					</span>
-					<button
-						onClick={() =>
-							setCurrentDate(
-								new Date(
-									currentDate().getFullYear(),
-									currentDate().getMonth() + 1,
-									1,
-								),
-							)
-						}
-					>
-						&gt;
-					</button>
-				</div>
+			<Card
+				class={"calendarContainer"}
+				title={
+					<div class={"calendarHeader"}>
+						<Button
+							onClick={() =>
+								setCurrentDate(
+									new Date(
+										currentDate().getFullYear(),
+										currentDate().getMonth() - 1,
+										1,
+									),
+								)
+							}
+						>
+							&lt;
+						</Button>
+						<Text>
+							{currentDate().toLocaleString("default", {
+								month: "long",
+								year: "numeric",
+							})}
+						</Text>
+						<Button
+							onClick={() =>
+								setCurrentDate(
+									new Date(
+										currentDate().getFullYear(),
+										currentDate().getMonth() + 1,
+										1,
+									),
+								)
+							}
+						>
+							&gt;
+						</Button>
+					</div>
+				}
+			>
 				<div class={"calendarBody"}>
 					<div class={"weekDays"}>
-						<span>Sun</span>
-						<span>Mon</span>
-						<span>Tue</span>
-						<span>Wed</span>
-						<span>Thu</span>
-						<span>Fri</span>
-						<span>Sat</span>
+						<Text>Sun</Text>
+						<Text>Mon</Text>
+						<Text>Tue</Text>
+						<Text>Wed</Text>
+						<Text>Thu</Text>
+						<Text>Fri</Text>
+						<Text>Sat</Text>
 					</div>
 					<div class={"daysGrid"}>
 						<For each={blankDays}>
@@ -76,7 +81,7 @@ const Calendar = (props) => {
 						<For each={daysInMonth}>
 							{(day) => (
 								<div class={"day"}>
-									<span>{day}</span>
+									<Text>{day}</Text>
 									<For
 										each={props.events.filter((event) => {
 											const eventStart = new Date(event.start);
@@ -89,14 +94,18 @@ const Calendar = (props) => {
 											return eventStart <= eventDate && eventEnd >= eventDate;
 										})}
 									>
-										{(event) => <div class={"event"}>{event.title}</div>}
+										{(event) => (
+											<div class="event">
+												<Text style={{ color: "white" }}>{event.title}</Text>
+											</div>
+										)}
 									</For>
 								</div>
 							)}
 						</For>
 					</div>
 				</div>
-			</div>
+			</Card>
 		);
 	};
 
