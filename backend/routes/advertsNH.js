@@ -116,13 +116,23 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
+
+		// Supprimer les candidatures associées à l'annonce
+		await pool.query("DELETE FROM applications WHERE advert_id = $1", [id]);
+
+		// Supprimer les plannings associés à l'annonce
+		await pool.query("DELETE FROM schedules WHERE advert_id = $1", [id]);
+
+		// Supprimer l'annonce
 		const { rows } = await pool.query(
 			"DELETE FROM adverts WHERE id = $1 RETURNING *",
-			[id],
-		);
+			[id]
+			);
+
 		if (rows.length === 0) {
 			return res.status(404).send("Advert not found");
 		}
+
 		res.json(rows[0]);
 	} catch (error) {
 		console.error(error.message);
