@@ -1,4 +1,5 @@
-import { createEffect, createSignal } from "solid-js";
+import { Text, Title } from "@jundao/design";
+import { For, createEffect, createSignal } from "solid-js";
 import NotificationCard from "../../Components/Notifs";
 import { useGlobalContext } from "../../context.tsx";
 import "./NotificationsPage.css";
@@ -9,7 +10,7 @@ const NotificationsPage = () => {
 
 	const fetchNotifications = async () => {
 		try {
-			const response = await fetch(`/api/notifications?user_id=${user.id}`);
+			const response = await fetch(`/api/notifications?user_id=${user?.id}`);
 			const data = await response.json();
 			setNotifications(data);
 		} catch (error) {
@@ -25,19 +26,19 @@ const NotificationsPage = () => {
 
 	return (
 		<div class="notificationsPageContainer">
-			<h2>Notifications</h2>
-			{user ? (
-				<div class="notificationsList">
-					{notifications().map((notification) => (
+			<Title>Notifications</Title>
+			{notifications().length > 0 ? (
+				<For each={notifications()}>
+					{(notification) => (
 						<NotificationCard
 							key={notification.id}
 							content={notification.content}
 							createdAt={notification.created_at}
 						/>
-					))}
-				</div>
+					)}
+				</For>
 			) : (
-				<p>Veuillez vous connecter pour voir vos notifications.</p>
+				<Text>Pas de notifications</Text>
 			)}
 		</div>
 	);
