@@ -115,6 +115,12 @@ router.post("/", async (req, res) => {
 // });
 
 router.put("/:id", async (req, res) => {
+	const formatPostgresDate = (dateString) => {
+		if (!dateString) return null; // Retourne null si la chaîne est vide
+		const date = new Date(dateString);
+		return date.toISOString().split('T')[0]; // Format YYYY-MM-DD
+	  };
+
 	try {
 		const { id } = req.params;
 		const {
@@ -126,6 +132,10 @@ router.put("/:id", async (req, res) => {
 		end_date,
 		salary,
 		} = req.body;
+
+		// Vérification et formatage des dates
+		const formattedStartDate = start_date ? formatPostgresDate(start_date) : null;
+		const formattedEndDate = end_date ? formatPostgresDate(end_date) : null;
 
 		// Récupérer les données existantes
 		const { rows: existingData } = await pool.query(
@@ -151,12 +161,20 @@ router.put("/:id", async (req, res) => {
 		if (location !== undefined && location !== oldData.location) {
 		updatedData.location = location;
 		}
-		if (start_date !== undefined && start_date !== oldData.start_date) {
-		updatedData.start_date = start_date;
+
+		// Les conditions pour les dates (compliqué)
+		if (formattedStartDate !== null && formattedStartDate !== oldData.start_date) {
+			updatedData.start_date = formattedStartDate;
+		} else {
+		delete updatedData.start_date; // Supprimer la clé si la valeur est vide
 		}
-		if (end_date !== undefined && end_date !== oldData.end_date) {
-		updatedData.end_date = end_date;
+		
+		if (formattedEndDate !== null && formattedEndDate !== oldData.end_date) {
+		updatedData.end_date = formattedEndDate;
+		} else {
+		delete updatedData.end_date; // Supprimer la clé si la valeur est vide
 		}
+
 		if (salary !== undefined && salary !== oldData.salary) {
 		updatedData.salary = salary;
 		}
@@ -171,7 +189,7 @@ router.put("/:id", async (req, res) => {
 			Object.keys(updatedData)
 			.map((key, index) => `${key} = $${index + 1}`)
 			.join(", ") +
-			" WHERE id = $" +
+			" WHERE id = $2" +
 			(Object.keys(updatedData).length + 1) +
 			" RETURNING *",
 		[...Object.values(updatedData), id]
