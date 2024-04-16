@@ -9,13 +9,11 @@ const Profile = ({ profilePicture }) => {
 				<div class="left-section">
 					<img src={profilePicture} alt="Profile" class="profile-picture" />
 					<Text class="text" id="text-avatar">
-						{" "}
-						Nom Prénom{" "}
+						Nom Prénom
 					</Text>
 					<br />
 					<Text class="text" id="text-avatar">
-						{" "}
-						nomprenom@email.com{" "}
+						nomprenom@email.com
 					</Text>
 				</div>
 				<div class="right-section">
