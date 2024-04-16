@@ -76,7 +76,15 @@ const EnterpriseAdverts = (props) => {
 							onOpenChange={setShowModifyMenu}
 							title={"Modification de l'annonce"}
 						>
-							<ModifyAdvert />
+							<ModifyAdvert 
+									id={id}
+									title={title}
+									description={description}
+									location={location}
+									start_date={start_date}
+									end_date={end_date}
+									salary={salary}
+							/>
 						</Modal>
 						<Button id="deleteButton" onClick={isDeleteClicked}>
 							Delete
@@ -86,7 +94,7 @@ const EnterpriseAdverts = (props) => {
 							onOpenChange={setShowDeleteMenu}
 							title={"Suppression de l'annonce"}
 						>
-							<DeleteAdvert key={id} />
+							<DeleteAdvert id={id} />
 						</Modal>
 						{/* {showDeleteMenu() && <DeleteAdvert key={id} />} */}
 					</div>

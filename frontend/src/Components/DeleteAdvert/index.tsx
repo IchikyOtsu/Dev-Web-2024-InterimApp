@@ -10,7 +10,7 @@ const DeleteAdvert = (props) => {
 	const enterpriseId = user?.enterprise_id;
 	const role = user.role;
 
-    const { key } = props;
+    const { id } = props;
 
     const handleDelete = async () => {
 		setError(null);
@@ -26,7 +26,7 @@ const DeleteAdvert = (props) => {
 		}
 
 		try {
-			const response = await fetch(`/api/adverts/${key}`, {
+			const response = await fetch(`/api/adverts/${id}`, {
 				method: "DELETE"
 			});
 
