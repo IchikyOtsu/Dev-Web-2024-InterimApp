@@ -1,23 +1,8 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    border: none;
-    outline: none;
-    scroll-behavior: smooth;
-}
-
 :root{
     --bg-color: #EAEEF2;
     --second-bg-color: #FFFFFF;
     --text-color: #181818;
     --main-color: #0050B2;
-}
-
-html{
-    font-size: 62.5%;
-    overflow-x: hidden;
 }
 
 body{
@@ -26,7 +11,7 @@ body{
 }
 
 #header{
-    font-size: 62.5%;
+    box-sizing: border-box;
     overflow-x: hidden;
     position: fixed;
     top: 0;
@@ -44,23 +29,24 @@ body{
 
 .logo{
     position: relative;
-    margin-left: -3.5rem;
-    font-size: 3rem;
+    margin-left: -3.4rem;
+    font-size: 2rem;
     color: var(--text-color);
-    font-weight: 600;
+    font-weight: 700;
     transform: translateX(15%);
 }
 
 .navbar{
     position: relative;
+    margin-right: 15px;
     transform: translateX(7%);
 }
 
 .navbar a{
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: var(--text-color);
-    font-weight: 1000;
-    margin-left: 2.5rem;
+    font-weight: 600;
+    margin-left: 1.5rem;
 }
 
 .nav-icon{
