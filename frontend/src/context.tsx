@@ -20,7 +20,7 @@ export interface GlobalContextData {
 }
 
 const hardcodedUser: User = {
-	id: 2,
+	id: 4,
 	username: "admin",
 	email: "admin@proxideal.com",
 	role: "user",
