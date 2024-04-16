@@ -5,7 +5,9 @@ import { createEffect, createSignal } from "solid-js";
 const ModifyAdvert = () => {
 	return (
 		<div>
-			<h1>Ici tu peux modifier les valeurs de la page</h1>
+			<h4>
+				Ici tu peux modifier les valeurs de la page
+			</h4>
 		</div>
 	);
 };

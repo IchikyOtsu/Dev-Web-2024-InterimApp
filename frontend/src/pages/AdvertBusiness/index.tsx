@@ -1,9 +1,17 @@
-import { createSignal } from "solid-js";
+import { createSignal, createEffect } from "solid-js";
 import CreateAdvert from "../../Components/CreateAdvert";
 import EnterpriseAdverts from "../../Components/EnterpriseAdverts";
 
 const TestPage = () => {
 	const [page, setPage] = createSignal("create");
+	const [adverts, setAdverts] = createSignal([]);
+
+	createEffect(() => {
+		fetch("/api/adverts")
+			.then((res) => res.json())
+			.then((data) => setAdverts(data))
+			.catch((err) => console.error("API call failed:", err));
+	});
 
 	return (
 		<div>
@@ -13,8 +21,25 @@ const TestPage = () => {
 
 			{page() === "create" ? (
 				<CreateAdvert setPage={setPage} />
-			) : (
-				<EnterpriseAdverts />
+			) : (<>
+				<div>
+					<h2>Enterprise Adverts</h2>
+					<ul class="advertsContainer">
+						{adverts().map((ad) => (
+							<EnterpriseAdverts
+								key={ad.id}
+								id={ad.id}
+								title={ad.title}
+								message={ad.description}
+								location={ad.location}
+								time={ad.time}
+								duration={ad.duration}
+								date={ad.date}
+							/>
+						))}
+					</ul>
+				</div>
+				</>
 			)}
 		</div>
 	);

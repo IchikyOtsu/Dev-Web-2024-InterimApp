@@ -19,20 +19,20 @@ export interface GlobalContextData {
 	user: User | null;
 }
 
+// const hardcodedUser: User = {
+// 	id: 4,
+// 	username: "admin",
+// 	email: "admin@proxideal.com",
+// 	role: "user",
+// 	enterprise_id: 1,
+// };
 const hardcodedUser: User = {
-	id: 4,
-	username: "admin",
-	email: "admin@proxideal.com",
-	role: "user",
-	enterprise_id: 1,
-};
-/*const hardcodedUser: User = {
     id: 3,
     username: "acme_inc",
     email: "contact@acme.com",
     role: "enterprise",
     enterprise_id: 1,
-};*/
+};
 export const globalContextData: GlobalContextData = {
 	session: "loading",
 	edit: false,
