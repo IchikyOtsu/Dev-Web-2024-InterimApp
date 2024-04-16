@@ -1,4 +1,9 @@
 import { Link } from "@jundao/design";
+import { AiFillWechat } from "solid-icons/ai";
+import { CgProfile } from "solid-icons/cg";
+import { FaSolidCalendarDays } from "solid-icons/fa";
+import { ImDrawer } from "solid-icons/im";
+import { IoNotifications } from "solid-icons/io";
 // Navbar.tsx
 import "./index.css";
 
@@ -11,19 +16,24 @@ export const Navbar = () => {
 
 			<nav class="navbar">
 				<Link href="/adverts" class="active">
-					Adverts<i class="bx bxs-inbox"></i>
+					Adverts
+					<ImDrawer class="nav-icon" />
 				</Link>
 				<Link href="/planning">
-					Planning<i class="bx bxs-calendar"></i>
+					Planning
+					<FaSolidCalendarDays class="nav-icon" />
 				</Link>
 				<Link href="/chat">
-					Chat<i class="bx bxs-chat"></i>
+					Chat
+					<AiFillWechat class="nav-icon" />
 				</Link>
 				<Link href="/notifications">
-					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
+					Notifications
+					<IoNotifications class="nav-icon" />
 				</Link>
 				<Link href="/profile">
-					Profile<i class="bx bxs-user"></i>
+					Profile
+					<CgProfile class="nav-icon" />
 				</Link>
 			</nav>
 		</>
