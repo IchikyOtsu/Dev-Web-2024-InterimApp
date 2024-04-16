@@ -1,0 +1,29 @@
+#ouiButton {
+    color:crimson;
+}
+#ouiButton:hover {
+    background-color: crimson;
+    color: #ffff;
+    cursor: pointer;
+}
+
+#nonButton {
+    color:rgb(100, 196, 4);
+}
+#nonButton:hover {
+    background-color: rgb(100, 196, 4);
+    color: #ffff;
+    cursor: pointer;
+}
+
+#ouiButton, #nonButton {
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 8px; /* Coins arrondis */
+    padding: 5px 10px; /* Espacement intérieur */
+    margin-right: 10px; /* Marge à droite pour les séparer */
+    background-color: #fefefe; /* Couleur de fond */
+
+    /* position: absolute; */
+    transition-duration: 0.4s;
+    display: inline;
+}

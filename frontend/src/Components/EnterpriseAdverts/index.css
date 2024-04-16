@@ -54,3 +54,22 @@ h4 {
     padding-right: 70px;
     margin-top: 70px;
 }
+
+#deleteButton {
+    color: crimson;
+}
+
+#deleteButton:hover {
+    background-color: crimson;
+    color: #ffff;
+    cursor: pointer;
+}
+
+#modifyButton {
+    color: rgb(216, 169, 1);
+}
+#modifyButton:hover {
+    background-color: rgb(231, 192, 52);
+    color: #ffff;
+    cursor: pointer;
+}

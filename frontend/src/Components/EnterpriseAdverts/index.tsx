@@ -67,15 +67,28 @@ const EnterpriseAdverts = (props) => {
 						<p>
 							{location} - {salary}
 						</p>
-						<Button onClick={isModifyClicked}>
+						<Button id="modifyButton" onClick={isModifyClicked}>
 							Modify
-							{showModifyMenu() && <ModifyAdvert />}
 						</Button>
-						<Button onClick={isDeleteClicked}>
+						{/* {showModifyMenu() && <ModifyAdvert />} */}
+						<Modal
+							open={showModifyMenu()}
+							onOpenChange={setShowModifyMenu}
+							title={"Modification de l'annonce"}
+						>
+							<ModifyAdvert />
+						</Modal>
+						<Button id="deleteButton" onClick={isDeleteClicked}>
 							Delete
-							{showDeleteMenu() && <DeleteAdvert key={id} />}
 						</Button>
-						
+						<Modal 
+							open={showDeleteMenu()}
+							onOpenChange={setShowDeleteMenu}
+							title={"Suppression de l'annonce"}
+						>
+							<DeleteAdvert key={id} />
+						</Modal>
+						{/* {showDeleteMenu() && <DeleteAdvert key={id} />} */}
 					</div>
 			</Modal>
 		</>

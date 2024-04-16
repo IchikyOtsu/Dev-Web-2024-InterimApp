@@ -1,7 +1,7 @@
 import { Button } from '@jundao/design';
 import { createEffect, createSignal } from 'solid-js';
 import { useGlobalContext } from "../../context.tsx";
-// import 'index.css';
+import './index.css';
 
 
 const DeleteAdvert = (props) => {
@@ -41,8 +41,8 @@ const DeleteAdvert = (props) => {
 		}
     };
 
-    const isYesClicked = () => {
-        handleDelete();
+    const isYesClicked = async () => {
+        await handleDelete();
         
         return (
             <>
@@ -73,11 +73,11 @@ const DeleteAdvert = (props) => {
                 <h4>
                     Êtes-vous sûr et certain de vouloir supprimer cette annonce ?
                 </h4>
-                <Button onClick={isYesClicked}>
-                    Oui
+                <Button id="ouiButton" onClick={isYesClicked}>
+                    Oui...
                 </Button>
-                <Button onClick={isNoClicked}>
-                    No !
+                <Button id="nonButton" onClick={isNoClicked}>
+                    Non !
                 </Button>
             </div>
         </>

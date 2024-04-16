@@ -1,6 +1,7 @@
 import { createSignal, createEffect } from "solid-js";
 import CreateAdvert from "../../Components/CreateAdvert";
 import EnterpriseAdverts from "../../Components/EnterpriseAdverts";
+import './index.css'
 
 const TestPage = () => {
 	const [page, setPage] = createSignal("create");
@@ -16,8 +17,8 @@ const TestPage = () => {
 	return (
 		<div>
 			<h1>Test Page</h1>
-			<button onClick={() => setPage("create")}>Create Advert</button>
-			<button onClick={() => setPage("list")}>Enterprise Adverts</button>
+			<button id="buttonCreatePage" onClick={() => setPage("create")}>Create Advert</button>
+			<button id="buttonAdverts" onClick={() => setPage("list")}>Enterprise Adverts</button>
 
 			{page() === "create" ? (
 				<CreateAdvert setPage={setPage} />

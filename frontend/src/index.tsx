@@ -3,7 +3,7 @@ import { Route, Router } from "@solidjs/router";
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
 
-//import "@jundao/design/index.css";
+import "@jundao/design/index.css";
 
 // Fonts
 //import "@fontsource-variable/inter";

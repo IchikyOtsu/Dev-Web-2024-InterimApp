@@ -29,8 +29,9 @@
     margin-right: 10px; /* Marge à droite pour les séparer */
     background-color: #fefefe; /* Couleur de fond */
 
-    /*position: absolute;*/
+    /* position: absolute; */
     transition-duration: 0.4s;
+    display: inline;
 }
 
 #submit:hover, #reset:hover, #backButton:hover {
