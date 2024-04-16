@@ -14,28 +14,29 @@
 
 .left-section {
   margin-top: -150px;
-  margin-right: 4rem;
+  margin-right: 2.8rem;
 }
 
 .left-section img{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 1.5rem;
+  margin-left: 2rem;
 }
 
-.left-section p{
+#text-avatar{
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 15px;
   font-weight: bold;
+  margin-bottom: -15px ;
 }
 
 /* Style de l'image */
 .profile-picture {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 20px;
@@ -48,32 +49,27 @@
   flex-direction: column;
 }
 
-/* Style des inputs et des labels */
-.profile-card label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
 .profile-card input[type="text"],
 .profile-card input[type="email"],
 .profile-card input[type="number"],
 .profile-card input[type="file"],
 .profile-card select {
-  width: 100%;
+  position: relative;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
   box-sizing: border-box;
   font-size: 16px;
 }
 
-.profile-card input[type="text"]:focus,
-.profile-card input[type="email"]:focus,
-.profile-card input[type="number"]:focus,
-.profile-card input[type="file"]:focus,
-.profile-card select:focus {
-  border: 3px solid #555;
+.profile-card input[type="text"].label,
+.profile-card input[type="email"].label,
+.profile-card input[type="number"].label,
+.profile-card input[type="file"].label,
+.profile-card select.label {
+  position: absolute;
+  top: -20px;
+  left: 0;
 }
 
 /* Style des groupes d'inputs */
@@ -89,13 +85,52 @@ label{
   font-size: 14px;
 }
 
-#code-postal-input, #nom-input{
-  width: 90%
+.profile-card input[type="submit"]{
+  font-size: 105%;
+  font-weight: 700;
+  margin: 0.3rem 0
 }
 
-.profile-card input[type="submit"]{
-  width: 30%;
-  height: 35px;
+.text{
+  font-weight: 600;
+}
+
+.input-prenom{
+  width: 120%;
+}
+
+.input-mail{
+  width: 265%;
+}
+
+.input-competence{
+  width: 265%;
+}
+
+.input-adresse{
+  width: 265%;
+}
+
+.input-ville{
+  width: 135%;
+  height: 45px;
+}
+
+.input-code-postal{
+  width: 130%;
+}
+
+.input-nom{
+  width: 130%;
+}
+
+.input-documents{
+  width: 91%;
   border-radius: 8px;
-  font-weight: 800;
+  background-color: #EAEEF2;
+}
+
+.input-documents:focus{
+  border-radius: 5px;
+  background-color: #F2F4F7;
 }

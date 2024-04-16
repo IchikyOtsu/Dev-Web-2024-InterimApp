@@ -1,28 +1,40 @@
+import { Input } from "@jundao/design";
+import { Select } from "@jundao/design";
+import { Text } from "@jundao/design";
 import "./index.css";
-const Profile = ({ name, bio, profilePicture }) => {
+const Profile = ({ profilePicture }) => {
 	return (
 		<form>
 			<div class="profile-card">
 				<div class="left-section">
 					<img src={profilePicture} alt="Profile" class="profile-picture" />
-					<p>Nom Prenom</p>
-					<p>nomprenom@email.com</p>
+					<Text class="text" id="text-avatar">
+						{" "}
+						Nom Prénom{" "}
+					</Text>
+					<br />
+					<Text class="text" id="text-avatar">
+						{" "}
+						nomprenom@email.com{" "}
+					</Text>
 				</div>
 				<div class="right-section">
 					<div class="input-group">
 						<div id="nom">
-							<label for="nom-input">Nom</label>
-							<input
+							<Text class="text"> Nom </Text>
+							<Input
 								id="nom-input"
+								class="input-nom"
 								type="text"
 								placeholder="Nom de famille"
 								required
 							/>
 						</div>
 						<div id="prenom">
-							<label for="prenom-input">Prénom</label>
-							<input
+							<Text class="text"> Prénom </Text>
+							<Input
 								id="prenom-input"
+								class="input-prenom"
 								type="text"
 								placeholder="Prénom"
 								required
@@ -30,18 +42,20 @@ const Profile = ({ name, bio, profilePicture }) => {
 						</div>
 					</div>
 					<div id="mail">
-						<label for="mail-input">Adresse mail</label>
-						<input
+						<Text class="text"> Adresse mail </Text>
+						<Input
 							id="mail-input"
+							class="input-mail"
 							type="email"
 							placeholder="nomprenom@gmail.com"
 							required
 						/>
 					</div>
 					<div id="competences">
-						<label for="competences-input">Compétences</label>
-						<input
+						<Text class="text"> Compétences </Text>
+						<Input
 							id="competences-input"
+							class="input-competence"
 							type="text"
 							placeholder="Ex: Informatique"
 							required
@@ -49,45 +63,50 @@ const Profile = ({ name, bio, profilePicture }) => {
 					</div>
 					<div class="input-group">
 						<div id="code-postal">
-							<label for="code-postal-input">Code Postal</label>
-							<input
+							<Text class="text"> Code Postal </Text>
+							<Input
 								id="code-postal-input"
+								class="input-code-postal"
 								type="number"
 								placeholder="9999"
 								required
 							/>
 						</div>
 						<div id="ville">
-							<label for="ville-input">Ville</label>
-							<select id="ville-input" required>
-								<option>Bruxelles</option>
-								<option>Louvain-La-Neuve</option>
-							</select>
+							<Text class="text"> Ville </Text>
+							<Select
+								id="ville-input"
+								class="input-ville"
+								placeholder={"Sélectionnez une ville"}
+								options={["Item 1", "Item 2", "Item 3"]}
+								required
+							/>
 						</div>
 					</div>
 					<div id="adresse">
-						<label for="adresse-input">Adresse</label>
-						<input
+						<Text class="text"> Adresse </Text>
+						<Input
 							id="adresse-input"
+							class="input-adresse"
 							type="text"
 							placeholder="Rue de la place, 14"
 							required
 						/>
 					</div>
 					<div id="documents">
-						<label for="documents-input">Documents</label>
+						<Text class="text"> Documents </Text>
+						<br></br>
 						<input
 							id="documents-input"
+							class="input-documents"
 							type="file"
 							accept="image/png, image/jpeg"
 							multiple
 							required
 						/>
 					</div>
-					<input type="submit" value="Envoyer" />
+					<Input type="submit" value="Envoyer" />
 				</div>
-				{/*<h2>{name}</h2>*/}
-				{/*<p>{bio}</p>*/}
 			</div>
 		</form>
 	);
