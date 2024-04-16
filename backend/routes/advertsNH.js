@@ -77,35 +77,107 @@ router.post("/", async (req, res) => {
 });
 
 // PUT (update) an advert by id
+// router.put("/:id", async (req, res) => {
+// 	try {
+// 		const { id } = req.params;
+// 		const {
+// 			enterprise_id,
+// 			title,
+// 			description,
+// 			location,
+// 			start_date,
+// 			end_date,
+// 			salary,
+// 		} = req.body;
+
+
+// 		const { rows } = await pool.query(
+// 			"UPDATE adverts SET enterprise_id = $1, title = $2, description = $3, location = $4, start_date = $5, end_date = $6, salary = $7 WHERE id = $8 RETURNING *",
+// 			[
+// 				enterprise_id,
+// 				title,
+// 				description,
+// 				location,
+// 				start_date,
+// 				end_date,
+// 				salary,
+// 				id,
+// 			],
+// 		);
+// 		if (rows.length === 0) {
+// 			return res.status(404).send("Advert not found");
+// 		}
+// 		res.json(rows[0]);
+// 	} catch (error) {
+// 		console.error(error.message);
+// 		res.status(500).send("Server Error");
+// 	}
+// });
+
 router.put("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
 		const {
-			enterprise_id,
-			title,
-			description,
-			location,
-			start_date,
-			end_date,
-			salary,
+		enterprise_id,
+		title,
+		description,
+		location,
+		start_date,
+		end_date,
+		salary,
 		} = req.body;
-		const { rows } = await pool.query(
-			"UPDATE adverts SET enterprise_id = $1, title = $2, description = $3, location = $4, start_date = $5, end_date = $6, salary = $7 WHERE id = $8 RETURNING *",
-			[
-				enterprise_id,
-				title,
-				description,
-				location,
-				start_date,
-				end_date,
-				salary,
-				id,
-			],
+
+		// Récupérer les données existantes
+		const { rows: existingData } = await pool.query(
+		"SELECT * FROM adverts WHERE id = $1",
+		[id]
 		);
-		if (rows.length === 0) {
-			return res.status(404).send("Advert not found");
+		if (existingData.length === 0) {
+		return res.status(404).send("Advert not found");
 		}
-		res.json(rows[0]);
+		const oldData = existingData[0];
+
+		// Comparer les données
+		const updatedData = {};
+		if (enterprise_id !== undefined && enterprise_id !== oldData.enterprise_id) {
+		updatedData.enterprise_id = enterprise_id;
+		}
+		if (title !== undefined && title !== oldData.title) {
+		updatedData.title = title;
+		}
+		if (description !== undefined && description !== oldData.description) {
+		updatedData.description = description;
+		}
+		if (location !== undefined && location !== oldData.location) {
+		updatedData.location = location;
+		}
+		if (start_date !== undefined && start_date !== oldData.start_date) {
+		updatedData.start_date = start_date;
+		}
+		if (end_date !== undefined && end_date !== oldData.end_date) {
+		updatedData.end_date = end_date;
+		}
+		if (salary !== undefined && salary !== oldData.salary) {
+		updatedData.salary = salary;
+		}
+
+		if (Object.keys(updatedData).length === 0) {
+		return res.status(400).send("No data to update");
+		}
+
+		// Mettre à jour les données dans la base de données
+		const { rows: updatedRows } = await pool.query(
+		"UPDATE adverts SET " +
+			Object.keys(updatedData)
+			.map((key, index) => `${key} = $${index + 1}`)
+			.join(", ") +
+			" WHERE id = $" +
+			(Object.keys(updatedData).length + 1) +
+			" RETURNING *",
+		[...Object.values(updatedData), id]
+		);
+
+		res.json(updatedRows[0]);
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).send("Server Error");

@@ -59,7 +59,7 @@ const EnterpriseAdverts = (props) => {
 			<Modal
 				open={isPopupOpen()}
 				onOpenChange={setIsPopupOpen}
-				title={"Détails de l'annonce"}
+				title={"Advert details"}
 			>
 					<div>
 						<h2>{title}</h2>
@@ -74,7 +74,7 @@ const EnterpriseAdverts = (props) => {
 						<Modal
 							open={showModifyMenu()}
 							onOpenChange={setShowModifyMenu}
-							title={"Modification de l'annonce"}
+							title={"Modification of the advert"}
 						>
 							<ModifyAdvert 
 									id={id}
