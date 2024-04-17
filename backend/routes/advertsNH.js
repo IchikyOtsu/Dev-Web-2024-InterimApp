@@ -119,81 +119,69 @@ router.put("/:id", async (req, res) => {
 		if (!dateString) return null; // Retourne null si la chaîne est vide
 		const date = new Date(dateString);
 		return date.toISOString().split('T')[0]; // Format YYYY-MM-DD
-	  };
+	};
 
 	try {
 		const { id } = req.params;
-		const {
-		enterprise_id,
-		title,
-		description,
-		location,
-		start_date,
-		end_date,
-		salary,
-		} = req.body;
+		const { enterprise_id, title, description, location, start_date, end_date, salary } = req.body;
 
 		// Vérification et formatage des dates
 		const formattedStartDate = start_date ? formatPostgresDate(start_date) : null;
 		const formattedEndDate = end_date ? formatPostgresDate(end_date) : null;
 
 		// Récupérer les données existantes
-		const { rows: existingData } = await pool.query(
-		"SELECT * FROM adverts WHERE id = $1",
-		[id]
-		);
+		const { rows: existingData } = await pool.query("SELECT * FROM adverts WHERE id = $1", [id]);
 		if (existingData.length === 0) {
-		return res.status(404).send("Advert not found");
-		}
+			return res.status(404).se        }
 		const oldData = existingData[0];
 
 		// Comparer les données
 		const updatedData = {};
 		if (enterprise_id !== undefined && enterprise_id !== oldData.enterprise_id) {
-		updatedData.enterprise_id = enterprise_id;
+			updatedData.enterprise_id = enterprise_id;
 		}
 		if (title !== undefined && title !== oldData.title) {
-		updatedData.title = title;
+			updatedData.title = title;
 		}
 		if (description !== undefined && description !== oldData.description) {
-		updatedData.description = description;
+			updatedData.description = description;
 		}
 		if (location !== undefined && location !== oldData.location) {
-		updatedData.location = location;
+			updatedData.location = location;
 		}
 
 		// Les conditions pour les dates (compliqué)
 		if (formattedStartDate !== null && formattedStartDate !== oldData.start_date) {
 			updatedData.start_date = formattedStartDate;
 		} else {
-		delete updatedData.start_date; // Supprimer la clé si la valeur est vide
+			delete updatedData.start_date; // Supprimer la clé si la valeur est vide
 		}
-		
+
 		if (formattedEndDate !== null && formattedEndDate !== oldData.end_date) {
-		updatedData.end_date = formattedEndDate;
+			updatedData.end_date = formattedEndDate;
 		} else {
-		delete updatedData.end_date; // Supprimer la clé si la valeur est vide
+			delete updatedData.end_date; // Supprimer la clé si la valeur est vide
 		}
 
 		if (salary !== undefined && salary !== oldData.salary) {
-		updatedData.salary = salary;
+			updatedData.salary = salary;
 		}
 
 		if (Object.keys(updatedData).length === 0) {
-		return res.status(400).send("No data to update");
+			return res.status(400).send("No data to update");
 		}
 
 		// Mettre à jour les données dans la base de données
 		const { rows: updatedRows } = await pool.query(
-		"UPDATE adverts SET " +
-			Object.keys(updatedData)
-			.map((key, index) => `${key} = $${index + 1}`)
-			.join(", ") +
-			" WHERE id = $2" +
-			(Object.keys(updatedData).length + 1) +
-			" RETURNING *",
-		[...Object.values(updatedData), id]
-		);
+			"UPDATE adverts SET " +
+            Object.keys(updatedData)
+                .map((key, index) => `${key} = $${index + 1}`)
+                .join(", ") +
+            " WHERE id = $" +
+            (Object.keys(updatedData).length + 1) +
+            " RETURNING *",
+			[...Object.values(updatedData), id]
+			);
 
 		res.json(updatedRows[0]);
 	} catch (error) {
@@ -201,6 +189,7 @@ router.put("/:id", async (req, res) => {
 		res.status(500).send("Server Error");
 	}
 });
+
 
 // DELETE an advert by id
 router.delete("/:id", async (req, res) => {
