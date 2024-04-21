@@ -56,6 +56,7 @@ const sendEmail = async (to, subject, text) => {
     }
 };
 
+// POST a new user
 router.post("/", async (req, res) => {
     try {
         const { username, email, role } = req.body;
