@@ -40,21 +40,20 @@ if (root) {
 								return (
 									<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
 								);
-							} else {
-								return (
-									<ProtectedRoute
-										component={Adverts}
-										allowedRoles={[]}
-										redirectTo="/adverts"
-									/>
-								);
 							}
+							return (
+								<ProtectedRoute
+									component={Adverts}
+									allowedRoles={[]}
+									redirectTo="/adverts"
+								/>
+							);
 						}}
 					/>
 					<Route
 						path="/adverts"
 						component={() =>
-							useGlobalContext().user?.role == "user" ? (
+							useGlobalContext().user?.role === "user" ? (
 								<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
 							) : (
 								<ProtectedRoute

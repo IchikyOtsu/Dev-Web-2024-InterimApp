@@ -95,7 +95,7 @@ const Profile = ({ profilePicture }) => {
 					</div>
 					<div id="documents">
 						<Text class="text"> Documents </Text>
-						<br></br>
+						<br />
 						<input
 							id="documents-input"
 							class="input-documents"

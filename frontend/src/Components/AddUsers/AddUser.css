@@ -1,0 +1,47 @@
+.profileCard {
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 1rem;
+  align-items: center;
+}
+
+.input {
+  width: 60dvw;
+}
+
+.leftSection {
+  text-align: center;
+}
+
+.profilePicture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.form {
+  flex-direction: column;
+}
+
+.form > div {
+  margin-bottom: 15px;
+}
+
+.error {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
