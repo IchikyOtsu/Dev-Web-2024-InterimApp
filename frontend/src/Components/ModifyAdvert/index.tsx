@@ -2,20 +2,39 @@ import { Button } from "@jundao/design";
 import { createEffect, createSignal } from "solid-js";
 import { useGlobalContext } from "../../context.tsx";
 import './index.css';
+import TestPage from "../../pages/testPage.tsx";
 
 const ModifyAdvert = (props) => {
-    const { title, description, location, id, start_date, end_date, salary } = props;
+    const { id, title, description, location, start_date, end_date, salary } = props;
     const [error, setError] = createSignal(null);
     const { user } = useGlobalContext();
     const enterpriseId = user?.enterprise_id;
     const role = user.role;
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        if (month < 10) {
+            month = `0${month}`; // Ajoute un zéro devant si le mois est inférieur à 10
+        }
+        let day = date.getDate();
+        if (day < 10) {
+            day = `0${day}`; // Ajoute un zéro devant si le jour est inférieur à 10
+        }
+        return `${year}-${month}-${day}`;
+    };
+
+    // Formater les dates reçues
+    const formattedStartDate = formatDate(start_date);
+    const formattedEndDate = formatDate(end_date);
+
     const [formData, setFormData] = createSignal({
         title: title || "",
         description: description || "",
         location: location || "",
-        start_date: start_date || "",
-        end_date: end_date || "",
+        start_date: formattedStartDate || "",
+        end_date: formattedEndDate || "",
         salary: salary || "",
     });
 
@@ -55,7 +74,7 @@ const ModifyAdvert = (props) => {
         }
     };
 
-    const isSubmit = async () => {
+    const isSubmit = async (setPage) => {
         await handleSubmit();
         return (
             <>
@@ -81,6 +100,7 @@ const ModifyAdvert = (props) => {
                         value={formData().title}
                         onInput={(e) => setFormData({ ...formData(), title: e.currentTarget.value })}
                     />
+                    {console.log("Mon title contient ceci : ", title)}
                 </div>
                 <div class="form-group">
                     <label class="label" for="description">Description:</label>
@@ -91,6 +111,7 @@ const ModifyAdvert = (props) => {
                         value={formData().description}
                         onInput={(e) => setFormData({ ...formData(), description: e.currentTarget.value })}
                     ></textarea>
+                    {console.log("Mon description contient ceci : ", description)}
                 </div>
                 <div class="form-group">
                     <label class="label" for="location">Location:</label>
@@ -102,6 +123,7 @@ const ModifyAdvert = (props) => {
                         value={formData().location}
                         onInput={(e) => setFormData({ ...formData(), location: e.currentTarget.value })}
                     />
+                    {console.log("Mon location contient ceci : ", location)}
                 </div>
                 <div class="form-group">
                     <label class="label" for="start_date">Start Date:</label>
@@ -109,9 +131,10 @@ const ModifyAdvert = (props) => {
                         class="input"
                         type="date"
                         id="start_date"
-                        value={formData().start_date}
+                        value={formattedStartDate}
                         onInput={(e) => setFormData({ ...formData(), start_date: e.currentTarget.value })}
                     />
+                    {console.log("Mon start_date contient ceci : ", start_date)}
                 </div>
                 <div class="form-group">
                     <label class="label" for="end_date">End Date:</label>
@@ -119,9 +142,10 @@ const ModifyAdvert = (props) => {
                         class="input"
                         type="date"
                         id="end_date"
-                        value={formData().end_date}
+                        value={formattedEndDate}
                         onInput={(e) => setFormData({ ...formData(), end_date: e.currentTarget.value })}
                     />
+                    {console.log("Mon end_date contient ceci : ", end_date)}
                 </div>
                 <div class="form-group">
                     <label class="label" for="salary">Salary:</label>
@@ -133,6 +157,7 @@ const ModifyAdvert = (props) => {
                         value={formData().salary}
                         onInput={(e) => setFormData({ ...formData(), salary: e.currentTarget.value })}
                     />
+                    {console.log("Mon salary contient ceci : ", salary)}
                 </div>
 
                 <Button id="submitButton" onClick={isSubmit}>

@@ -4,7 +4,7 @@ import EnterpriseAdverts from "../../Components/EnterpriseAdverts";
 import './index.css'
 
 const TestPage = () => {
-	const [page, setPage] = createSignal("create");
+	const [page, setPage] = createSignal("list");
 	const [adverts, setAdverts] = createSignal([]);
 
 	createEffect(() => {
@@ -17,30 +17,32 @@ const TestPage = () => {
 	return (
 		<div>
 			<h1>Test Page</h1>
-			<button id="buttonCreatePage" onClick={() => setPage("create")}>Create Advert</button>
-			<button id="buttonAdverts" onClick={() => setPage("list")}>Enterprise Adverts</button>
+			{page() !== "create" && (
+                <button id="buttonAdverts" onClick={() => setPage("create")}>+ Post new Advert</button>
+            )}
 
-			{page() === "create" ? (
+			{page() === "list" ? (
+					<>
+					<div>
+						<h2>Enterprise Adverts</h2>
+						<ul class="advertsContainer">
+							{adverts().map((ad) => (
+								<EnterpriseAdverts
+									id={ad.id}
+									title={ad.title}
+									description={ad.description}
+									location={ad.location}
+									start_date={ad.start_date}
+									end_date={ad.end_date}
+									salary={ad.salary}
+									setPage={setPage()}
+								/>
+							))}
+						</ul>
+					</div>
+					</>
+			) : (
 				<CreateAdvert setPage={setPage} />
-			) : (<>
-				<div>
-					<h2>Enterprise Adverts</h2>
-					<ul class="advertsContainer">
-						{adverts().map((ad) => (
-							<EnterpriseAdverts
-								key={ad.id}
-								id={ad.id}
-								title={ad.title}
-								message={ad.description}
-								location={ad.location}
-								time={ad.time}
-								duration={ad.duration}
-								date={ad.date}
-							/>
-						))}
-					</ul>
-				</div>
-				</>
 			)}
 		</div>
 	);

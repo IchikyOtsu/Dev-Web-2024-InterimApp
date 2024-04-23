@@ -76,44 +76,6 @@ router.post("/", async (req, res) => {
 	}
 });
 
-// PUT (update) an advert by id
-// router.put("/:id", async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
-// 		const {
-// 			enterprise_id,
-// 			title,
-// 			description,
-// 			location,
-// 			start_date,
-// 			end_date,
-// 			salary,
-// 		} = req.body;
-
-
-// 		const { rows } = await pool.query(
-// 			"UPDATE adverts SET enterprise_id = $1, title = $2, description = $3, location = $4, start_date = $5, end_date = $6, salary = $7 WHERE id = $8 RETURNING *",
-// 			[
-// 				enterprise_id,
-// 				title,
-// 				description,
-// 				location,
-// 				start_date,
-// 				end_date,
-// 				salary,
-// 				id,
-// 			],
-// 		);
-// 		if (rows.length === 0) {
-// 			return res.status(404).send("Advert not found");
-// 		}
-// 		res.json(rows[0]);
-// 	} catch (error) {
-// 		console.error(error.message);
-// 		res.status(500).send("Server Error");
-// 	}
-// });
-
 router.put("/:id", async (req, res) => {
 	const formatPostgresDate = (dateString) => {
 		if (!dateString) return null; // Retourne null si la chaîne est vide

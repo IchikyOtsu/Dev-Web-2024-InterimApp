@@ -1,16 +1,19 @@
-#buttonCreatePage, #buttonAdverts {
+#buttonAdverts {
     border: 1px solid #ccc; /* Bordure grise */
     border-radius: 8px; /* Coins arrondis */
     padding: 5px 10px; /* Espacement intérieur */
     margin-right: 2px; /* Marge à droite pour les séparer */
     background-color: #fefefe; /* Couleur de fond */
     display: inline;
+    position: fixed;
+    top: 9%;
+    right: 1%;
 
     /*position: absolute;*/
     transition-duration: 0.4s;
 }
 
-#buttonCreatePage:hover, #buttonAdverts:hover {
+#buttonAdverts:hover {
     background-color: #0050B2;
     color: #ffff;
     cursor: pointer;

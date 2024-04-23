@@ -192,7 +192,7 @@ const CreateAdvert = ({ setPage }) => {
 				<Button id="reset" type="reset" onClick={onReset}>
 					Reset form
 				</Button>
-				<Button id="backButton" onClick={() => setPage("page1")}>
+				<Button id="backButton" onClick={() => setPage("list")}>
 					Back to Menu
 				</Button>
 			</div>
