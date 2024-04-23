@@ -80,10 +80,10 @@ const AddUser = () => {
 				/>
 
 				<Show when={success()}>
-					<Alert type="success" message="Utilisateur créé avec succès !"/>
+					<Alert type="success" closable message="Utilisateur créé avec succès !"/>
 				</Show>
 				<Show when={error()}>
-					<Alert type="error" message="Une erreur est survenue"/>
+					<Alert type="error" closable message="Une erreur est survenue"/>
 				</Show>
 
 				<Button class="button" type="primary" onClick={handleSubmit}>
