@@ -21,7 +21,7 @@ const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
 const AdBusi = lazy(() => import("./pages/AdvertBusiness"));
 const NotifPage = lazy(() => import("./pages/Notifs"));
-const Regi = lazy(() => import("./pages/Register"));
+const UsersPage = lazy(() => import("./pages/Users"));
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
@@ -38,12 +38,16 @@ if (root) {
 						component={() => {
 							if (useGlobalContext().user?.role === "admin") {
 								return (
-									<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
+									<ProtectedRoute
+										component={Nope}
+										allowedRoles={[]}
+										redirectTo="/users"
+									/>
 								);
 							}
 							return (
 								<ProtectedRoute
-									component={Adverts}
+									component={Nope}
 									allowedRoles={[]}
 									redirectTo="/adverts"
 								/>
@@ -107,9 +111,9 @@ if (root) {
 						)}
 					/>
 					<Route
-						path="/register"
+						path="/users"
 						component={() => (
-							<ProtectedRoute component={Regi} allowedRoles={["admin"]} />
+							<ProtectedRoute component={UsersPage} allowedRoles={["admin"]} />
 						)}
 					/>
 				</Router>

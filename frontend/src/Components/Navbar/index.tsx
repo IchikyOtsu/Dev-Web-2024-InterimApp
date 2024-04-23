@@ -1,10 +1,13 @@
 import { Link } from "@jundao/design";
-import { IoChatbubblesSharp } from "solid-icons/io";
-import { IoPerson } from "solid-icons/io";
-import { IoCalendar } from "solid-icons/io";
-import { IoFileTrayFull } from "solid-icons/io";
-import { IoNotifications } from "solid-icons/io";
-import { IoStatsChart } from "solid-icons/io";
+import {
+	IoCalendar,
+	IoChatbubblesSharp,
+	IoFileTrayFull,
+	IoNotifications,
+	IoPeopleSharp,
+	IoPerson,
+	IoStatsChart,
+} from "solid-icons/io";
 // Navbar.tsx
 import "./index.css";
 
@@ -86,9 +89,9 @@ export const AdminNavbar = () => {
 					Tracking
 					<IoStatsChart />
 				</Link>
-				<Link href="/register">
-					Register
-					<IoPerson class="nav-icon" />
+				<Link href="/users">
+					Users
+					<IoPeopleSharp class="nav-icon" />
 				</Link>
 			</nav>
 		</>

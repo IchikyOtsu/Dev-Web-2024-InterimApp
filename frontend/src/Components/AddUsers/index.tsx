@@ -1,4 +1,5 @@
 import {
+	Alert,
 	Button,
 	Card,
 	Input,
@@ -6,9 +7,8 @@ import {
 	Space,
 	Text,
 	Title,
-	Alert
 } from "@jundao/design";
-import {createSignal, Show} from "solid-js";
+import { Show, createSignal } from "solid-js";
 import "./AddUser.css";
 
 const AddUser = () => {
@@ -57,16 +57,19 @@ const AddUser = () => {
 	};
 
 	return (
-		<Card class="profileCard">
+		<div class="container">
 			<Space vertical>
 				<Title>Nouvel Utilisateur</Title>
-				<Text class="label">Adresse mail</Text>
+				<Text>Adresse mail</Text>
 				<Input
 					class="input"
 					type="email"
 					placeholder="nomprenom@gmail.com"
 					value={email()}
-					onChange={(email) => {setEmail(email); setInvalid(false);}}
+					onChange={(email) => {
+						setEmail(email);
+						setInvalid(false);
+					}}
 					invalid={invalid()}
 					errorMessage={"Adresse email invalide"}
 					required
@@ -80,17 +83,21 @@ const AddUser = () => {
 				/>
 
 				<Show when={success()}>
-					<Alert type="success" closable message="Utilisateur créé avec succès !"/>
+					<Alert
+						type="success"
+						closable
+						message="Utilisateur créé avec succès !"
+					/>
 				</Show>
 				<Show when={error()}>
-					<Alert type="error" closable message="Une erreur est survenue"/>
+					<Alert type="error" closable message="Une erreur est survenue" />
 				</Show>
 
-				<Button class="button" type="primary" onClick={handleSubmit}>
+				<Button type="primary" onClick={handleSubmit}>
 					Ajouter l'utilisateur
 				</Button>
 			</Space>
-		</Card>
+		</div>
 	);
 };
 

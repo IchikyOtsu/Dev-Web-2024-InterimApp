@@ -1,10 +1,10 @@
-.profileCard {
-  max-width: 90dvw;
+.container {
+  max-width: 50dvw;
   margin: 0 auto;
   padding: 1rem;
   align-items: center;
 }
 
 .input {
-  width: 85dvw;
+  width: 20dvw;
 }
