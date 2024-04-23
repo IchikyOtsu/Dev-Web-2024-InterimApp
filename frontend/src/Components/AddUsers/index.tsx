@@ -1,14 +1,23 @@
-import { Button, Card, Input, Text } from "@jundao/design";
-import { createSignal } from "solid-js";
+import {
+	Button,
+	Card,
+	Input,
+	Select,
+	Space,
+	Text,
+	Title,
+	Alert
+} from "@jundao/design";
+import {createSignal, Show} from "solid-js";
 import "./AddUser.css";
 
 const AddUser = () => {
 	const [email, setEmail] = createSignal("");
 	const [role, setRole] = createSignal("user");
-	const [error, setError] = createSignal(null);
-	const [success, setSuccess] = createSignal(null);
+	const [invalid, setInvalid] = createSignal(false);
+	const [error, setError] = createSignal(false);
+	const [success, setSuccess] = createSignal(false);
 
-	const handleEmailChange = (e) => setEmail(e.target.value);
 	const isValidEmail = () => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return emailRegex.test(email());
@@ -16,11 +25,9 @@ const AddUser = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setError(null);
-		setSuccess(null);
 
 		if (!isValidEmail()) {
-			setError("Veuillez entrer une adresse email valide.");
+			setInvalid(true);
 			return;
 		}
 
@@ -40,44 +47,49 @@ const AddUser = () => {
 			if (!response.ok) {
 				throw new Error(await response.text());
 			}
-
-			setSuccess("Utilisateur créé avec succès !");
 			setEmail("");
 			setRole("user");
 		} catch (error) {
-			setError(`Échec de la création de l'utilisateur : ${error.message}`);
+			setError(true);
+			return;
 		}
+		setSuccess(true);
 	};
 
 	return (
 		<Card class="profileCard">
-			<div class="leftSection">
-				<img
-					src="../../assets/avatar.jpg"
-					alt="Profile"
-					class="profilePicture"
+			<Space vertical>
+				<Title>Nouvel Utilisateur</Title>
+				<Text class="label">Adresse mail</Text>
+				<Input
+					class="input"
+					type="email"
+					placeholder="nomprenom@gmail.com"
+					value={email()}
+					onChange={(email) => {setEmail(email); setInvalid(false);}}
+					invalid={invalid()}
+					errorMessage={"Adresse email invalide"}
+					required
 				/>
-			</div>
-			<form class="form" onSubmit={handleSubmit}>
-				<div>
-					<Text class="label">Adresse mail</Text>
-					<Input
-						class="input"
-						id="email-input"
-						type="email"
-						placeholder="nomprenom@gmail.com"
-						value={email()}
-						onInput={handleEmailChange}
-						required
-					/>
-				</div>
 
-				{error() && <div class="error">{error()}</div>}
-				{success() && <div class="success">{success()}</div>}
-				<Button class="button" type="primary" onClick={(e) => handleSubmit(e)}>
+				<Select
+					label="Rôle"
+					value={role()}
+					options={["user", "enterprise", "admin"]}
+					onChange={(role: string) => setRole(role)}
+				/>
+
+				<Show when={success()}>
+					<Alert type="success" message="Utilisateur créé avec succès !"/>
+				</Show>
+				<Show when={error()}>
+					<Alert type="error" message="Une erreur est survenue"/>
+				</Show>
+
+				<Button class="button" type="primary" onClick={handleSubmit}>
 					Ajouter l'utilisateur
 				</Button>
-			</form>
+			</Space>
 		</Card>
 	);
 };
