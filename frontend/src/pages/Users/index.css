@@ -1,0 +1,20 @@
+.pageContainer {
+    max-width: 75dvw;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.usersContainer {
+    height: 60dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.userCard {
+    width: 75dvw;
+    min-height: 8dvh;
+}
+
+.userCard .content {
+    display: flex;
+}

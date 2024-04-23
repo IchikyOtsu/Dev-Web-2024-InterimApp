@@ -1,15 +1,15 @@
-// Navbar.tsx
-import "./index.css";
-
 import { Link } from "@jundao/design";
 import {
 	IoCalendar,
 	IoChatbubblesSharp,
 	IoFileTrayFull,
 	IoNotifications,
+	IoPeopleSharp,
 	IoPerson,
 	IoStatsChart,
 } from "solid-icons/io";
+// Navbar.tsx
+import "./index.css";
 
 export const Navbar = () => {
 	return (
@@ -52,7 +52,7 @@ export const EnterpriseNavbar = () => {
 			</Link>
 
 			<nav class="navbar">
-				<Link href="/adverts" class="active">
+				<Link href="/advert" class="active">
 					Adverts
 					<IoFileTrayFull class="nav-icon" />
 				</Link>
@@ -89,9 +89,9 @@ export const AdminNavbar = () => {
 					Tracking
 					<IoStatsChart />
 				</Link>
-				<Link href="/register">
-					Register
-					<IoPerson class="nav-icon" />
+				<Link href="/users">
+					Users
+					<IoPeopleSharp class="nav-icon" />
 				</Link>
 			</nav>
 		</>
