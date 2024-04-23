@@ -94,7 +94,8 @@ router.put("/:id", async (req, res) => {
 		// Récupérer les données existantes
 		const { rows: existingData } = await pool.query("SELECT * FROM adverts WHERE id = $1", [id]);
 		if (existingData.length === 0) {
-			return res.status(404).se        }
+			return res.status(404).send("No existing data");
+		}
 		const oldData = existingData[0];
 
 		// Comparer les données
