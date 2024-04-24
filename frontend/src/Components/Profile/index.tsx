@@ -4,18 +4,19 @@ import { createSignal, onMount } from "solid-js";
 import { useGlobalContext } from "../../context";
 import "./index.css";
 // @ts-ignore
-const Profile = ({ profilePicture }) => {
-	interface ProfileData {
-		first_name: string;
-		last_name: string;
-		city: string;
-		address: string;
-		postal_code: string;
-		email: string;
-	}
 
+interface ProfileData {
+	first_name: string;
+	last_name: string;
+	city: string;
+	address: string;
+	postal_code: string;
+	email: string;
+}
+
+const Profile = ({ profilePicture }) => {
 	const userId = useGlobalContext().user?.id;
-	const [userData, setUserData] = createSignal({});
+	const [userData, setUserData] = createSignal<ProfileData>({});
 	const [nom, setNom] = createSignal("");
 	const [prenom, setPrenom] = createSignal("");
 	const [competence, setCompetence] = createSignal([""]);
@@ -42,7 +43,7 @@ const Profile = ({ profilePicture }) => {
 	const handleSubmit = async () => {
 		try {
 			const response = await fetch(`/api/profil/${userId}`, {
-				method: "POST",
+				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 				},

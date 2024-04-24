@@ -8,7 +8,12 @@ router.get("/:userId", async (req, res) => {
 		const userId = req.params.userId; // Récupérer l'ID de l'utilisateur à partir de l'URL
 
 		const { rows } = await pool.query(
-			"SELECT * FROM users NATURAL JOIN user_info WHERE id = $1",
+			`
+			SELECT users.*, user_info.*
+			FROM users
+			JOIN user_info ON users.id = user_info.user_id
+			WHERE users.id = $1
+			`,
 			[userId],
 		);
 
@@ -31,7 +36,19 @@ router.put("/:userId", async (req, res) => {
 			req.body;
 
 		const { rows } = await pool.query(
-			"UPDATE users NATURAL JOIN user_info SET first_name = $1, last_name = $2, email = $3, postal_code = $4, city = $5, address = $6 WHERE id = $7 RETURNING *",
+			`
+			WITH updated_users AS (
+				UPDATE users
+				SET first_name = $1, last_name = $2, email = $3
+				WHERE id = $7
+				RETURNING *
+			)
+			UPDATE user_info
+			SET postal_code = $4, city = $5, address = $6
+			FROM updated_users
+			WHERE user_info.user_id = updated_users.id
+			RETURNING *
+			`,
 			[first_name, last_name, email, postal_code, city, address, userId],
 		);
 
