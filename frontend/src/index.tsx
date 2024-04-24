@@ -14,7 +14,7 @@ import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
 import { GlobalContext, globalContextData, useGlobalContext } from "./context";
 
 // Lazy-loading des composants de page
-const Planning = lazy(() => import("./pages/Planning/"));
+const Planning = lazy(() => import("./pages/Planning"));
 const Login = lazy(() => import("./pages/Login"));
 const Adverts = lazy(() => import("./pages/AdvertsPage"));
 const ProfilePage = lazy(() => import("./pages/Profile"));

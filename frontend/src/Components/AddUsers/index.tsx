@@ -1,7 +1,6 @@
 import {
 	Alert,
 	Button,
-	Card,
 	Input,
 	Select,
 	Space,
@@ -24,8 +23,6 @@ const AddUser = () => {
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-
 		if (!isValidEmail()) {
 			setInvalid(true);
 			return;

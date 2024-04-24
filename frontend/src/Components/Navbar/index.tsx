@@ -1,10 +1,10 @@
 import { Link } from "@jundao/design";
 import {
 	IoCalendar,
-	IoChatbubblesSharp,
+	IoChatbubbles,
 	IoFileTrayFull,
 	IoNotifications,
-	IoPeopleSharp,
+	IoPeople,
 	IoPerson,
 	IoStatsChart,
 } from "solid-icons/io";
@@ -29,7 +29,7 @@ export const Navbar = () => {
 				</Link>
 				<Link href="/chat">
 					Chat
-					<IoChatbubblesSharp class="nav-icon" />
+					<IoChatbubbles class="nav-icon" />
 				</Link>
 				<Link href="/notifications">
 					Notifications
@@ -62,7 +62,7 @@ export const EnterpriseNavbar = () => {
 				</Link>
 				<Link href="/chat">
 					Chat
-					<IoChatbubblesSharp class="nav-icon" />
+					<IoChatbubbles class="nav-icon" />
 				</Link>
 				<Link href="/notifications">
 					Notifications
@@ -91,7 +91,7 @@ export const AdminNavbar = () => {
 				</Link>
 				<Link href="/users">
 					Users
-					<IoPeopleSharp class="nav-icon" />
+					<IoPeople class="nav-icon" />
 				</Link>
 			</nav>
 		</>

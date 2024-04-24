@@ -1,4 +1,5 @@
 import { Button, Card, Modal, Space, Text, Title } from "@jundao/design";
+import { IoPencil } from "solid-icons/io";
 import { For, createSignal, onMount } from "solid-js";
 import AddUser from "../../Components/AddUsers";
 import "./index.css";
@@ -42,8 +43,10 @@ const UsersPage = () => {
 							<Card class="userCard">
 								<Text style={{ width: "33%" }}>{user.username}</Text>
 								<Text style={{ width: "43%" }}>{user.email}</Text>
-								<Text style={{ width: "23%" }}>{user.role}</Text>
-								<Button>edit</Button>
+								<Text style={{ width: "26%" }}>{user.role}</Text>
+								<Button>
+									<IoPencil />
+								</Button>
 							</Card>
 						)}
 					</For>
