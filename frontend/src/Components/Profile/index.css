@@ -85,12 +85,6 @@ label{
   font-size: 14px;
 }
 
-.profile-card input[type="submit"]{
-  font-size: 105%;
-  font-weight: 700;
-  margin: 0.3rem 0
-}
-
 .text{
   font-weight: 600;
 }
@@ -133,4 +127,11 @@ label{
 .input-documents:focus{
   border-radius: 5px;
   background-color: #F2F4F7;
+}
+
+.send-button{
+  width: 20%;
+  font-size: 105%;
+  font-weight: 700;
+  margin: 0.3rem 0
 }
