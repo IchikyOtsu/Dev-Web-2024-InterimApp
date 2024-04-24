@@ -1,23 +1,27 @@
 // App.tsx
 
+import { Space } from "@jundao/design";
 import { AdminNavbar, EnterpriseNavbar, Navbar } from "./Components/Navbar";
 import { useGlobalContext } from "./context";
-import "./style.css";
 
 const App = (props) => {
 	const { user } = useGlobalContext();
-	const userRole = user.role;
+	const userRole = user?.role;
 
 	return (
-		<div>
-			<header id="header">
-				{userRole === "user" && <Navbar />}
-				{userRole === "enterprise" && <EnterpriseNavbar />}
-
-				{userRole === "admin" && <AdminNavbar />}
-			</header>
-			<main>{props.children}</main>
-		</div>
+		<Space vertical={userRole !== "admin"}>
+			{userRole === "user" && <Navbar />}
+			{userRole === "enterprise" && <EnterpriseNavbar />}
+			{userRole === "admin" && <AdminNavbar />}
+			<main
+				style={{
+					width: "100%",
+					"margin-top": userRole === "admin" ? "2rem" : "6rem",
+				}}
+			>
+				{props.children}
+			</main>
+		</Space>
 	);
 };
 

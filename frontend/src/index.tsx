@@ -78,7 +78,7 @@ if (root) {
 						component={() => (
 							<ProtectedRoute
 								component={ProfilePage}
-								allowedRoles={["user", "enterprise"]}
+								allowedRoles={["user", "enterprise", "admin"]}
 							/>
 						)}
 					/>

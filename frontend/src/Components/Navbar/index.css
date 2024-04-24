@@ -54,7 +54,32 @@ body{
     transform: translateY(7%);
 }
 
-.navbar a:hover,
-.navbar a.active{
-    color: var(--main-color);
+.admin-navbar {
+    display: flex;
+    height: 100dvh;
+    width: 18dvw;
+    background-color: white;
+    ul {
+        justify-content: space-between;
+        .top {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+}
+
+.jdd.sidenav-link a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.logoA {
+    padding: 1rem;
+}
+
+.nav-iconA {
+    font-size: 2rem;
 }
