@@ -1,4 +1,13 @@
 import { Link } from "@jundao/design";
+import {
+	IoCalendar,
+	IoChatbubbles,
+	IoFileTrayFull,
+	IoNotifications,
+	IoPeople,
+	IoPerson,
+	IoStatsChart,
+} from "solid-icons/io";
 // Navbar.tsx
 import "./index.css";
 
@@ -11,19 +20,24 @@ export const Navbar = () => {
 
 			<nav class="navbar">
 				<Link href="/adverts" class="active">
-					Adverts<i class="bx bxs-inbox"></i>
+					Adverts
+					<IoFileTrayFull class="nav-icon" />
 				</Link>
 				<Link href="/planning">
-					Planning<i class="bx bxs-calendar"></i>
+					Planning
+					<IoCalendar class="nav-icon" />
 				</Link>
 				<Link href="/chat">
-					Chat<i class="bx bxs-chat"></i>
+					Chat
+					<IoChatbubbles class="nav-icon" />
 				</Link>
 				<Link href="/notifications">
-					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
+					Notifications
+					<IoNotifications class="nav-icon" />
 				</Link>
 				<Link href="/profile">
-					Profile<i class="bx bxs-user"></i>
+					Profile
+					<IoPerson class="nav-icon" />
 				</Link>
 			</nav>
 		</>
@@ -38,20 +52,46 @@ export const EnterpriseNavbar = () => {
 			</Link>
 
 			<nav class="navbar">
-				<Link href="/advertE" class="active">
-					Adverts<i class="bx bxs-inbox"></i>
+				<Link href="/advert" class="active">
+					Adverts
+					<IoFileTrayFull class="nav-icon" />
 				</Link>
-				<Link href="/planningE">
-					Planning<i class="bx bxs-calendar"></i>
+				<Link href="/planning">
+					Planning
+					<IoCalendar class="nav-icon" />
 				</Link>
-				<Link href="/chatE">
-					Chat<i class="bx bxs-chat"></i>
+				<Link href="/chat">
+					Chat
+					<IoChatbubbles class="nav-icon" />
 				</Link>
 				<Link href="/notifications">
-					Notifications<i class="bx bxs-bar-chart-alt-2"></i>
+					Notifications
+					<IoNotifications class="nav-icon" />
 				</Link>
-				<Link href="/profileE">
-					Profile<i class="bx bxs-user"></i>
+				<Link href="/profile">
+					Profile
+					<IoPerson class="nav-icon" />
+				</Link>
+			</nav>
+		</>
+	);
+};
+
+export const AdminNavbar = () => {
+	return (
+		<>
+			<Link href="/" class="logo">
+				Proxideal Panel
+			</Link>
+
+			<nav class="navbar">
+				<Link href="/tracking" class="active">
+					Tracking
+					<IoStatsChart />
+				</Link>
+				<Link href="/users">
+					Users
+					<IoPeople class="nav-icon" />
 				</Link>
 			</nav>
 		</>

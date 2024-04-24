@@ -3,7 +3,7 @@
 import type { AuthSession } from "@supabase/supabase-js";
 import { createContext, useContext } from "solid-js";
 
-export type Role = "user" | "enterprise";
+export type Role = "user" | "enterprise" | "admin";
 
 export interface User {
 	id: number;
@@ -21,9 +21,9 @@ export interface GlobalContextData {
 
 const hardcodedUser: User = {
 	id: 1,
-	username: "john_doe",
-	email: "john@example.com",
-	role: "user",
+	username: "admin",
+	email: "admin@proxideal.com",
+	role: "admin",
 	enterprise_id: 1,
 };
 /*const hardcodedUser: User = {

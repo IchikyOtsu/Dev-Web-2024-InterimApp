@@ -1,7 +1,7 @@
 /* Style général de la carte de profil */
 .profile-card {
-  width: 80%;
-  max-width: 800px;
+  width: 150%;
+  max-width: 900px;
   margin: 40px auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -14,12 +14,29 @@
 
 .left-section {
   margin-top: -150px;
+  margin-right: 2.8rem;
+}
+
+.left-section img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2rem;
+}
+
+#text-avatar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: -15px ;
 }
 
 /* Style de l'image */
 .profile-picture {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 20px;
@@ -32,32 +49,27 @@
   flex-direction: column;
 }
 
-/* Style des inputs et des labels */
-.profile-card label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
 .profile-card input[type="text"],
 .profile-card input[type="email"],
 .profile-card input[type="number"],
 .profile-card input[type="file"],
 .profile-card select {
-  width: 100%;
+  position: relative;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
   box-sizing: border-box;
   font-size: 16px;
 }
 
-.profile-card input[type="text"]:focus,
-.profile-card input[type="email"]:focus,
-.profile-card input[type="number"]:focus,
-.profile-card input[type="file"]:focus,
-.profile-card select:focus {
-  border: 3px solid #555;
+.profile-card input[type="text"].label,
+.profile-card input[type="email"].label,
+.profile-card input[type="number"].label,
+.profile-card input[type="file"].label,
+.profile-card select.label {
+  position: absolute;
+  top: -20px;
+  left: 0;
 }
 
 /* Style des groupes d'inputs */
@@ -73,35 +85,52 @@ label{
   font-size: 14px;
 }
 
-.input-label{
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1;
-  height: calc(1.5em + .75rem + 2px);
-  padding: .375rem .75rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
+.profile-card input[type="submit"]{
+  font-size: 105%;
+  font-weight: 700;
+  margin: 0.3rem 0
 }
 
-.input-label::after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 3;
-  display: block;
-  height: calc(1.5em + .75rem);
-  padding: .375rem .75rem;
-  line-height: 1.5;
-  color: #495057;
-  content: "Browse";
-  background-color: #e9ecef;
-  border-left: inherit;
-  border-radius: 0 .25rem .25rem 0;
+.text{
+  font-weight: 600;
+}
+
+.input-prenom{
+  width: 120%;
+}
+
+.input-mail{
+  width: 265%;
+}
+
+.input-competence{
+  width: 265%;
+}
+
+.input-adresse{
+  width: 265%;
+}
+
+.input-ville{
+  width: 135%;
+  height: 45px;
+}
+
+.input-code-postal{
+  width: 130%;
+}
+
+.input-nom{
+  width: 130%;
+}
+
+.input-documents{
+  width: 91%;
+  border-radius: 8px;
+  background-color: #EAEEF2;
+}
+
+.input-documents:focus{
+  border-radius: 5px;
+  background-color: #F2F4F7;
 }

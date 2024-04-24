@@ -1,7 +1,7 @@
 require("dotenv").config();
 const createError = require("http-errors");
 const express = require("express");
-const path = require("path");
+const path = require("node:path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const swaggerUi = require("swagger-ui-express");
@@ -17,7 +17,7 @@ const applicationsRouter = require("./routes/applications");
 const chatMessagesRouter = require("./routes/chatMessages");
 const schedulesRouter = require("./routes/schedules");
 const notificationsRouter = require("./routes/notifications");
-
+const profilRoute = require("./routes/profil");
 const app = express();
 
 // view engine setup
@@ -43,7 +43,7 @@ app.use("/api/applications", applicationsRouter);
 app.use("/api/chat-messages", chatMessagesRouter);
 app.use("/api/schedules", schedulesRouter);
 app.use("/api/notifications", notificationsRouter);
-
+app.use("/api/profil", profilRoute);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // catch 404 and forward to error handler

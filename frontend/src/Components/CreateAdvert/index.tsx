@@ -56,7 +56,7 @@ const CreateAdvert = ({ setPage }) => {
 			console.log("Advert created successfully");
 			setPage("adverts");
 		} catch (error) {
-			setError("Error creating advert: " + error.message);
+			setError(`Error creating advert: ${error.message}`);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -111,7 +111,7 @@ const CreateAdvert = ({ setPage }) => {
 						setFormData({ ...formData(), description: e.target.value })
 					}
 					required
-				></textarea>
+				/>
 			</div>
 			<div class="infoField">
 				<label class="label" for="location">

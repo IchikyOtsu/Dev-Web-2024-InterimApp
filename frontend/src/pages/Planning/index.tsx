@@ -1,28 +1,42 @@
-import { Button, Input, Modal } from "@jundao/design";
-import { createSignal } from "solid-js";
+import { Text } from "@jundao/design";
+// PlanningPage.tsx
+import { createEffect, createSignal } from "solid-js";
+import Calendar from "../../Components/Calendar";
+import { useGlobalContext } from "../../context";
 
 const PlanningPage = () => {
-	const [isPopupOpen, setIsPopupOpen] = createSignal(false);
+	const [events, setEvents] = createSignal([]);
+	const { user } = useGlobalContext();
+
+	const fetchAcceptedAdverts = async () => {
+		try {
+			if (user) {
+				const response = await fetch(
+					`/api/adverts/accepted-adverts/${user.id}`,
+				);
+				const data = await response.json();
+				setEvents(
+					data.map((advert) => ({
+						id: advert.id,
+						title: advert.title,
+						start: new Date(advert.start_date),
+						end: new Date(advert.end_date),
+					})),
+				);
+			}
+		} catch (error) {
+			console.error("Error fetching accepted adverts:", error);
+		}
+	};
+
+	createEffect(() => {
+		fetchAcceptedAdverts();
+	});
 
 	return (
 		<>
-			<h1>Page planning</h1>
-			<p>
-				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia
-				ratione aliquam assumenda atque, ducimus odit ex voluptas illo obcaecati
-				alias, delectus nulla minus cupiditate voluptates pariatur sit, labore
-				ab corporis.
-			</p>
-
-			<Button onClick={() => setIsPopupOpen(true)}>Publier une annonce</Button>
-			{/* Le reste de votre page */}
-			<Modal
-				open={isPopupOpen()}
-				onOpenChange={setIsPopupOpen}
-				title={"Publier annonce"}
-			>
-				<Input type="text" />
-			</Modal>
+			<Text>Planning</Text>
+			<Calendar events={events()} />
 		</>
 	);
 };

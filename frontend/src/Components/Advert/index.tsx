@@ -40,7 +40,7 @@ const CardAdvert = (props) => {
 		}
 
 		try {
-			const response = await fetch(`/api/applications`, {
+			const response = await fetch("/api/applications", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -59,7 +59,7 @@ const CardAdvert = (props) => {
 			console.log("Application submitted successfully");
 			setAlreadyApplied(true);
 		} catch (error) {
-			setError("Failed to apply for advert: " + error.message);
+			setError(`Failed to apply for advert: ${error.message}`);
 		} finally {
 			setIsApplying(false);
 			setIsPopupOpen(false);
