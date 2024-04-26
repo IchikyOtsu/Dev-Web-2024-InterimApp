@@ -11,6 +11,7 @@ import {
 	IoReceipt,
 	IoStatsChart,
 } from "solid-icons/io";
+import type { JSX } from "solid-js";
 // Navbar.tsx
 import "./index.css";
 
@@ -22,26 +23,26 @@ export const Navbar = () => {
 			</Link>
 
 			<nav class="navbar">
-				<Link href="/adverts">
+				<FollowableLink href="/adverts">
 					Adverts
 					<IoFileTrayFull class="nav-icon" />
-				</Link>
-				<Link href="/planning">
+				</FollowableLink>
+				<FollowableLink href="/planning">
 					Planning
 					<IoCalendar class="nav-icon" />
-				</Link>
-				<Link href="/chat">
+				</FollowableLink>
+				<FollowableLink href="/chat">
 					Chat
 					<IoChatbubbles class="nav-icon" />
-				</Link>
-				<Link href="/notifications">
+				</FollowableLink>
+				<FollowableLink href="/notifications">
 					Notifications
 					<IoNotifications class="nav-icon" />
-				</Link>
-				<Link href="/profile">
+				</FollowableLink>
+				<FollowableLink href="/profile">
 					Profile
 					<IoPerson class="nav-icon" />
-				</Link>
+				</FollowableLink>
 			</nav>
 		</header>
 	);
@@ -55,26 +56,26 @@ export const EnterpriseNavbar = () => {
 			</Link>
 
 			<nav class="navbar">
-				<Link href="/adverts">
+				<FollowableLink href="/adverts">
 					Adverts
 					<IoFileTrayFull class="nav-icon" />
-				</Link>
-				<Link href="/planning">
+				</FollowableLink>
+				<FollowableLink href="/planning">
 					Planning
 					<IoCalendar class="nav-icon" />
-				</Link>
-				<Link href="/chat">
+				</FollowableLink>
+				<FollowableLink href="/chat">
 					Chat
 					<IoChatbubbles class="nav-icon" />
-				</Link>
-				<Link href="/notifications">
+				</FollowableLink>
+				<FollowableLink href="/notifications">
 					Notifications
 					<IoNotifications class="nav-icon" />
-				</Link>
-				<Link href="/profile">
+				</FollowableLink>
+				<FollowableLink href="/profile">
 					Profile
 					<IoPerson class="nav-icon" />
-				</Link>
+				</FollowableLink>
 			</nav>
 		</header>
 	);
@@ -83,50 +84,80 @@ export const EnterpriseNavbar = () => {
 export const AdminNavbar = () => {
 	return (
 		<Sidenav class="admin-navbar">
-			<div class="top">
-				<Link href="/">
-					<Title class="logoA">Proxideal Panel</Title>
-				</Link>
+			<Link href="/">
+				<Title class="logoA">Proxideal Panel</Title>
+			</Link>
 
-				<FollowableLink href="/dashboard">
-					<IoGrid class="nav-iconA" />
-					Dashboard
-				</FollowableLink>
-				<FollowableLink href="/adverts">
-					<IoFileTrayFull class="nav-iconA" />
-					Adverts
-				</FollowableLink>
-				<FollowableLink href="/chat">
-					<IoChatbubbles class="nav-iconA" />
-					Chat
-				</FollowableLink>
-				<FollowableLink href="/finances">
-					<IoStatsChart class="nav-iconA" />
-					Finances
-				</FollowableLink>
-				<FollowableLink href="/payments">
-					<IoReceipt class="nav-iconA" />
-					Payments
-				</FollowableLink>
-				<FollowableLink href="/users">
-					<IoPeople class="nav-iconA" />
-					Users
-				</FollowableLink>
-			</div>
+			<FollowableSidenavLink href="/dashboard">
+				<IoGrid class="nav-iconA" />
+				Dashboard
+			</FollowableSidenavLink>
+			<FollowableSidenavLink href="/adverts">
+				<IoFileTrayFull class="nav-iconA" />
+				Adverts
+			</FollowableSidenavLink>
+			<FollowableSidenavLink href="/chat">
+				<IoChatbubbles class="nav-iconA" />
+				Chat
+			</FollowableSidenavLink>
+			<FollowableSidenavLink href="/finances">
+				<IoStatsChart class="nav-iconA" />
+				Finances
+			</FollowableSidenavLink>
+			<FollowableSidenavLink href="/payments">
+				<IoReceipt class="nav-iconA" />
+				Payments
+			</FollowableSidenavLink>
+			<FollowableSidenavLink href="/users">
+				<IoPeople class="nav-iconA" />
+				Users
+			</FollowableSidenavLink>
 
-			<FollowableLink href="/profile">
+			<FollowableSidenavLink href="/profile">
 				<IoPerson class="nav-iconA" />
 				Profile
-			</FollowableLink>
+			</FollowableSidenavLink>
 		</Sidenav>
 	);
 };
 
-const FollowableLink = (props: { href: string; children: any }) => {
+const FollowableLink = (props: {
+	href: string;
+	children: JSX.Element;
+	class?: string;
+	style?: string;
+}) => {
 	const location = useLocation();
 
 	return (
-		<Sidenav.Link href={props.href} current={location.pathname === props.href}>
+		<Link
+			href={props.href}
+			class={props.class}
+			style={
+				(location.pathname === props.href ? "color: var(--jdd-blue-7);" : "") +
+				props.style
+			}
+		>
+			{props.children}
+		</Link>
+	);
+};
+
+const FollowableSidenavLink = (props: {
+	href: string;
+	children: JSX.Element;
+	class?: string;
+	style?: JSX.CSSProperties | string;
+}) => {
+	const location = useLocation();
+
+	return (
+		<Sidenav.Link
+			href={props.href}
+			current={location.pathname === props.href}
+			class={props.class}
+			style={props.style}
+		>
 			{props.children}
 		</Sidenav.Link>
 	);

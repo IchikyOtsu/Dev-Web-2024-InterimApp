@@ -1,0 +1,18 @@
+:root{
+    --bg-color: #EAEEF2;
+    --second-bg-color: #FFFFFF;
+    --text-color: #181818;
+    --main-color: #0050B2;
+}
+
+body{
+    background: var(--bg-color);
+}
+
+main {
+    width: 100%;
+}
+
+/*main > *:first-child {
+    /*margin-top: 2rem;
+}*/

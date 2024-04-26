@@ -1,5 +1,5 @@
-import { Route, Router } from "@solidjs/router";
 // index.tsx
+import { Route, Router } from "@solidjs/router";
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
 
