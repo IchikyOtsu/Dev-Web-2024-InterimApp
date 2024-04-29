@@ -1,23 +1,25 @@
-// App.tsx
-
 import { Space } from "@jundao/design";
+import { type JSX, Show } from "solid-js";
+// App.tsx
 import "./App.css";
-import { AdminNavbar, EnterpriseNavbar, Navbar } from "./Components/Navbar";
+import { AdminNavbar, Navbar } from "./Components/Navbar";
 import { useGlobalContext } from "./context";
+import LoginPage from "./pages/Login";
 
-const App = (props) => {
+const App = (props: { children: JSX.Element }) => {
 	const { user } = useGlobalContext();
 	const userRole = user?.role;
 
 	return (
-		<Space vertical={userRole !== "admin"}>
-			{userRole === "user" && <Navbar />}
-			{userRole === "enterprise" && <EnterpriseNavbar />}
-			{userRole === "admin" && <AdminNavbar />}
-			<main style={userRole === "admin" ? { "margin-top": "2rem" } : {}}>
-				{props.children}
-			</main>
-		</Space>
+		<Show when={user} fallback={<LoginPage />}>
+			<Space vertical={userRole !== "admin"}>
+				{(userRole === "user" || "enterprise") && <Navbar />}
+				{userRole === "admin" && <AdminNavbar />}
+				<main style={userRole === "admin" ? { "margin-top": "2rem" } : {}}>
+					{props.children}
+				</main>
+			</Space>
+		</Show>
 	);
 };
 

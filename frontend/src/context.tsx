@@ -15,7 +15,6 @@ export interface User {
 
 export interface GlobalContextData {
 	session: AuthSession | "loading";
-	edit: boolean;
 	user: User | null;
 }
 
@@ -35,7 +34,6 @@ const hardcodedUser: User = {
 };*/
 export const globalContextData: GlobalContextData = {
 	session: "loading",
-	edit: false,
 	user: hardcodedUser,
 };
 

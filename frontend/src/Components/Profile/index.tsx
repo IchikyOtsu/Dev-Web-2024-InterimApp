@@ -171,11 +171,9 @@ const Profile = ({ profilePicture }) => {
 							required
 						/>
 					</Space>
-					<Button
-						children="Enregistrer"
-						type="primary"
-						onClick={handleSubmit}
-					/>
+					<Button type="primary" onClick={handleSubmit}>
+						Enregistrer
+					</Button>
 				</Space>
 			</Space>
 		</Card>

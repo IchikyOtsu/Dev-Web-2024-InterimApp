@@ -15,7 +15,6 @@ import { GlobalContext, globalContextData, useGlobalContext } from "./context";
 
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
-const Login = lazy(() => import("./pages/Login"));
 const Adverts = lazy(() => import("./pages/AdvertsPage"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
@@ -31,7 +30,6 @@ if (root) {
 		() => (
 			<GlobalContext.Provider value={globalContextData}>
 				<Router root={App}>
-					<Route path="/login" component={Login} />
 					<Route path="/nope" component={Nope} />
 					<Route
 						path="/"

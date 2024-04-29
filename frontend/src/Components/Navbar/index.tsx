@@ -1,4 +1,4 @@
-import { Link, Sidenav, Title } from "@jundao/design";
+import { Link, Sidenav, Space, Title } from "@jundao/design";
 import { useLocation } from "@solidjs/router";
 import {
 	IoCalendar,
@@ -17,73 +17,50 @@ import "./index.css";
 
 export const Navbar = () => {
 	return (
-		<header id="header">
+		<Space id="navbar" align="center">
 			<Link href="/" class="logo">
 				Proxideal
 			</Link>
 
-			<nav class="navbar">
+			<Space class="navbar-links" wrap size="medium">
 				<FollowableLink href="/adverts">
-					Adverts
-					<IoFileTrayFull class="nav-icon" />
+					<Space align="center" class="link-group">
+						<div class="link-text">Adverts</div>
+						<IoFileTrayFull class="nav-icon" />
+					</Space>
 				</FollowableLink>
 				<FollowableLink href="/planning">
-					Planning
-					<IoCalendar class="nav-icon" />
+					<Space align="center" class="link-group">
+						<div class="link-text">Planning</div>
+						<IoCalendar class="nav-icon" />
+					</Space>
 				</FollowableLink>
 				<FollowableLink href="/chat">
-					Chat
-					<IoChatbubbles class="nav-icon" />
+					<Space align="center" class="link-group">
+						<div class="link-text">Chat</div>
+						<IoChatbubbles class="nav-icon" />
+					</Space>
 				</FollowableLink>
 				<FollowableLink href="/notifications">
-					Notifications
-					<IoNotifications class="nav-icon" />
+					<Space align="center" class="link-group">
+						<div class="link-text">Notifications</div>
+						<IoNotifications class="nav-icon" />
+					</Space>
 				</FollowableLink>
 				<FollowableLink href="/profile">
-					Profile
-					<IoPerson class="nav-icon" />
+					<Space align="center" class="link-group">
+						<div class="link-text">Profile</div>
+						<IoPerson class="nav-icon" />
+					</Space>
 				</FollowableLink>
-			</nav>
-		</header>
-	);
-};
-
-export const EnterpriseNavbar = () => {
-	return (
-		<header id="header">
-			<Link href="/" class="logo">
-				Proxideal Enterprise
-			</Link>
-
-			<nav class="navbar">
-				<FollowableLink href="/adverts">
-					Adverts
-					<IoFileTrayFull class="nav-icon" />
-				</FollowableLink>
-				<FollowableLink href="/planning">
-					Planning
-					<IoCalendar class="nav-icon" />
-				</FollowableLink>
-				<FollowableLink href="/chat">
-					Chat
-					<IoChatbubbles class="nav-icon" />
-				</FollowableLink>
-				<FollowableLink href="/notifications">
-					Notifications
-					<IoNotifications class="nav-icon" />
-				</FollowableLink>
-				<FollowableLink href="/profile">
-					Profile
-					<IoPerson class="nav-icon" />
-				</FollowableLink>
-			</nav>
-		</header>
+			</Space>
+		</Space>
 	);
 };
 
 export const AdminNavbar = () => {
 	return (
-		<Sidenav class="admin-navbar">
+		<Sidenav id="admin-navbar">
 			<Link href="/">
 				<Title class="logoA">Proxideal Panel</Title>
 			</Link>

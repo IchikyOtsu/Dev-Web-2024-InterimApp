@@ -1,61 +1,85 @@
 /*top navbar*/
-#header{
+#navbar {
+    justify-content: space-between;
     box-sizing: border-box;
-    overflow-x: hidden;
     position: sticky;
     top: 0;
-    left: 0;
     width: 100%;
-    padding: 3rem 4% 1rem 6%;
+    padding: 1rem;
     background: var(--second-bg-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-radius: 24px;
-    transform: translateY(-25%) ;
+    transform: translateY(-30%);
     --jdd-blue-6: var(--text-color);
     --jdd-blue-5: var(--jdd-blue-7);
 }
 
-.logo{
-    position: relative;
-    margin-left: -3.4rem;
+.logo {
+    margin-top: 2rem;
     font-size: 2rem;
     color: var(--text-color);
     font-weight: 700;
-    transform: translateX(15%);
 }
 
-.navbar{
-    position: relative;
-    margin-right: 15px;
-    transform: translateX(7%);
+.navbar-links {
+    margin-top: 2rem;
 }
 
-.navbar a{
+.navbar-links a {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin-left: 1.5rem;
 }
 
-.nav-icon{
-    margin-left: 5px;
-    transform: translateY(7%);
+/*mobile-navbar*/
+@media screen and (max-width: 850px) {
+    main {
+        margin-top: 1rem;
+        margin-bottom: 5.1rem;
+    }
+
+    #navbar {
+        position: fixed;
+        z-index: 9999;
+        padding: 1rem;
+        top: auto;
+        bottom: 0;
+        transform: translateY(+15%);
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .navbar-links {
+        justify-content: space-evenly;
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: 1rem;
+    }
+    .navbar-links a {
+        font-size: 2rem;
+    }
+
+    .link-group {
+        flex-direction: column-reverse;
+    }
+
+    .link-text {
+        font-size: 0.7rem;
+    }
 }
 
 /*side navbar*/
-.admin-navbar {
+#admin-navbar {
     display: flex;
     height: 100dvh;
     background-color: white;
 }
 
-.admin-navbar ul {
+#admin-navbar ul {
     height: 100%;
     gap: 0.5rem;
 }
 
-.admin-navbar li:last-child {
+#admin-navbar li:last-child {
     margin-top: auto;
 }
 
