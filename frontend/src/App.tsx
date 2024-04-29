@@ -13,7 +13,7 @@ const App = (props: { children: JSX.Element }) => {
 	return (
 		<Show when={user} fallback={<LoginPage />}>
 			<Space vertical={userRole !== "admin"}>
-				{(userRole === "user" || "enterprise") && <Navbar />}
+				{(userRole === "user" || userRole === "enterprise") && <Navbar />}
 				{userRole === "admin" && <AdminNavbar />}
 				<main style={userRole === "admin" ? { "margin-top": "2rem" } : {}}>
 					{props.children}
