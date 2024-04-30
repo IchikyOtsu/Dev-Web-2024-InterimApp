@@ -10,8 +10,8 @@
 }
 
 .right-section .space {
-  align-items: stretch !important;
   flex-grow: 1;
+  align-items: stretch !important;
 }
 
 /* Style de l'image */

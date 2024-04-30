@@ -1,10 +1,21 @@
-import { Button, Modal } from "@jundao/design";
+import { Button, Card, Modal, Space } from "@jundao/design";
 import { Show, createSignal } from "solid-js";
 import { useGlobalContext } from "../../context.tsx";
 import "./index.css";
 
-const CardAdvert = (props) => {
-	const { title, message, location, time, duration, date, id } = props;
+export interface Advert {
+	id: number;
+	title: string;
+	description: string;
+	location: string;
+	salary: string;
+	start_date: string;
+	end_date: string;
+}
+
+export const AdvertCard = (props: Advert) => {
+	const { id, title, description, location, salary, start_date, end_date } =
+		props;
 	const [isPopupOpen, setIsPopupOpen] = createSignal(false);
 	const [isApplying, setIsApplying] = createSignal(false);
 	const [error, setError] = createSignal<string>();
@@ -14,7 +25,7 @@ const CardAdvert = (props) => {
 	const checkIfAlreadyApplied = async () => {
 		try {
 			const response = await fetch(
-				`/api/applications?user_id=${user.id}&advert_id=${id}`,
+				`/api/applications?user_id=${user?.id}&advert_id=${id}`,
 			);
 			const data = await response.json();
 			setAlreadyApplied(data.length > 0);
@@ -68,38 +79,53 @@ const CardAdvert = (props) => {
 
 	checkIfAlreadyApplied();
 
+	function getFormattedDate(stringDate: string) {
+		console.log(stringDate);
+		const date = new Date(stringDate);
+		return new Intl.DateTimeFormat("en-US", {
+			weekday: "long",
+			day: "2-digit",
+			month: "2-digit",
+		}).format(date);
+	}
+
 	return (
 		<>
-			<div
+			<Card
 				role="button"
-				tabIndex="0"
-				class="card1"
+				class="advert-card"
 				onClick={() => setIsPopupOpen(true)}
 			>
-				<img src="./public/vite.svg" alt="Avatar" class="avatar" />
-				<div id="des">
-					<div id="doc">
-						<h2>{title}</h2>
-						<p>{message}</p>
-						<div class="details">
-							<h4>{location}</h4>
-							<span>{time}</span>
-							<span>{duration}</span>
-							<span>{date}</span>
-						</div>
-					</div>
-				</div>
-			</div>
+				<Space>
+					<img src="/public/vite.svg" alt="Avatar" class="avatar" />
+					<Space class="info">
+						<Space vertical size="medium">
+							<Space vertical>
+								<span>{title}</span>
+								<span style="font-size: 0.8rem;">Company Name</span>
+							</Space>
+							<span style="font-size: 0.8rem;">{location}</span>
+						</Space>
+						<Space vertical size="medium" style={"align-items: flex-end;"}>
+							<span>{salary}€/h</span>
+							<Space vertical style="align-items: flex-end; font-size: 0.8rem;">
+								<span>{}hours</span>
+								<span>{getFormattedDate(start_date)}</span>
+							</Space>
+						</Space>
+					</Space>
+				</Space>
+			</Card>
 			<Modal
 				open={isPopupOpen()}
 				onOpenChange={setIsPopupOpen}
 				title={"Détails de l'annonce"}
 			>
-				<div>
+				<>
 					<h2>{title}</h2>
-					<p>{message}</p>
+					<p>{description}</p>
 					<p>
-						{location} - {date}
+						{location} - {start_date}
 					</p>
 					<Button onClick={applyForAdvert} disabled={isApplying()}>
 						{isApplying() ? "Applying..." : "Apply for this advert"}
@@ -107,10 +133,8 @@ const CardAdvert = (props) => {
 					<Show when={error()} fallback={null}>
 						<div>{error()}</div>
 					</Show>
-				</div>
+				</>
 			</Modal>
 		</>
 	);
 };
-
-export default CardAdvert;

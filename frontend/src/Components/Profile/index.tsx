@@ -11,7 +11,6 @@ import {
 import { createSignal, onMount } from "solid-js";
 import { useGlobalContext } from "../../context";
 import "./index.css";
-// @ts-ignore
 
 interface ProfileData {
 	first_name: string;
