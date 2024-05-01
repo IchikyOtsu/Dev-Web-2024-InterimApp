@@ -1,8 +1,9 @@
 .pageContainer {
-    margin: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
-.advertsContainer {
+.advContainer {
     justify-content: center;
     width: 100%;
 }

@@ -1,10 +1,13 @@
-import { Button, Card, Modal, Space } from "@jundao/design";
+import { Alert, Button, Card, Image, Modal, Space, Text } from "@jundao/design";
+import { IoReaderOutline } from "solid-icons/io";
 import { Show, createSignal } from "solid-js";
 import { useGlobalContext } from "../../context.tsx";
 import "./index.css";
 
 export interface Advert {
 	id: number;
+	company: string;
+	image_link: string;
 	title: string;
 	description: string;
 	location: string;
@@ -14,8 +17,17 @@ export interface Advert {
 }
 
 export const AdvertCard = (props: Advert) => {
-	const { id, title, description, location, salary, start_date, end_date } =
-		props;
+	const {
+		id,
+		company,
+		image_link,
+		title,
+		description,
+		location,
+		salary,
+		start_date,
+		end_date,
+	} = props;
 	const [isPopupOpen, setIsPopupOpen] = createSignal(false);
 	const [isApplying, setIsApplying] = createSignal(false);
 	const [error, setError] = createSignal<string>();
@@ -80,7 +92,6 @@ export const AdvertCard = (props: Advert) => {
 	checkIfAlreadyApplied();
 
 	function getFormattedDate(stringDate: string) {
-		console.log(stringDate);
 		const date = new Date(stringDate);
 		return new Intl.DateTimeFormat("en-US", {
 			weekday: "long",
@@ -89,27 +100,44 @@ export const AdvertCard = (props: Advert) => {
 		}).format(date);
 	}
 
+	function calculateTime(start_date: string, end_date: string) {
+		const startDate = new Date(start_date);
+		const endDate = new Date(end_date);
+		const diffInMilliSeconds = Math.abs(
+			endDate.getTime() - startDate.getTime(),
+		);
+		const hours = diffInMilliSeconds / (1000 * 60 * 60);
+		return hours > 0
+			? hours > 24
+				? `${Math.floor(hours / 24)} days`
+				: `${Math.floor(hours)} hours`
+			: "?";
+	}
+
 	return (
 		<>
-			<Card
-				role="button"
-				class="advert-card"
-				onClick={() => setIsPopupOpen(true)}
-			>
-				<Space>
-					<img src="/public/vite.svg" alt="Avatar" class="avatar" />
+			<Card role="button" class="adv-card" onClick={() => setIsPopupOpen(true)}>
+				<Space style="gap: 0;">
+					<Image
+						src={image_link}
+						shape="square"
+						class="adv-picture"
+						fallback={<IoReaderOutline class="adv-icon" />}
+					/>
 					<Space class="info">
 						<Space vertical size="medium">
 							<Space vertical>
 								<span>{title}</span>
-								<span style="font-size: 0.8rem;">Company Name</span>
+								<span style="font-size: 0.8rem;">
+									{company ? company : "Unknown"}
+								</span>
 							</Space>
 							<span style="font-size: 0.8rem;">{location}</span>
 						</Space>
 						<Space vertical size="medium" style={"align-items: flex-end;"}>
 							<span>{salary}€/h</span>
 							<Space vertical style="align-items: flex-end; font-size: 0.8rem;">
-								<span>{}hours</span>
+								<span>{calculateTime(start_date, end_date)}</span>
 								<span>{getFormattedDate(start_date)}</span>
 							</Space>
 						</Space>
@@ -121,19 +149,28 @@ export const AdvertCard = (props: Advert) => {
 				onOpenChange={setIsPopupOpen}
 				title={"Détails de l'annonce"}
 			>
-				<>
-					<h2>{title}</h2>
-					<p>{description}</p>
-					<p>
-						{location} - {start_date}
-					</p>
-					<Button onClick={applyForAdvert} disabled={isApplying()}>
+				<Space vertical>
+					<Text>{title}</Text>
+					<Text>{description}</Text>
+					<Text>
+						{getFormattedDate(start_date) === getFormattedDate(end_date)
+							? getFormattedDate(start_date)
+							: `${getFormattedDate(start_date)} - ${getFormattedDate(
+									end_date,
+								)}`}
+					</Text>
+					<Text>{location}</Text>
+					<Button
+						type="primary"
+						onClick={applyForAdvert}
+						disabled={isApplying()}
+					>
 						{isApplying() ? "Applying..." : "Apply for this advert"}
 					</Button>
-					<Show when={error()} fallback={null}>
-						<div>{error()}</div>
+					<Show when={error()}>
+						<Alert type="error" message={error()} />
 					</Show>
-				</>
+				</Space>
 			</Modal>
 		</>
 	);

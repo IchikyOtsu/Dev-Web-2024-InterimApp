@@ -1,6 +1,6 @@
 // AdvertsPage.tsx
 import "./index.css";
-import { Space, Title } from "@jundao/design";
+import { Space } from "@jundao/design";
 import { For, createSignal, onMount } from "solid-js";
 import { type Advert, AdvertCard } from "../../Components/Advert";
 
@@ -16,12 +16,13 @@ const AdvertsPage = () => {
 
 	return (
 		<Space vertical class="pageContainer">
-			<Title>Annonces</Title>
-			<Space size="medium" class="advertsContainer" wrap>
+			<Space size="medium" class="advContainer" wrap>
 				<For each={adverts()}>
 					{(ad) => (
 						<AdvertCard
 							id={ad.id}
+							company={ad.company}
+							image_link={ad.image_link}
 							title={ad.title}
 							description={ad.description}
 							location={ad.location}

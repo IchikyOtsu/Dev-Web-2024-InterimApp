@@ -5,7 +5,9 @@ const pool = require("../db");
 // GET all adverts
 router.get("/", async (req, res) => {
 	try {
-		const { rows } = await pool.query("SELECT * FROM adverts");
+		const { rows } = await pool.query(
+			"SELECT adverts.*, enterprises.name AS company FROM adverts INNER JOIN enterprises ON adverts.enterprise_id = enterprises.id;",
+		);
 		res.json(rows);
 	} catch (error) {
 		console.error(error.message);

@@ -1,16 +1,20 @@
-.advert-card {
+.adv-card {
     width: 22.5rem;
-    max-height: 5rem;
+    max-height: 5.5rem;
 }
 
-div.jdd.card.advert-card:not(.no-padding) > .content {
+div.jdd.card.adv-card:not(.no-padding) > .content {
     padding: 0;
 }
 
-.avatar {
-    width: 5rem;
-    height: 5.1rem;
-    background-color: rgb(221, 221, 221);
+.jdd.image.adv-picture {
+    width: 8rem;
+    height: 5.5rem;
+    background-color: var(--jdd-gray-3);
+}
+
+.adv-icon {
+    font-size: 4.5rem;
 }
 
 .info {
