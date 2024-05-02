@@ -6,7 +6,7 @@ const pool = require("../db");
 router.get("/", async (req, res) => {
 	try {
 		const { rows } = await pool.query(
-			"SELECT adverts.*, enterprises.name AS company FROM adverts INNER JOIN enterprises ON adverts.enterprise_id = enterprises.id;",
+			"SELECT adverts.*, enterprises.name AS company, enterprises.logo_url as image_url FROM adverts INNER JOIN enterprises ON adverts.enterprise_id = enterprises.id WHERE adverts.status = 'open';",
 		);
 		res.json(rows);
 	} catch (error) {
@@ -19,9 +19,10 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { rows } = await pool.query("SELECT * FROM adverts WHERE id = $1", [
-			id,
-		]);
+		const { rows } = await pool.query(
+			"SELECT adverts.*, enterprises.name AS company, enterprises.logo_url as image_url FROM adverts INNER JOIN enterprises ON adverts.enterprise_id = enterprises.id WHERE adverts.id = $1;",
+			[id],
+		);
 		if (rows.length === 0) {
 			return res.status(404).send("Advert not found");
 		}
@@ -37,7 +38,7 @@ router.get("/enterprises/:enterpriseId", async (req, res) => {
 	try {
 		const { enterpriseId } = req.params;
 		const { rows } = await pool.query(
-			"SELECT * FROM adverts WHERE enterprise_id = $1",
+			"SELECT adverts.*, enterprises.name AS company, enterprises.logo_url as image_url FROM adverts INNER JOIN enterprises ON adverts.enterprise_id = enterprises.id WHERE adverts.enterprise_id = $1 AND adverts.status != 'expired';",
 			[enterpriseId],
 		);
 		res.json(rows);
@@ -82,7 +83,7 @@ router.post("/", async (req, res) => {
 			salary,
 		} = req.body;
 		const { rows } = await pool.query(
-			"INSERT INTO adverts (enterprise_id, title, description, location, start_date, end_date, salary) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+			"INSERT INTO adverts (enterprise_id, title, description, location, start_date, end_date, salary, status) VALUES ($1, $2, $3, $4, $5, $6, $7, 'open') RETURNING *",
 			[
 				enterprise_id,
 				title,
@@ -112,9 +113,10 @@ router.put("/:id", async (req, res) => {
 			start_date,
 			end_date,
 			salary,
+			status,
 		} = req.body;
 		const { rows } = await pool.query(
-			"UPDATE adverts SET enterprise_id = $1, title = $2, description = $3, location = $4, start_date = $5, end_date = $6, salary = $7 WHERE id = $8 RETURNING *",
+			"UPDATE adverts SET enterprise_id = $1, title = $2, description = $3, location = $4, start_date = $5, end_date = $6, salary = $7, status = $8 WHERE id = $9 RETURNING *",
 			[
 				enterprise_id,
 				title,
@@ -123,6 +125,7 @@ router.put("/:id", async (req, res) => {
 				start_date,
 				end_date,
 				salary,
+				status,
 				id,
 			],
 		);

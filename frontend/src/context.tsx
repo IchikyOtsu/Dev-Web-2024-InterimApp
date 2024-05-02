@@ -22,7 +22,7 @@ const hardcodedUser: User = {
 	id: 1,
 	username: "admin",
 	email: "admin@proxideal.com",
-	role: "user",
+	role: "enterprise",
 	enterprise_id: 1,
 };
 /*const hardcodedUser: User = {

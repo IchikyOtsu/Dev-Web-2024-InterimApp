@@ -18,7 +18,7 @@ const Planning = lazy(() => import("./pages/Planning"));
 const Adverts = lazy(() => import("./pages/AdvertsPage"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
-const AdBusi = lazy(() => import("./pages/AdvertBusiness"));
+const AdBusi = lazy(() => import("./pages/AdvertsBusiness"));
 const NotifPage = lazy(() => import("./pages/Notifs"));
 const UsersPage = lazy(() => import("./pages/Users"));
 // Récupérez l'élément racine de manière sûre

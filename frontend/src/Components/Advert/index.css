@@ -1,5 +1,7 @@
 .adv-card {
-    width: 22.5rem;
+    flex-grow: 1;
+    align-items: stretch;
+    max-width: 22.5rem;
     max-height: 5.5rem;
 }
 

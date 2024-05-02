@@ -18,19 +18,7 @@ const AdvertsPage = () => {
 		<Space vertical class="pageContainer">
 			<Space size="medium" class="advContainer" wrap>
 				<For each={adverts()}>
-					{(ad) => (
-						<AdvertCard
-							id={ad.id}
-							company={ad.company}
-							image_link={ad.image_link}
-							title={ad.title}
-							description={ad.description}
-							location={ad.location}
-							salary={ad.salary}
-							start_date={ad.start_date}
-							end_date={ad.end_date}
-						/>
-					)}
+					{(ad) => <AdvertCard advertData={ad} edit={false} />}
 				</For>
 			</Space>
 		</Space>

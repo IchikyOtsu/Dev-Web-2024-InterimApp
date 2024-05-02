@@ -14,7 +14,10 @@ const AddUser = () => {
 		return emailRegex.test(email());
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async () => {
+		!setError();
+		!setSuccess();
+
 		if (!isValidEmail()) {
 			setInvalid(true);
 			return;
