@@ -1,12 +1,13 @@
-// Adverts.tsx
-import { createEffect, createSignal } from "solid-js";
-import CardAdvert from "../../Components/Advert/index.tsx";
-import "./Adverts.css";
+// AdvertsPage.tsx
+import "./index.css";
+import { Space } from "@jundao/design";
+import { For, createSignal, onMount } from "solid-js";
+import { type Advert, AdvertCard } from "../../Components/Advert";
 
 const AdvertsPage = () => {
-	const [adverts, setAdverts] = createSignal([]);
+	const [adverts, setAdverts] = createSignal<Advert[]>([]);
 
-	createEffect(() => {
+	onMount(() => {
 		fetch("/api/adverts")
 			.then((res) => res.json())
 			.then((data) => setAdverts(data))
@@ -14,23 +15,13 @@ const AdvertsPage = () => {
 	});
 
 	return (
-		<div>
-			<h1>Page Adverts</h1>
-			<ul class="advertsContainer">
-				{adverts().map((ad) => (
-					<CardAdvert
-						key={ad.id}
-						id={ad.id}
-						title={ad.title}
-						message={ad.description}
-						location={ad.location}
-						time={ad.time}
-						duration={ad.duration}
-						date={ad.date}
-					/>
-				))}
-			</ul>
-		</div>
+		<Space vertical class="pageContainer">
+			<Space size="medium" class="advContainer" wrap>
+				<For each={adverts()}>
+					{(ad) => <AdvertCard advertData={ad} edit={false} />}
+				</For>
+			</Space>
+		</Space>
 	);
 };
 

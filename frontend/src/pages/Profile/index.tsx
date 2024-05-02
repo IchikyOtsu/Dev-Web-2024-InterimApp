@@ -8,7 +8,7 @@ const ProfilePage = () => {
 	};
 
 	return (
-		<div>
+		<div style="display: flex; justify-content: center;">
 			<Profile {...profileData} />
 		</div>
 	);

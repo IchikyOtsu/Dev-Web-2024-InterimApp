@@ -1,11 +1,10 @@
 .pageContainer {
     max-width: 75dvw;
     margin: 0 auto;
-    padding: 2rem;
 }
 
 .usersContainer {
-    height: 60dvh;
+    height: 70dvh;
     overflow-y: auto;
     overflow-x: hidden;
 }

@@ -1,0 +1,17 @@
+.pageContainer {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.advContainer {
+    justify-content: center;
+    width: 100%;
+}
+
+.jdd.button.add-button {
+    background-color: var(--second-bg-color);
+}
+
+.add-icon {
+    font-size: 1.5rem;
+}

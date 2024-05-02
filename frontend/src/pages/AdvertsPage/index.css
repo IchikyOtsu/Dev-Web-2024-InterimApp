@@ -1,0 +1,9 @@
+.pageContainer {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.advContainer {
+    justify-content: center;
+    width: 100%;
+}

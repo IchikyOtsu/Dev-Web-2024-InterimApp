@@ -15,7 +15,6 @@ export interface User {
 
 export interface GlobalContextData {
 	session: AuthSession | "loading";
-	edit: boolean;
 	user: User | null;
 }
 
@@ -23,7 +22,7 @@ const hardcodedUser: User = {
 	id: 1,
 	username: "admin",
 	email: "admin@proxideal.com",
-	role: "admin",
+	role: "enterprise",
 	enterprise_id: 1,
 };
 /*const hardcodedUser: User = {
@@ -35,7 +34,6 @@ const hardcodedUser: User = {
 };*/
 export const globalContextData: GlobalContextData = {
 	session: "loading",
-	edit: false,
 	user: hardcodedUser,
 };
 

@@ -1,14 +1,6 @@
-import {
-	Alert,
-	Button,
-	Input,
-	Select,
-	Space,
-	Text,
-	Title,
-} from "@jundao/design";
+import { Alert, Button, Input, Select, Space, Text } from "@jundao/design";
 import { Show, createSignal } from "solid-js";
-import "./AddUser.css";
+import "./index.css";
 
 const AddUser = () => {
 	const [email, setEmail] = createSignal("");
@@ -22,7 +14,10 @@ const AddUser = () => {
 		return emailRegex.test(email());
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async () => {
+		!setError();
+		!setSuccess();
+
 		if (!isValidEmail()) {
 			setInvalid(true);
 			return;
@@ -56,7 +51,6 @@ const AddUser = () => {
 	return (
 		<div class="container">
 			<Space vertical>
-				<Title>Nouvel Utilisateur</Title>
 				<Text>Adresse mail</Text>
 				<Input
 					class="input"

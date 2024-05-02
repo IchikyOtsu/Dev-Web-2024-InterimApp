@@ -2,7 +2,7 @@ import { Text, Title } from "@jundao/design";
 import { For, createEffect, createSignal } from "solid-js";
 import NotificationCard from "../../Components/Notifs";
 import { useGlobalContext } from "../../context.tsx";
-import "./NotificationsPage.css";
+import "./index.css";
 
 const NotificationsPage = () => {
 	const { user } = useGlobalContext();

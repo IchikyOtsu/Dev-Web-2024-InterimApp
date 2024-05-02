@@ -1,5 +1,5 @@
-import { Route, Router } from "@solidjs/router";
 // index.tsx
+import { Route, Router } from "@solidjs/router";
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
 
@@ -15,11 +15,10 @@ import { GlobalContext, globalContextData, useGlobalContext } from "./context";
 
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
-const Login = lazy(() => import("./pages/Login"));
 const Adverts = lazy(() => import("./pages/AdvertsPage"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
-const AdBusi = lazy(() => import("./pages/AdvertBusiness"));
+const AdBusi = lazy(() => import("./pages/AdvertsBusiness"));
 const NotifPage = lazy(() => import("./pages/Notifs"));
 const UsersPage = lazy(() => import("./pages/Users"));
 // Récupérez l'élément racine de manière sûre
@@ -31,7 +30,6 @@ if (root) {
 		() => (
 			<GlobalContext.Provider value={globalContextData}>
 				<Router root={App}>
-					<Route path="/login" component={Login} />
 					<Route path="/nope" component={Nope} />
 					<Route
 						path="/"
@@ -78,7 +76,7 @@ if (root) {
 						component={() => (
 							<ProtectedRoute
 								component={ProfilePage}
-								allowedRoles={["user", "enterprise"]}
+								allowedRoles={["user", "enterprise", "admin"]}
 							/>
 						)}
 					/>
