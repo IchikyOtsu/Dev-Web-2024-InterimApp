@@ -15,6 +15,7 @@
 		"@jundao/design": "^1.14.3",
 		"@solidjs/router": "^0.13.1",
 		"@supabase/supabase-js": "^2.41.1",
+		"jwt-decode": "^4.0.0",
 		"moment-timezone": "^0.5.45",
 		"solid-js": "^1.8.15"
 	},

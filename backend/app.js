@@ -16,6 +16,7 @@ const advertsRouter = require("./routes/advertsNH");
 const applicationsRouter = require("./routes/applications");
 const chatMessagesRouter = require("./routes/chatMessages");
 const schedulesRouter = require("./routes/schedules");
+const login = require("./routes/login");
 const notificationsRouter = require("./routes/notifications");
 const profilRoute = require("./routes/profil");
 const app = express();
@@ -35,7 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/testDB", testDB);
-
+app.use("/api/login", login);
 app.use("/api/users", usersRouter);
 app.use("/api/enterprises", enterprisesRouter);
 app.use("/api/adverts", advertsRouter);

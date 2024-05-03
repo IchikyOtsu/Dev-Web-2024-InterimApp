@@ -8,7 +8,8 @@ import LoginPage from "./pages/Login";
 
 const App = (props: { children: JSX.Element }) => {
 	const { user } = useGlobalContext();
-	const userRole = user?.role;
+	const userRole = user()?.role;
+	
 
 	return (
 		<Show when={user} fallback={<LoginPage />}>
