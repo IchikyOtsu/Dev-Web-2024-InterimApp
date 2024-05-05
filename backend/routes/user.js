@@ -1,8 +1,7 @@
 const express = require("express");
-const { jwtDecode } = require("jwt-decode");
 const router = express.Router();
 
-// Route GET pour récupérer tous les profils utilisateur
+// Route GET pour récupérer l'utilisateur de la session
 router.get("/self", (req, res) => {
 	const user = req.user;
 	res.json({
@@ -11,17 +10,6 @@ router.get("/self", (req, res) => {
 		role: user.role,
 		enterprise_id: user.enterprise_id,
 	});
-});
-
-// Route GET pour récupérer un seul profil utilisateur par ID
-router.get("/:id", (req, res) => {
-	const { id } = req.params;
-	const user = users.find((user) => user.id.toString() === id);
-	if (user) {
-		res.json(user);
-	} else {
-		res.status(404).send("User not found");
-	}
 });
 
 module.exports = router;

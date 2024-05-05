@@ -20,7 +20,7 @@ function getCurrentTime() {
 }
 
 const AdvertsBusiness = () => {
-	const [user] = useGlobalContext().user;
+	const user = useGlobalContext().user;
 	const [adverts, setAdverts] = createSignal<Advert[]>([]);
 	const [isModalOpen, setIsModalOpen] = createSignal(false);
 

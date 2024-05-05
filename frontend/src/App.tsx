@@ -7,16 +7,14 @@ import { AdminNavbar, Navbar } from "./Components/Navbar";
 import { useGlobalContext } from "./context";
 
 const App = (props: { children: JSX.Element }) => {
-	const { user, refetch } = useGlobalContext();
+	const { user } = useGlobalContext();
 	const userRole = () => user()?.role;
-
-	console.log(user());
 
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	createEffect(() => {
-		if (!user() && location.pathname !== "/login") {
+		if (!user.loading && !user() && location.pathname !== "/login") {
 			navigate("/login");
 		}
 	});
@@ -27,7 +25,17 @@ const App = (props: { children: JSX.Element }) => {
 				<Show when={userRole() === "admin"} fallback={<Navbar />}>
 					<AdminNavbar />
 				</Show>
-				<main style={userRole() === "admin" ? { "margin-top": "2rem" } : {}}>
+				<main
+					style={
+						userRole() === "admin"
+							? {
+									"padding-top": "1rem",
+									"max-height": "97dvh",
+									"overflow-y": "scroll",
+								}
+							: {}
+					}
+				>
 					{props.children}
 				</main>
 			</Space>

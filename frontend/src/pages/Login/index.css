@@ -1,4 +1,4 @@
-.pageContainer {
+.loginPageContainer {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 850px) {
-    .pageContainer {
+    .loginPageContainer {
         font-size: 1.3rem;
     }
     

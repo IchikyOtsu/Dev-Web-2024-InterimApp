@@ -43,7 +43,7 @@ const LoginPage = () => {
 	};
 
 	return (
-		<div class="pageContainer">
+		<div class="loginPageContainer">
 			<Card>
 				<Space vertical>
 					<Text>Connexion</Text>

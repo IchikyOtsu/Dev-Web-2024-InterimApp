@@ -57,7 +57,7 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 	const checkIfAlreadyApplied = async () => {
 		try {
 			const response = await fetch(
-				`/api/applications?user_id=${user?.id}&advert_id=${id}`,
+				`/api/applications?user_id=${user()?.id}&advert_id=${id}`,
 			);
 			const data = await response.json();
 			setAlreadyApplied(data.length > 0);
@@ -73,7 +73,7 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 		!setError();
 		!setSuccess();
 
-		if (!user || user.role !== "user") {
+		if (!user || user()?.role !== "user") {
 			setError("You are not allowed to apply for this advert");
 			!setIsApplying();
 			return;
@@ -92,7 +92,7 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					user_id: user.id,
+					user_id: user()?.id,
 					advert_id: id,
 					status: "pending",
 				}),
@@ -116,13 +116,13 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 		!setError();
 		!setSuccess();
 
-		if (!user || !user.enterprise_id) {
+		if (!user || !user()?.enterprise_id) {
 			setError("User is not associated with an enterprise");
 			!setIsEditing();
 			return;
 		}
 
-		if (user.role !== "enterprise") {
+		if (user()?.role !== "enterprise") {
 			setError("User does not have the required role");
 			!setIsEditing();
 			return;

@@ -34,10 +34,10 @@ if (root) {
 			<GlobalContextProvider>
 				<Router root={App}>
 					<Route path="/login" component={LoginPage} />
+					<Route path="/nope" component={Nope} />
 					<Route
 						path="/"
 						component={() => {
-							return "han ouais";
 							const { user } = useGlobalContext();
 							if (user()?.role === "admin") {
 								return (
@@ -47,10 +47,8 @@ if (root) {
 										redirectTo={"/users"}
 									/>
 								);
-							} else if (
-								user()?.role === "user" ||
-								user()?.role === "enterprise"
-							) {
+							}
+							if (user()?.role === "user" || user()?.role === "enterprise") {
 								return (
 									<ProtectedRoute
 										component={Nope}
@@ -58,11 +56,47 @@ if (root) {
 										redirectTo={"/adverts"}
 									/>
 								);
-							} else {
-								//return <ProtectedRoute component={Nope} allowedRoles={[]} redirectTo={"/login"} />;
 							}
 						}}
 					/>
+					<Route
+						path="/adverts"
+						component={() => {
+							const { user } = useGlobalContext();
+							return user()?.role === "user" ? <Adverts /> : <AdBusi />;
+						}}
+					/>
+					<Route
+						path="/planning"
+						component={() => (
+							<ProtectedRoute component={Planning} allowedRoles={["user"]} />
+						)}
+					/>
+					<Route
+						path="/profile"
+						component={() => (
+							<ProtectedRoute
+								component={ProfilePage}
+								allowedRoles={["user", "enterprise", "admin"]}
+							/>
+						)}
+					/>
+					<Route
+						path="/notifications"
+						component={() => (
+							<ProtectedRoute
+								component={NotifPage}
+								allowedRoles={["user", "enterprise"]}
+							/>
+						)}
+					/>
+					<Route
+						path="/users"
+						component={() => (
+							<ProtectedRoute component={UsersPage} allowedRoles={["admin"]} />
+						)}
+					/>
+					<Route path="*" component={Nope} />
 				</Router>
 			</GlobalContextProvider>
 		),

@@ -38,8 +38,7 @@ router.get("/:id", async (req, res) => {
 // POST a new user
 router.post("/", async (req, res) => {
 	try {
-		const { username, email, role } = req.body;
-		const password = Math.random().toString(36).slice(2, 12); // Generating a random password
+		const { username, email, role, enterprise_id } = req.body;
 
 		// Vérifier si l'email existe déjà
 		const { rows } = await pool.query("SELECT * FROM users WHERE email = $1", [
@@ -49,14 +48,15 @@ router.post("/", async (req, res) => {
 			return res.status(400).send("Email already exists");
 		}
 
+		const password = Math.random().toString(36).slice(2, 12); // Generating a random password
 		// Hasher le mot de passe
 		const saltRounds = 10;
 		const password_hash = await bcrypt.hash(password, saltRounds);
 
 		// Insérer le nouvel utilisateur dans la base de données
 		const newUserRows = await pool.query(
-			"INSERT INTO users (username, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING *",
-			[username, email, password_hash, role],
+			"INSERT INTO users (username, email, password_hash, role, enterprise_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+			[username, email, password_hash, role, enterprise_id],
 		);
 
 		// Send email with the generated password to the user's provided email address

@@ -31,7 +31,7 @@
 /*mobile-navbar*/
 @media screen and (max-width: 850px) {
     main {
-        margin-top: 1rem;
+        padding-top: 1rem;
         margin-bottom: 5.1rem;
     }
 
@@ -71,6 +71,7 @@
 #admin-navbar {
     display: flex;
     height: 100dvh;
+    overflow-y: scroll;
     background-color: white;
 }
 

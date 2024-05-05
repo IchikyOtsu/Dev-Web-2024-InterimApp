@@ -5,7 +5,7 @@ import { useGlobalContext } from "../../context.tsx";
 import "./index.css";
 
 const NotificationsPage = () => {
-	const [user] = useGlobalContext().user;
+	const user = useGlobalContext().user;
 	const [notifications, setNotifications] = createSignal([]);
 
 	const fetchNotifications = async () => {

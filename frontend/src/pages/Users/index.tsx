@@ -16,7 +16,7 @@ const UsersPage = () => {
 	});
 
 	return (
-		<Space vertical class="pageContainer">
+		<Space vertical class="usersPageContainer">
 			<Space size="large" align="center">
 				<Title>Utilisateurs</Title>
 				<Button type="primary" onClick={() => setOpenModal(true)}>

@@ -1,18 +1,9 @@
-import type { JwtPayload } from "jwt-decode";
 // context.tsx
-import { type Accessor, Signal, createContext, useContext } from "solid-js";
+import { createContext, useContext } from "solid-js";
 
 export type Role = "user" | "enterprise" | "admin";
 
 export interface User {
-	id: number;
-	username: string;
-	email: string;
-	role: Role;
-	enterprise_id: number | null;
-}
-
-interface CustomJwtPayload extends JwtPayload {
 	id: number;
 	email: string;
 	role: Role;
@@ -20,7 +11,13 @@ interface CustomJwtPayload extends JwtPayload {
 }
 
 export interface GlobalContextData {
-	user: Accessor<User | undefined>;
+	user: {
+		(): User | undefined;
+		state: "unresolved" | "pending" | "ready" | "refreshing" | "errored";
+		loading: boolean;
+		error: any;
+		latest: User | undefined;
+	};
 	refetch: () => void;
 }
 
