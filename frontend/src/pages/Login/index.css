@@ -1,0 +1,16 @@
+.pageContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 850px) {
+    .pageContainer {
+        font-size: 1.3rem;
+    }
+    
+    .button-text {
+        font-size: 1.3rem;
+    }
+}

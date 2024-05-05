@@ -10,6 +10,7 @@ const swaggerDocument = require("./swagger-output.json");
 const indexRouter = require("./routes/index");
 const testDB = require("./routes/testDB");
 
+const userRouter = require("./routes/user");
 const usersRouter = require("./routes/users");
 const enterprisesRouter = require("./routes/enterprises");
 const advertsRouter = require("./routes/advertsNH");
@@ -19,16 +20,14 @@ const schedulesRouter = require("./routes/schedules");
 const login = require("./routes/login");
 const notificationsRouter = require("./routes/notifications");
 const profilRoute = require("./routes/profil");
+const authenticateToken = require("./middleware");
 const app = express();
-
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.all("*", authenticateToken);
 app.use(express.static(path.join(__dirname, "public")));
 // app.get('/', (req, res) => {
 //   res.send('Hello World!');
@@ -37,6 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/testDB", testDB);
 app.use("/api/login", login);
+app.use("/api/user", userRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/enterprises", enterprisesRouter);
 app.use("/api/adverts", advertsRouter);
@@ -57,10 +57,10 @@ app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	res.locals.message = err.message;
 	res.locals.error = req.app.get("env") === "development" ? err : {};
-
+	console.error(err);
 	// render the error page
 	res.status(err.status || 500);
-	res.render("error");
+	res.send(`error ${err.status || 500}`);
 });
 
 module.exports = app;

@@ -13,8 +13,8 @@ const NonNonNon = () => {
 						shape="rounded"
 						style="margin: 2rem"
 					/>
-					<Title>Non, non, non !</Title>
-					<Text>Vous n'êtes pas autorisé à accéder à cette page.</Text>
+					<Title>Erreur 404</Title>
+					<Text>Cette page n'existe pas.</Text>
 					<Link href="/" class="nonNonNonButton">
 						Retourner à l'accueil
 					</Link>

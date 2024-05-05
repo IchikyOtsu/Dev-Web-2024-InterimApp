@@ -1,6 +1,6 @@
 // index.tsx
 import { Route, Router } from "@solidjs/router";
-import { lazy } from "solid-js";
+import { createSignal, lazy } from "solid-js";
 import { render } from "solid-js/web";
 
 import "@jundao/design/index.css";
@@ -10,9 +10,9 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 
 import App from "./App";
+import { GlobalContextProvider } from "./Components/GlobalContextProvider.tsx";
 import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
-import { GlobalContext, useGlobalContext } from "./context";
-
+import { useGlobalContext } from "./context";
 
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
@@ -29,60 +29,43 @@ const root = document.getElementById("root");
 
 // Assurez-vous que `root` existe avant de rendre l'application
 if (root) {
-  render(
-    () => (
-      <GlobalContext.Provider value={useGlobalContext()}>
-        <Router root={App}>
-          <Route path="/login" component={LoginPage} />
-          <Route path="/nope" component={Nope} />
-          <Route
-            path="/"
-            component={() => {
-              const { user } = useGlobalContext();
-              if (user()?.role === "admin") {
-                return <ProtectedRoute component={UsersPage} allowedRoles={["admin"]} />;
-              } else if (user()?.role === "user") {
-                return <ProtectedRoute component={Adverts} allowedRoles={["user"]} />;
-              } else if (user()?.role === "enterprise") {
-                return <ProtectedRoute component={AdBusi} allowedRoles={["enterprise"]} />;
-              } else {
-                return <ProtectedRoute component={LoginPage} allowedRoles={[]} redirectTo="/login" />;
-              }
-            }}
-          />
-          <Route
-            path="/adverts"
-            component={() =>
-              useGlobalContext().user()?.role === "user" ? (
-                <ProtectedRoute component={Adverts} allowedRoles={["user"]} />
-              ) : (
-                <ProtectedRoute component={AdBusi} allowedRoles={["enterprise"]} />
-              )
-            }
-          />
-          <Route
-            path="/planning"
-            component={() => <ProtectedRoute component={Planning} allowedRoles={["user"]} />}
-          />
-          <Route
-            path="/profile"
-            component={() => (
-              <ProtectedRoute component={ProfilePage} allowedRoles={["user", "enterprise", "admin"]} />
-            )}
-          />
-          <Route
-            path="/notifications"
-            component={() => (
-              <ProtectedRoute component={NotifPage} allowedRoles={["user", "enterprise"]} />
-            )}
-          />
-          <Route
-            path="/users"
-            component={() => <ProtectedRoute component={UsersPage} allowedRoles={["admin"]} />}
-          />
-        </Router>
-      </GlobalContext.Provider>
-	  ),
-	root
-);
+	render(
+		() => (
+			<GlobalContextProvider>
+				<Router root={App}>
+					<Route path="/login" component={LoginPage} />
+					<Route
+						path="/"
+						component={() => {
+							return "han ouais";
+							const { user } = useGlobalContext();
+							if (user()?.role === "admin") {
+								return (
+									<ProtectedRoute
+										component={Nope}
+										allowedRoles={[]}
+										redirectTo={"/users"}
+									/>
+								);
+							} else if (
+								user()?.role === "user" ||
+								user()?.role === "enterprise"
+							) {
+								return (
+									<ProtectedRoute
+										component={Nope}
+										allowedRoles={[]}
+										redirectTo={"/adverts"}
+									/>
+								);
+							} else {
+								//return <ProtectedRoute component={Nope} allowedRoles={[]} redirectTo={"/login"} />;
+							}
+						}}
+					/>
+				</Router>
+			</GlobalContextProvider>
+		),
+		root,
+	);
 }

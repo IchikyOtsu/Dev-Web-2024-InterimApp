@@ -21,8 +21,8 @@ interface ProfileData {
 	email: string;
 }
 
-const Profile = ({ profilePicture }) => {
-	const userId = useGlobalContext().user?.id;
+const Profile = () => {
+	const userId = useGlobalContext().user[0]()?.id;
 	const [userData, setUserData] = createSignal<ProfileData>({});
 	const [nom, setNom] = createSignal("");
 	const [prenom, setPrenom] = createSignal("");

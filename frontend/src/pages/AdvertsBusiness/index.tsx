@@ -20,12 +20,12 @@ function getCurrentTime() {
 }
 
 const AdvertsBusiness = () => {
-	const { user } = useGlobalContext();
+	const [user] = useGlobalContext().user;
 	const [adverts, setAdverts] = createSignal<Advert[]>([]);
 	const [isModalOpen, setIsModalOpen] = createSignal(false);
 
 	const [newAdvertData, setNewAdvertData] = createSignal<Advert>({
-		enterprise_id: user?.enterprise_id,
+		enterprise_id: user()?.enterprise_id,
 		start_date: getCurrentTime(),
 		end_date: getCurrentTime(),
 	});
@@ -34,7 +34,7 @@ const AdvertsBusiness = () => {
 	const [success, setSuccess] = createSignal<string>();
 
 	onMount(() => {
-		fetch(`/api/adverts/enterprises/${user?.enterprise_id}`)
+		fetch(`/api/adverts/enterprises/${user()?.enterprise_id}`)
 			.then((res) => res.json())
 			.then((data) => setAdverts(data))
 			.catch((err) => console.error("API call failed:", err));
@@ -45,13 +45,13 @@ const AdvertsBusiness = () => {
 		!setError();
 		!setSuccess();
 
-		if (!user || !user.enterprise_id) {
+		if (!user()?.enterprise_id) {
 			setError("User is not associated with an enterprise");
 			setIsSubmitting(false);
 			return;
 		}
 
-		if (user.role !== "enterprise") {
+		if (user()?.role !== "enterprise") {
 			setError("User does not have the required role");
 			!setIsSubmitting();
 			return;

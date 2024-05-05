@@ -1,6 +1,6 @@
+import type { JwtPayload } from "jwt-decode";
 // context.tsx
-import { createContext, useContext, createEffect, createSignal } from "solid-js";
-import jwt_decode, {jwtDecode, JwtPayload} from "jwt-decode";
+import { type Accessor, Signal, createContext, useContext } from "solid-js";
 
 export type Role = "user" | "enterprise" | "admin";
 
@@ -13,52 +13,27 @@ export interface User {
 }
 
 interface CustomJwtPayload extends JwtPayload {
-	userId: number;
-	username: string;
+	id: number;
 	email: string;
 	role: Role;
 	enterprise_id: number | null;
 }
 
 export interface GlobalContextData {
-	user: User | null;
-	setUser: (user: User | null) => void;
-	session: string | null;
-	setSession: (session: string | null) => void;
+	user: Accessor<User | undefined>;
+	refetch: () => void;
 }
 
-export const GlobalContext = createContext<GlobalContextData>({
-	user: null,
-	setUser: () => {},
-	session: null,
-	setSession: () => {},
-});
+export const GlobalContext = createContext<GlobalContextData>();
 
 export function useGlobalContext() {
-	const [user, setUser] = createSignal<User | null>(null);
-	const [session, setSession] = createSignal<string | null>(null);
+	const context = useContext(GlobalContext);
 
-	createEffect(() => {
-		const token = localStorage.getItem("token");
-		if (token) {
-			try {
-				const decodedToken = jwtDecode<CustomJwtPayload>(token);
-				setUser({
-					id: decodedToken.userId,
-					username: decodedToken.username,
-					email: decodedToken.email,
-					role: decodedToken.role,
-					enterprise_id: decodedToken.enterprise_id,
-				});
-				setSession(token);
-			} catch (error) {
-				console.error("Invalid token:", error);
-				localStorage.removeItem("token");
-				setUser(null);
-				setSession(null);
-			}
-		}
-	});
+	if (context === undefined) {
+		throw new Error(
+			"`useGlobalContext` must be used within the inside `GlobalContext.Provider`",
+		);
+	}
 
-	return { user, setUser, session, setSession };
+	return context;
 }

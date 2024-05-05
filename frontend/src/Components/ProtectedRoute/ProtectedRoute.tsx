@@ -10,21 +10,23 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: Component<ProtectedRouteProps> = (props) => {
 	const navigate = useNavigate();
-	const { user } = useGlobalContext();
+	const { user, session } = useGlobalContext();
 
 	const isAllowed = () => {
-		if (user) {
-			console.log(`Rôle de l'utilisateur : ${user.role}`); // Afficher le rôle de l'utilisateur dans la console
-			return props.allowedRoles.includes(user.role);
+		if (user[0]()) {
+			console.log(`Rôle de l'utilisateur : ${user[0]()?.role}`); // Afficher le rôle de l'utilisateur dans la console
+			return props.allowedRoles.includes(user[0]()?.role);
 		}
 		return false;
 	};
+
+	if (!session[0]()) return;
 
 	if (!isAllowed()) {
 		if (props.redirectTo) {
 			navigate(props.redirectTo, { replace: true });
 		} else {
-			navigate("/nope", { replace: true }); // Rediriger vers /nope si l'accès est refusé
+			navigate("*", { replace: true }); // Rediriger vers /nope si l'accès est refusé
 		}
 		return <></>;
 	}

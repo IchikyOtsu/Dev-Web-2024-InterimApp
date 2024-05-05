@@ -16,3 +16,13 @@ main {
 /*main > *:first-child {
     /*margin-top: 2rem;
 }*/
+
+@media screen and (max-width: 850px) {
+    input {
+        font-size: 1.3rem;
+    }
+
+    .select.jdd {
+        font-size: 1.3rem;
+    }
+}
