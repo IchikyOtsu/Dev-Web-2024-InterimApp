@@ -75,13 +75,13 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 
 		if (!user || user()?.role !== "user") {
 			setError("You are not allowed to apply for this advert");
-			!setIsApplying();
+			setIsApplying(false);
 			return;
 		}
 
 		if (alreadyApplied()) {
 			setError("You have already applied for this advert");
-			!setIsApplying();
+			setIsApplying(false);
 			return;
 		}
 
@@ -104,11 +104,10 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 
 			setSuccess("Application submitted successfully");
 			setAlreadyApplied(true);
-			!setIsApplying();
 		} catch (error) {
 			setError(`Failed to apply for advert: ${error.message}`);
-			!setIsApplying();
 		}
+		setIsApplying(false);
 	};
 
 	const modifyAdvert = async () => {
@@ -118,19 +117,19 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 
 		if (!user || !user()?.enterprise_id) {
 			setError("User is not associated with an enterprise");
-			!setIsEditing();
+			setIsEditing(false);
 			return;
 		}
 
 		if (user()?.role !== "enterprise") {
 			setError("User does not have the required role");
-			!setIsEditing();
+			setIsEditing(false);
 			return;
 		}
 
 		if (modifiedAdvertData() === props.advertData) {
 			setSuccess("Nothing changed");
-			!setIsEditing();
+			setIsEditing(false);
 			return;
 		}
 
@@ -148,16 +147,15 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 			}
 
 			setSuccess("Advert updated successfully");
-			!setIsEditing();
 		} catch (error) {
 			setError(`Error updating advert: ${error.message}`);
-			!setIsEditing();
 		}
+		setIsEditing(false);
 	};
 
 	const deleteAdvert = async () => {
 		setModifiedAdvertData((prev) => ({ ...prev, status: "expired" }));
-		await modifyAdvert().then(() => !setIsDeleteModalOpen());
+		await modifyAdvert().then(() => setIsDeleteModalOpen(false));
 	};
 
 	function formatDate(dateString: string) {
@@ -234,6 +232,7 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 								type="primary"
 								onClick={applyForAdvert}
 								disabled={isApplying()}
+								loading={isApplying()}
 							>
 								{isApplying() ? "Applying..." : "Apply for this advert"}
 							</Button>
@@ -324,6 +323,7 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 								type="primary"
 								onClick={modifyAdvert}
 								disabled={isEditing()}
+								loading={isEditing()}
 							>
 								Modifier
 							</Button>
@@ -348,12 +348,13 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 						title="Supprimer Annonce"
 						footer={
 							<Space align="center" wrap style="align-items: flex-end;">
-								<Button onClick={() => !setIsDeleteModalOpen()}>Non</Button>
+								<Button onClick={() => setIsDeleteModalOpen(false)}>Non</Button>
 								<Button
 									type="primary"
 									danger
 									onClick={deleteAdvert}
 									disabled={isEditing()}
+									loading={isEditing()}
 								>
 									Oui
 								</Button>

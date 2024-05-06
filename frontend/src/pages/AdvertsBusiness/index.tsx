@@ -11,9 +11,9 @@ import {
 } from "@jundao/design";
 import moment from "moment-timezone";
 import { IoAdd } from "solid-icons/io";
-import { For, Show, createMemo, createResource, createSignal } from "solid-js";
+import { For, Show, createResource, createSignal } from "solid-js";
 import { type Advert, AdvertCard } from "../../Components/Advert";
-import { Enterprise, useGlobalContext } from "../../context.tsx";
+import { useGlobalContext } from "../../context.tsx";
 
 function getCurrentTime() {
 	return moment().tz("Europe/Brussels").format("YYYY-MM-DDTHH:mm[Z]");
@@ -22,15 +22,15 @@ function getCurrentTime() {
 const AdvertsBusiness = () => {
 	const user = useGlobalContext().user;
 	const [isModalOpen, setIsModalOpen] = createSignal(false);
-	const [adverts, { refetchAdverts }] = createResource<
-		Array<Advert> | undefined
-	>(async () => {
-		const result = await fetch(
-			`/api/adverts/enterprises/${user()?.enterprise_id}`,
-		);
-		if (result.status !== 200) return undefined;
-		return result.json() as Promise<Array<Advert>>;
-	});
+	const [adverts, { refetch }] = createResource<Array<Advert> | undefined>(
+		async () => {
+			const result = await fetch(
+				`/api/adverts/enterprises/${user()?.enterprise_id}`,
+			);
+			if (result.status !== 200) return undefined;
+			return result.json() as Promise<Array<Advert>>;
+		},
+	);
 
 	const [newAdvertData, setNewAdvertData] = createSignal<Advert>({
 		enterprise_id: user()?.enterprise_id,
@@ -72,7 +72,7 @@ const AdvertsBusiness = () => {
 				throw new Error("Failed to create advert");
 			}
 			setSuccess("Advert created successfully");
-			refetchAdverts();
+			refetch();
 		} catch (error) {
 			setError(`Error creating advert: ${error.message}`);
 		}
