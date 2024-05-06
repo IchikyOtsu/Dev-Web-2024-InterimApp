@@ -4,10 +4,18 @@ import { createContext, useContext } from "solid-js";
 export type Role = "user" | "enterprise" | "admin";
 
 export interface User {
-	id: number;
+	id?: number;
 	email: string;
 	role: Role;
-	enterprise_id: number | null;
+	enterprise_id?: number;
+}
+
+export interface Enterprise {
+	id?: number;
+	name: string;
+	description: string;
+	logo_url: string;
+	website_url: string;
 }
 
 export interface GlobalContextData {

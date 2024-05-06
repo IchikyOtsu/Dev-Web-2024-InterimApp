@@ -36,8 +36,8 @@ router.post("/", async (req, res) => {
 	try {
 		const { user_id, name, description, logo_url, website_url } = req.body;
 		const { rows } = await pool.query(
-			"INSERT INTO enterprises (user_id, name, description, logo_url, website_url) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-			[user_id, name, description, logo_url, website_url],
+			"INSERT INTO enterprises (name, description, logo_url, website_url) VALUES ($1, $2, $3, $4) RETURNING *",
+			[name, description, logo_url, website_url],
 		);
 		res.status(201).json(rows[0]);
 	} catch (error) {
@@ -50,10 +50,10 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { user_id, name, description, logo_url, website_url } = req.body;
+		const { name, description, logo_url, website_url } = req.body;
 		const { rows } = await pool.query(
-			"UPDATE enterprises SET user_id = $1, name = $2, description = $3, logo_url = $4, website_url = $5 WHERE id = $6 RETURNING *",
-			[user_id, name, description, logo_url, website_url, id],
+			"UPDATE enterprises SET name = $1, description = $2, logo_url = $3, website_url = $4 WHERE id = $5 RETURNING *",
+			[name, description, logo_url, website_url, id],
 		);
 		if (rows.length === 0) {
 			return res.status(404).send("Enterprise not found");

@@ -1,6 +1,6 @@
 // index.tsx
-import { Route, Router } from "@solidjs/router";
-import { createSignal, lazy } from "solid-js";
+import { Navigate, Route, Router } from "@solidjs/router";
+import { lazy } from "solid-js";
 import { render } from "solid-js/web";
 
 import "@jundao/design/index.css";
@@ -13,13 +13,14 @@ import App from "./App";
 import { GlobalContextProvider } from "./Components/GlobalContextProvider.tsx";
 import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
 import { useGlobalContext } from "./context";
+import AdvertsPage from "./pages/AdvertsPage";
 
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
 const Adverts = lazy(() => import("./pages/AdvertsPage"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
-const AdBusi = lazy(() => import("./pages/AdvertsBusiness"));
+const AdvertsBusiness = lazy(() => import("./pages/AdvertsBusiness"));
 const NotifPage = lazy(() => import("./pages/Notifs"));
 const UsersPage = lazy(() => import("./pages/Users"));
 const LoginPage = lazy(() => import("./pages/Login"));
@@ -40,22 +41,10 @@ if (root) {
 						component={() => {
 							const { user } = useGlobalContext();
 							if (user()?.role === "admin") {
-								return (
-									<ProtectedRoute
-										component={Nope}
-										allowedRoles={[]}
-										redirectTo={"/users"}
-									/>
-								);
+								return <Navigate href="/users" />;
 							}
 							if (user()?.role === "user" || user()?.role === "enterprise") {
-								return (
-									<ProtectedRoute
-										component={Nope}
-										allowedRoles={[]}
-										redirectTo={"/adverts"}
-									/>
-								);
+								return <Navigate href="/adverts" />;
 							}
 						}}
 					/>
@@ -63,7 +52,13 @@ if (root) {
 						path="/adverts"
 						component={() => {
 							const { user } = useGlobalContext();
-							return user()?.role === "user" ? <Adverts /> : <AdBusi />;
+							if (user()?.role === "user") {
+								return <Adverts />;
+							}
+							if (user()?.role === "enterprise") {
+								return <AdvertsBusiness />;
+							}
+							return <Nope />;
 						}}
 					/>
 					<Route
