@@ -5,12 +5,12 @@ import { useGlobalContext } from "../../context.tsx";
 import "./index.css";
 
 const NotificationsPage = () => {
-	const { user } = useGlobalContext();
+	const user = useGlobalContext().user;
 	const [notifications, setNotifications] = createSignal([]);
 
 	const fetchNotifications = async () => {
 		try {
-			const response = await fetch(`/api/notifications?user_id=${user?.id}`);
+			const response = await fetch(`/api/notifications?user_id=${user()?.id}`);
 			const data = await response.json();
 			setNotifications(data);
 		} catch (error) {
@@ -19,7 +19,7 @@ const NotificationsPage = () => {
 	};
 
 	createEffect(() => {
-		if (user) {
+		if (user()) {
 			fetchNotifications();
 		}
 	});

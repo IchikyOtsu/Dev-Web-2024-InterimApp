@@ -1,4 +1,4 @@
-// AdvertsPage.tsx
+// AdvertsBusiness.tsx
 import "./index.css";
 import {
 	Alert,
@@ -11,7 +11,7 @@ import {
 } from "@jundao/design";
 import moment from "moment-timezone";
 import { IoAdd } from "solid-icons/io";
-import { For, Show, createSignal, onMount } from "solid-js";
+import { For, Show, createResource, createSignal } from "solid-js";
 import { type Advert, AdvertCard } from "../../Components/Advert";
 import { useGlobalContext } from "../../context.tsx";
 
@@ -20,40 +20,42 @@ function getCurrentTime() {
 }
 
 const AdvertsBusiness = () => {
-	const { user } = useGlobalContext();
-	const [adverts, setAdverts] = createSignal<Advert[]>([]);
+	const user = useGlobalContext().user;
 	const [isModalOpen, setIsModalOpen] = createSignal(false);
+	const [adverts, { refetch }] = createResource<Array<Advert> | undefined>(
+		async () => {
+			const result = await fetch(
+				`/api/adverts/enterprises/${user()?.enterprise_id}`,
+			);
+			if (result.status !== 200) return undefined;
+			return result.json() as Promise<Array<Advert>>;
+		},
+	);
 
 	const [newAdvertData, setNewAdvertData] = createSignal<Advert>({
-		enterprise_id: user?.enterprise_id,
+		enterprise_id: user()?.enterprise_id,
 		start_date: getCurrentTime(),
 		end_date: getCurrentTime(),
 	});
+
 	const [isSubmitting, setIsSubmitting] = createSignal(false);
 	const [error, setError] = createSignal<string>();
 	const [success, setSuccess] = createSignal<string>();
-
-	onMount(() => {
-		fetch(`/api/adverts/enterprises/${user?.enterprise_id}`)
-			.then((res) => res.json())
-			.then((data) => setAdverts(data))
-			.catch((err) => console.error("API call failed:", err));
-	});
 
 	const createAdvert = async () => {
 		setIsSubmitting(true);
 		!setError();
 		!setSuccess();
 
-		if (!user || !user.enterprise_id) {
+		if (!user()?.enterprise_id) {
 			setError("User is not associated with an enterprise");
 			setIsSubmitting(false);
 			return;
 		}
 
-		if (user.role !== "enterprise") {
+		if (user()?.role !== "enterprise") {
 			setError("User does not have the required role");
-			!setIsSubmitting();
+			setIsSubmitting(false);
 			return;
 		}
 
@@ -69,13 +71,12 @@ const AdvertsBusiness = () => {
 			if (!response.ok) {
 				throw new Error("Failed to create advert");
 			}
-
 			setSuccess("Advert created successfully");
-			!setIsSubmitting();
+			refetch();
 		} catch (error) {
 			setError(`Error creating advert: ${error.message}`);
-			!setIsSubmitting();
 		}
+		setIsSubmitting(false);
 	};
 
 	return (
@@ -170,6 +171,7 @@ const AdvertsBusiness = () => {
 									type="primary"
 									onClick={createAdvert}
 									disabled={isSubmitting()}
+									loading={isSubmitting()}
 								>
 									Ajouter
 								</Button>

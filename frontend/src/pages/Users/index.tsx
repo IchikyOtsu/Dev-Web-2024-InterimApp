@@ -1,28 +1,45 @@
-import { Button, Card, Modal, Space, Text, Title } from "@jundao/design";
-import { IoPencil, IoPersonAdd } from "solid-icons/io";
-import { For, createSignal, onMount } from "solid-js";
+import {
+	Button,
+	Card,
+	Modal,
+	Space,
+	Spinner,
+	Text,
+	Title,
+} from "@jundao/design";
+import { IoBusiness, IoPencil, IoPersonAdd } from "solid-icons/io";
+import { For, createResource, createSignal } from "solid-js";
 import AddUser from "../../Components/AddUser";
 import "./index.css";
+import AddBusiness from "../../Components/AddBusiness";
+import type { User } from "../../context";
 
 const UsersPage = () => {
-	const [users, setUsers] = createSignal([]);
-	const [openModal, setOpenModal] = createSignal(false);
+	const [openAddUserModal, setOpenAddUserModal] = createSignal(false);
+	const [openAddBusinessModal, setOpenAddBusinessModal] = createSignal(false);
 
-	onMount(() => {
-		fetch("/api/users")
-			.then((res) => res.json())
-			.then((data) => setUsers(data))
-			.catch((err) => console.error("API call failed:", err));
-	});
+	const [users, { refetch }] = createResource<Array<User> | undefined>(
+		async () => {
+			const result = await fetch("/api/users");
+			if (result.status !== 200) return undefined;
+			return result.json() as Promise<Array<User>>;
+		},
+	);
 
 	return (
-		<Space vertical class="pageContainer">
-			<Space size="large" align="center">
+		<Space vertical class="usersPageContainer">
+			<Space size="large" align="center" wrap>
 				<Title>Utilisateurs</Title>
-				<Button type="primary" onClick={() => setOpenModal(true)}>
+				<Button type="primary" onClick={() => setOpenAddUserModal(true)}>
 					<Space align="center">
 						<IoPersonAdd />
 						Ajouter un utilisateur
+					</Space>
+				</Button>
+				<Button onClick={() => setOpenAddBusinessModal(true)}>
+					<Space align="center">
+						<IoBusiness />
+						Ajouter une entreprise
 					</Space>
 				</Button>
 			</Space>
@@ -41,8 +58,8 @@ const UsersPage = () => {
 					<Text bold>Edit</Text>
 				</Card>
 				<Space vertical class="usersContainer">
-					<For each={users()}>
-						{(user) => (
+					<For each={users()} fallback={<Spinner />}>
+						{(user: User) => (
 							<Card class="userCard">
 								<Text style={{ width: "33%" }}>
 									{`${user.first_name !== "" ? user.first_name : "?"}
@@ -60,11 +77,19 @@ const UsersPage = () => {
 			</Space>
 
 			<Modal
-				open={openModal()}
-				onOpenChange={setOpenModal}
+				open={openAddUserModal()}
+				onOpenChange={setOpenAddUserModal}
 				title="Nouvel Utilisateur"
 			>
 				<AddUser />
+			</Modal>
+
+			<Modal
+				open={openAddBusinessModal()}
+				onOpenChange={setOpenAddBusinessModal}
+				title="Nouvelle Entreprise"
+			>
+				<AddBusiness />
 			</Modal>
 		</Space>
 	);

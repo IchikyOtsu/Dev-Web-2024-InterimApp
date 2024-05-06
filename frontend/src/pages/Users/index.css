@@ -1,4 +1,4 @@
-.pageContainer {
+.usersPageContainer {
     max-width: 75dvw;
     margin: 0 auto;
 }
@@ -11,7 +11,7 @@
 
 .userCard {
     width: 75dvw;
-    min-height: 8dvh;
+    min-height: 3.5rem;
 }
 
 .userCard .content {

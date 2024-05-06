@@ -21,9 +21,12 @@ interface ProfileData {
 	email: string;
 }
 
-const Profile = ({ profilePicture }) => {
-	const userId = useGlobalContext().user?.id;
-	const [userData, setUserData] = createSignal<ProfileData>({});
+const Profile = () => {
+	const { user } = useGlobalContext();
+	const userId = user()?.id;
+	const [userData, setUserData] = createSignal<ProfileData>({
+		email: user()?.email,
+	});
 	const [nom, setNom] = createSignal("");
 	const [prenom, setPrenom] = createSignal("");
 	const [competence, setCompetence] = createSignal([""]);
@@ -78,7 +81,7 @@ const Profile = ({ profilePicture }) => {
 			<Space align="center" wrap style="justify-content: center;">
 				<Space vertical class="left-section" align="center">
 					<Image
-						src={profilePicture}
+						src="/src/assets/avatar.jpg"
 						alt="Profile"
 						shape="circle"
 						class="profile-picture"

@@ -1,25 +1,51 @@
-import { Alert, Button, Input, Select, Space, Text } from "@jundao/design";
-import { Show, createSignal } from "solid-js";
 import "./index.css";
+import { Alert, Button, Input, Select, Space } from "@jundao/design";
+import { Show, createMemo, createResource, createSignal } from "solid-js";
+import type { Enterprise, User } from "../../context";
 
 const AddUser = () => {
-	const [email, setEmail] = createSignal("");
-	const [role, setRole] = createSignal("user");
+	const [newUser, setNewUser] = createSignal<User>({ email: "", role: "user" });
+	const [enterprise, setEnterprise] = createSignal<string>();
+	const [isSubmitting, setIsSubmitting] = createSignal(false);
 	const [invalid, setInvalid] = createSignal(false);
-	const [error, setError] = createSignal(false);
-	const [success, setSuccess] = createSignal(false);
+	const [error, setError] = createSignal<string>();
+	const [success, setSuccess] = createSignal<string>();
+	const [enterprises, { refetch }] = createResource<
+		Array<Enterprise> | undefined
+	>(async () => {
+		const result = await fetch("/api/enterprises");
+		if (result.status !== 200) return undefined;
+		return result.json() as Promise<Array<Enterprise>>;
+	});
+	const enterpriseId = createMemo<number | undefined>(() => {
+		if (enterprises()) {
+			const ent = enterprises()?.find((ent) => ent.name === enterprise());
+			return ent ? ent.id : undefined;
+		}
+		return undefined;
+	});
 
 	const isValidEmail = () => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		return emailRegex.test(email());
+		return emailRegex.test(newUser().email);
 	};
 
 	const handleSubmit = async () => {
+		setIsSubmitting(true);
 		!setError();
 		!setSuccess();
 
 		if (!isValidEmail()) {
 			setInvalid(true);
+			setIsSubmitting(false);
+			return;
+		}
+
+		if (newUser().role === "enterprise" && !enterprise()) {
+			setError(
+				"Pas d'enterprise sélectionnée pour un utilisateur 'enterprise'.",
+			);
+			setIsSubmitting(false);
 			return;
 		}
 
@@ -29,62 +55,83 @@ const AddUser = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({
-					username: email().split("@")[0],
-					email: email(),
-					role: role(),
-				}),
+				body: JSON.stringify(
+					enterprise()
+						? {
+								email: newUser().email,
+								username: newUser().email.split("@")[0],
+								role: newUser().role,
+								enterprise_id: enterprise() ? enterpriseId() : null,
+							}
+						: {
+								email: newUser().email,
+								username: newUser().email.split("@")[0],
+								role: newUser().role,
+							},
+				),
 			});
 
-			if (!response.ok) {
-				throw new Error(await response.text());
+			if (response.ok) {
+				setSuccess("Utilisateur créé avec succès !");
+				setEnterprise(undefined);
+				setNewUser({ email: "", role: "user" });
 			}
-			setEmail("");
-			setRole("user");
 		} catch (error) {
-			setError(true);
-			return;
+			setError(`Error adding user: ${error.message}`);
 		}
-		setSuccess(true);
+		setIsSubmitting(false);
 	};
 
 	return (
 		<div class="container">
 			<Space vertical>
-				<Text>Adresse mail</Text>
-				<Input
-					class="input"
-					type="email"
-					placeholder="nomprenom@gmail.com"
-					value={email()}
-					onChange={(email) => {
-						setEmail(email);
-						setInvalid(false);
-					}}
-					invalid={invalid()}
-					errorMessage={"Adresse email invalide"}
-					required
-				/>
-
-				<Select
-					label="Rôle"
-					value={role()}
-					options={["user", "enterprise", "admin"]}
-					onChange={(role: string) => setRole(role)}
-				/>
+				<Space wrap align="center">
+					<Input
+						label="Email"
+						class="input"
+						type="email"
+						placeholder="nomprenom@gmail.com"
+						value={newUser().email}
+						onChange={(newEmail) => {
+							setNewUser((prev) => ({ ...prev, email: newEmail }));
+							setInvalid(false);
+						}}
+						invalid={invalid()}
+						errorMessage={"Adresse email invalide"}
+						required
+					/>
+					<Select
+						label="Rôle"
+						value={newUser().role}
+						options={["user", "enterprise", "admin"]}
+						onChange={(newRole) =>
+							setNewUser((prev) => ({ ...prev, role: newRole }))
+						}
+					/>
+					<Show when={newUser().role === "enterprise" && enterprises()}>
+						<Select
+							label="Entreprise"
+							placeholder="Pas d'entreprise"
+							value={enterprise()}
+							options={enterprises().map((ent) => ent.name)}
+							onChange={setEnterprise}
+						/>
+					</Show>
+				</Space>
 
 				<Show when={success()}>
-					<Alert
-						type="success"
-						closable
-						message="Utilisateur créé avec succès !"
-					/>
+					<Alert type="success" closable message={success()} />
 				</Show>
 				<Show when={error()}>
-					<Alert type="error" closable message="Une erreur est survenue" />
+					<Alert type="error" closable message={error()} />
 				</Show>
 
-				<Button type="primary" onClick={handleSubmit}>
+				<Button
+					type="primary"
+					onClick={handleSubmit}
+					disabled={isSubmitting()}
+					loading={isSubmitting()}
+				>
 					Ajouter l'utilisateur
 				</Button>
 			</Space>

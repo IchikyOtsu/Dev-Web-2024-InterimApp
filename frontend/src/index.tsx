@@ -1,5 +1,5 @@
 // index.tsx
-import { Route, Router } from "@solidjs/router";
+import { Navigate, Route, Router } from "@solidjs/router";
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
 
@@ -10,17 +10,21 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 
 import App from "./App";
+import { GlobalContextProvider } from "./Components/GlobalContextProvider.tsx";
 import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
-import { GlobalContext, globalContextData, useGlobalContext } from "./context";
+import { useGlobalContext } from "./context";
+import AdvertsPage from "./pages/AdvertsPage";
 
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
 const Adverts = lazy(() => import("./pages/AdvertsPage"));
 const ProfilePage = lazy(() => import("./pages/Profile"));
 const Nope = lazy(() => import("./pages/NonNonNon"));
-const AdBusi = lazy(() => import("./pages/AdvertsBusiness"));
+const AdvertsBusiness = lazy(() => import("./pages/AdvertsBusiness"));
 const NotifPage = lazy(() => import("./pages/Notifs"));
 const UsersPage = lazy(() => import("./pages/Users"));
+const LoginPage = lazy(() => import("./pages/Login"));
+
 // Récupérez l'élément racine de manière sûre
 const root = document.getElementById("root");
 
@@ -28,42 +32,34 @@ const root = document.getElementById("root");
 if (root) {
 	render(
 		() => (
-			<GlobalContext.Provider value={globalContextData}>
+			<GlobalContextProvider>
 				<Router root={App}>
+					<Route path="/login" component={LoginPage} />
 					<Route path="/nope" component={Nope} />
 					<Route
 						path="/"
 						component={() => {
-							if (useGlobalContext().user?.role === "admin") {
-								return (
-									<ProtectedRoute
-										component={Nope}
-										allowedRoles={[]}
-										redirectTo="/users"
-									/>
-								);
+							const { user } = useGlobalContext();
+							if (user()?.role === "admin") {
+								return <Navigate href="/users" />;
 							}
-							return (
-								<ProtectedRoute
-									component={Nope}
-									allowedRoles={[]}
-									redirectTo="/adverts"
-								/>
-							);
+							if (user()?.role === "user" || user()?.role === "enterprise") {
+								return <Navigate href="/adverts" />;
+							}
 						}}
 					/>
 					<Route
 						path="/adverts"
-						component={() =>
-							useGlobalContext().user?.role === "user" ? (
-								<ProtectedRoute component={Adverts} allowedRoles={["user"]} />
-							) : (
-								<ProtectedRoute
-									component={AdBusi}
-									allowedRoles={["enterprise"]}
-								/>
-							)
-						}
+						component={() => {
+							const { user } = useGlobalContext();
+							if (user()?.role === "user") {
+								return <Adverts />;
+							}
+							if (user()?.role === "enterprise") {
+								return <AdvertsBusiness />;
+							}
+							return <Nope />;
+						}}
 					/>
 					<Route
 						path="/planning"
@@ -95,8 +91,9 @@ if (root) {
 							<ProtectedRoute component={UsersPage} allowedRoles={["admin"]} />
 						)}
 					/>
+					<Route path="*" component={Nope} />
 				</Router>
-			</GlobalContext.Provider>
+			</GlobalContextProvider>
 		),
 		root,
 	);
