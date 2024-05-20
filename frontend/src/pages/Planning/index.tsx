@@ -1,5 +1,4 @@
 import { Text } from "@jundao/design";
-// PlanningPage.tsx
 import { createEffect, createSignal } from "solid-js";
 import Calendar from "../../Components/Calendar";
 import { useGlobalContext } from "../../context";
@@ -10,10 +9,8 @@ const PlanningPage = () => {
 
 	const fetchAcceptedAdverts = async () => {
 		try {
-			if (user) {
-				const response = await fetch(
-					`/api/adverts/accepted-adverts/${user.id}`,
-				);
+			if (user.latest) {
+				const response = await fetch(`/api/adverts/accepted-adverts/${user.latest.id}`);
 				const data = await response.json();
 				setEvents(
 					data.map((advert) => ({
@@ -21,7 +18,7 @@ const PlanningPage = () => {
 						title: advert.title,
 						start: new Date(advert.start_date),
 						end: new Date(advert.end_date),
-					})),
+					}))
 				);
 			}
 		} catch (error) {
@@ -30,13 +27,23 @@ const PlanningPage = () => {
 	};
 
 	createEffect(() => {
-		fetchAcceptedAdverts();
+		if (user.state === "ready") {
+			fetchAcceptedAdverts();
+		}
 	});
 
 	return (
 		<>
 			<Text>Planning</Text>
-			<Calendar events={events()} />
+			{user.loading ? (
+				<Text>Loading...</Text>
+			) : user.error ? (
+				<Text>Error: {user.error.message}</Text>
+			) : user.latest ? (
+				<Calendar events={events()} />
+			) : (
+				<Text>No user data available</Text>
+			)}
 		</>
 	);
 };
