@@ -10,7 +10,9 @@ const PlanningPage = () => {
 	const fetchAcceptedAdverts = async () => {
 		try {
 			if (user.latest) {
-				const response = await fetch(`/api/adverts/accepted-adverts/${user.latest.id}`);
+				const response = await fetch(
+					`/api/adverts/accepted-adverts/${user.latest.id}`,
+				);
 				const data = await response.json();
 				setEvents(
 					data.map((advert) => ({
@@ -18,7 +20,7 @@ const PlanningPage = () => {
 						title: advert.title,
 						start: new Date(advert.start_date),
 						end: new Date(advert.end_date),
-					}))
+					})),
 				);
 			}
 		} catch (error) {
