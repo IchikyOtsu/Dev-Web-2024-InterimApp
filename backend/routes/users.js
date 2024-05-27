@@ -101,20 +101,26 @@ router.put("/:id", async (req, res) => {
 
 // DELETE a user by id
 router.delete("/:id", async (req, res) => {
-	try {
-		const { id } = req.params;
-		const { rows } = await pool.query(
-			"DELETE FROM users WHERE id = $1 RETURNING *",
-			[id],
-		);
-		if (rows.length === 0) {
-			return res.status(404).send("User not found");
-		}
-		res.json(rows[0]);
-	} catch (error) {
-		console.error(error.message);
-		res.status(500).send("Server Error");
-	}
+  try {
+    const { id } = req.params;
+
+    // Supprimer les enregistrements dans les tables dépendantes
+    await pool.query("DELETE FROM user_info WHERE user_id = $1", [id]);
+    // Ajoutez ici d'autres suppressions similaires pour les autres tables dépendantes si nécessaire
+
+    // Supprimer l'utilisateur
+    const { rows } = await pool.query(
+      "DELETE FROM users WHERE id = $1 RETURNING *",
+      [id]
+    );
+    if (rows.length === 0) {
+      return res.status(404).send("User not found");
+    }
+    res.status(204).send();
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 module.exports = router;

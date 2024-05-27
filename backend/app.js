@@ -20,14 +20,12 @@ const schedulesRouter = require("./routes/schedules");
 const login = require("./routes/login");
 const notificationsRouter = require("./routes/notifications");
 const profilRoute = require("./routes/profil");
-const authenticateToken = require("./middleware");
 const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.all("*", authenticateToken);
 app.use(express.static(path.join(__dirname, "public")));
 // app.get('/', (req, res) => {
 //   res.send('Hello World!');
@@ -53,7 +51,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
 	// set locals, only providing error in development
 	res.locals.message = err.message;
 	res.locals.error = req.app.get("env") === "development" ? err : {};
