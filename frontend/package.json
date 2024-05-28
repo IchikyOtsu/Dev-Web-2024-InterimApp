@@ -7,11 +7,15 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"format": "npx @biomejs/biome check --apply ."
+		"format": "npx @biomejs/biome check --apply .",
+		"start": "vite",
+		"serve": "vite preview",
+		"test": "vitest"
 	},
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.0.17",
 		"@fontsource-variable/jetbrains-mono": "^5.0.20",
+		"@types/testing-library__jest-dom": "^5.14.9",
 		"@jundao/design": "^1.14.3",
 		"@solidjs/router": "^0.13.1",
 		"jwt-decode": "^4.0.0",
@@ -19,8 +23,13 @@
 		"solid-js": "^1.8.15"
 	},
 	"devDependencies": {
+		"@solidjs/testing-library": "^0.8.8",
+		"@testing-library/jest-dom": "^6.4.5",
+		"@testing-library/user-event": "^14.5.2",
+		"jsdom": "^24.1.0",
 		"typescript": "^5.2.2",
 		"vite": "^5.1.4",
-		"vite-plugin-solid": "^2.10.1"
+		"vite-plugin-solid": "^2.10.1",
+		"vitest": "^1.6.0"
 	}
 }
