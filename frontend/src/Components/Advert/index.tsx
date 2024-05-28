@@ -294,7 +294,7 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 						/>
 						<Space align="center" wrap>
 							<Input
-								disabled
+								enabled
 								label="Date début"
 								placeholder="Sélectionner"
 								value={modifiedAdvertData().start_date}
@@ -306,7 +306,7 @@ export const AdvertCard = (props: { advertData: Advert; edit: boolean }) => {
 								}
 							/>
 							<Input
-								disabled
+								enabled
 								label="Date fin"
 								placeholder="Sélectionner"
 								value={modifiedAdvertData().end_date}
