@@ -103,15 +103,32 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
+
+		// Commencer une transaction
+		await pool.query('BEGIN');
+
+		// Supprimer les entrées dans la table user_info qui référencent cet utilisateur
+		await pool.query(
+			"DELETE FROM user_info WHERE user_id = $1",
+			[id],
+		);
+
+		// Supprimer l'utilisateur de la table users
 		const { rows } = await pool.query(
 			"DELETE FROM users WHERE id = $1 RETURNING *",
 			[id],
 		);
+
+		// Valider la transaction si tout s'est bien passé
+		await pool.query('COMMIT');
+
 		if (rows.length === 0) {
 			return res.status(404).send("User not found");
 		}
 		res.json(rows[0]);
 	} catch (error) {
+		// Annuler la transaction en cas d'erreur
+		await pool.query('ROLLBACK');
 		console.error(error.message);
 		res.status(500).send("Server Error");
 	}

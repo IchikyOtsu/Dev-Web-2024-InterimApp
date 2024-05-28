@@ -4,7 +4,7 @@
 }
 
 .usersContainer {
-    height: 70dvh;
+    height: 80dvh;
     overflow-y: auto;
     overflow-x: hidden;
 }

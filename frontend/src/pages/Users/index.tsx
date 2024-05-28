@@ -7,12 +7,13 @@ import {
 	Text,
 	Title,
 } from "@jundao/design";
-import { IoBusiness, IoPencil, IoPersonAdd } from "solid-icons/io";
+import { IoBusiness, IoPersonAdd } from "solid-icons/io";
 import { For, createResource, createSignal } from "solid-js";
 import AddUser from "../../Components/AddUser";
 import "./index.css";
 import AddBusiness from "../../Components/AddBusiness";
 import type { User } from "../../context";
+import {UserCard} from "../../Components/UserCard";
 
 const UsersPage = () => {
 	const [openAddUserModal, setOpenAddUserModal] = createSignal(false);
@@ -60,17 +61,7 @@ const UsersPage = () => {
 				<Space vertical class="usersContainer">
 					<For each={users()} fallback={<Spinner />}>
 						{(user: User) => (
-							<Card class="userCard">
-								<Text style={{ width: "33%" }}>
-									{`${user.first_name !== "" ? user.first_name : "?"}
-									${user.last_name !== "" ? user.last_name : "?"}`}
-								</Text>
-								<Text style={{ width: "43%" }}>{user.email}</Text>
-								<Text style={{ width: "26%" }}>{user.role}</Text>
-								<Button>
-									<IoPencil />
-								</Button>
-							</Card>
+							<UserCard user={user} refetch={refetch}/>
 						)}
 					</For>
 				</Space>
