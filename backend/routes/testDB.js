@@ -4,7 +4,7 @@ const pool = require("../db");
 
 router.get("/", async (req, res) => {
 	try {
-		const { rows } = await pool.query("SELECT * FROM Annonces");
+		const { rows } = await pool.query("SELECT * FROM adverts");
 		res.json(rows);
 	} catch (error) {
 		console.error(error.message);

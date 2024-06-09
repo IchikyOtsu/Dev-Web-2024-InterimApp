@@ -13,7 +13,6 @@ import App from "./App";
 import { GlobalContextProvider } from "./Components/GlobalContextProvider.tsx";
 import { ProtectedRoute } from "./Components/ProtectedRoute/ProtectedRoute.tsx";
 import { useGlobalContext } from "./context";
-import AdvertsPage from "./pages/AdvertsPage";
 
 // Lazy-loading des composants de page
 const Planning = lazy(() => import("./pages/Planning"));
